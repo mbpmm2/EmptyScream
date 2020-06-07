@@ -78,7 +78,7 @@ public class PlayerInventory : MonoBehaviour
         hotkeyItems[newIndex].SetActive(true);
         hotkeyItems[newIndex].GetComponent<Animator>().SetTrigger("Draw");
         lastIndex = newIndex;
-       // Debug.Log("Item Changed");
+       // la  Debug.Log("Item Changed");
     }
 
     private void EnableItemChange()
