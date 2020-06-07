@@ -111,7 +111,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 t += Time.deltaTime;
                 m_CharacterController.height = Mathf.Lerp(originalHeight, crouchHeight, t * crouchSpeed);
-                m_WalkSpeed = originalSpeed/2;
+                m_WalkSpeed = crouchMovSpeed;
             }
             else
             {
