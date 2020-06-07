@@ -43,6 +43,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
+        //Crouch
+
+        public bool m_IsCrouching;
+        public float originalHeight;
+        public float crouchHeight=0.5f;
+        public float t = 0;
+        public float crouchSpeed;
+        public float originalSpeed;
+        public float crouchMovSpeed;
+
         // Use this for initialization
         private void Start()
         {
@@ -56,6 +66,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+            originalHeight = m_CharacterController.height;
+            originalSpeed = m_WalkSpeed;
         }
 
 
@@ -81,10 +93,33 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_MoveDir.y = 0f;
             }
 
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                m_IsCrouching = !m_IsCrouching;
+                t = 0;
+            }
+
+            CheckCrouch();
+            
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
             CharacterUpdate();
         }
 
+        private void CheckCrouch()
+        {
+            if (m_IsCrouching)
+            {
+                t += Time.deltaTime;
+                m_CharacterController.height = Mathf.Lerp(originalHeight, crouchHeight, t * crouchSpeed);
+                m_WalkSpeed = originalSpeed/2;
+            }
+            else
+            {
+                t += Time.deltaTime;
+                m_CharacterController.height = Mathf.Lerp(crouchHeight, originalHeight, t * crouchSpeed);
+                m_WalkSpeed = originalSpeed;
+            }
+        }
 
         private void PlayLandingSound()
         {
@@ -214,7 +249,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
 #if !MOBILE_INPUT
             // On standalone builds, walk/run speed is modified by a key press.
             // keep track of whether or not the character is walking or running
-            m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+            if (!m_IsCrouching)
+            {
+                m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+            }
 #endif
             // set the desired speed to be walking or running
             speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;
