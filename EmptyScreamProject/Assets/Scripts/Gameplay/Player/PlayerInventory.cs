@@ -26,6 +26,10 @@ public class PlayerInventory : MonoBehaviour
     {
         ItemAnimation.OnHideEnd += DrawItem;
         ItemAnimation.OnDrawEnd += EnableItemChange;
+        ItemAnimation.OnShootStart += DisableItemChange;
+        ItemAnimation.OnReloadStart += DisableItemChange;
+        ItemAnimation.OnShootEnd += EnableItemChange;
+        ItemAnimation.OnReloadEnd += EnableItemChange;
 
         hotkeyItems = new GameObject[itemsParent.transform.childCount];
 
@@ -86,9 +90,18 @@ public class PlayerInventory : MonoBehaviour
         itemChangeFinished = true;
     }
 
+    private void DisableItemChange()
+    {
+        itemChangeFinished = false;
+    }
+
     private void OnDestroy()
     {
         ItemAnimation.OnHideEnd -= DrawItem;
         ItemAnimation.OnDrawEnd -= EnableItemChange;
+        ItemAnimation.OnShootStart -= DisableItemChange;
+        ItemAnimation.OnReloadStart -= DisableItemChange;
+        ItemAnimation.OnShootEnd -= EnableItemChange;
+        ItemAnimation.OnReloadEnd -= EnableItemChange;
     }
 }

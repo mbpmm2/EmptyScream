@@ -7,7 +7,10 @@ public class ItemAnimation : MonoBehaviour
     public delegate void OnAnimationAction();
     public static OnAnimationAction OnHideEnd;
     public static OnAnimationAction OnDrawEnd;
-
+    public static OnAnimationAction OnShootStart;
+    public static OnAnimationAction OnShootEnd;
+    public static OnAnimationAction OnReloadStart;
+    public static OnAnimationAction OnReloadEnd;
 
 
     // Start is called before the first frame update
@@ -22,6 +25,38 @@ public class ItemAnimation : MonoBehaviour
     {
         
     }*/
+
+    public void ShootStartAnimationTrigger()
+    {
+        if (OnShootStart != null)
+        {
+            OnShootStart();
+        }
+    }
+
+    public void ShootEndAnimationTrigger()
+    {
+        if (OnShootEnd != null)
+        {
+            OnShootEnd();
+        }
+    }
+
+    public void ReloadStartAnimationTrigger()
+    {
+        if (OnReloadStart != null)
+        {
+            OnReloadStart();
+        }
+    }
+
+    public void ReloadEndAnimationTrigger()
+    {
+        if (OnReloadEnd != null)
+        {
+            OnReloadEnd();
+        }
+    }
 
     public void HideAnimationTrigger()
     {

@@ -34,13 +34,16 @@ public class RangeWeapon : MonoBehaviour
     public GameObject impact;
     public GameObject weaponModel;
 
+    private Animator animator;
     private TraumaInducer shakeThing;
     private float nextFire;
+    private bool doOnce;
 
     private void Start()
     {
         clipBullets = clipMaxBullets;
         shakeThing = gameObject.GetComponent<TraumaInducer>();
+        animator = GetComponent<Animator>();
     }
 
     private void OnEnable()
@@ -66,6 +69,15 @@ public class RangeWeapon : MonoBehaviour
 
         if (clipBullets<=0)
         {
+            if (bullets > 0)
+            {
+                if(!doOnce)
+                {
+                    animator.Play("Reload", -1, 0f);
+                    doOnce = true;
+                }
+                
+            }
             StartCoroutine(Reload());
             return;
         }
@@ -92,6 +104,8 @@ public class RangeWeapon : MonoBehaviour
     {
 
         StartCoroutine(shakeThing.Shake());
+        //animator.SetTrigger("Shoot");
+        animator.Play("Shoot", -1, 0f);
         //implementar sonido
         //AkSoundEngine.PostEvent("shoot", gameObject);
         clipBullets--;
@@ -116,7 +130,9 @@ public class RangeWeapon : MonoBehaviour
             }
 
             GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
-            Destroy(impactGO, 4f);
+            impactGO.transform.SetParent(hit.transform);
+            impactGO.transform.position += (impactGO.transform.forward * -0.0001f);
+            Destroy(impactGO, 5f);
         }
     }
 
@@ -131,6 +147,8 @@ public class RangeWeapon : MonoBehaviour
         {
             bullets -= clipMaxBullets;
             clipBullets = clipMaxBullets;
+            doOnce = false;
+            //animator.Play("Shoot", -1, 1f);
         }
         
         isReloading = false;
