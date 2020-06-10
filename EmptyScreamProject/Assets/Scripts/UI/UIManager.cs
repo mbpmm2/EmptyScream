@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     {
         UIInventory.OnUIActive += RestartTimer;
         Player.OnPlayerHurt += RestartTimer;
+        Player.OnPlayerAffectedBySanity += RestartTimer;
         canvasGroup.alpha = 0;
         RestartTimer();
     }
@@ -74,5 +75,6 @@ public class UIManager : MonoBehaviour
     {
         Player.OnPlayerHurt -= RestartTimer;
         UIInventory.OnUIActive -= RestartTimer;
+        Player.OnPlayerAffectedBySanity -= RestartTimer;
     }
 }

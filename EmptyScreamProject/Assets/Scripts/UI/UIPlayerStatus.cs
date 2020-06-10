@@ -6,32 +6,51 @@ using TMPro;
 
 public class UIPlayerStatus : MonoBehaviour
 {
-    [Header("Player Status Config")]
+    [Header("General Config")]
+    public float[] readingSpeed;
+
+    [Header("Player Health Status Config")]
     public Vector2[] healthValue;
     public Color[] colorHealthStatus;
-    public float[] readingSpeed;
     public GameObject[] healthStatusImages;
 
-    [Header("Components Assign")]
+    [Header("Player Sanity Status Config")]
+    public Color[] colorSanityStatus;
+    public GameObject[] sanityStatusImages;
+
+    [Header("Components Assign Health")]
     public UIBloodEffect blood;
     public UIScrollingTexture scroll;
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI bpmText;
     public TextMeshProUGUI hpText;
 
+    [Header("Components Assign Sanity")]
+    //public UIBloodEffect blood;
+    public UIScrollingTexture scroll2;
+    public TextMeshProUGUI sanityText;
+    //public TextMeshProUGUI bpmText;
+    public TextMeshProUGUI tierText;
+
     public int lastIndex;
+    public int lastIndexSanity;
 
     // Start is called before the first frame update
     void Start()
     {
         Player.OnPlayerChangeHP += CheckStatus;
+        Player.OnPlayerChangeSanity += UpdateSanityText;
+        Player.OnPlayerChangeSanityTier += ApplyNewSanityStatus;
         lastIndex = -1;
+        lastIndexSanity = -1;
         for (int i = 0; i < healthStatusImages.Length; i++)
         {
             healthStatusImages[i].SetActive(false);
+            sanityStatusImages[i].SetActive(false);
         }
         
         ApplyNewStatus(0);
+        ApplyNewSanityStatus(0);
     }
 
     /*// Update is called once per frame
@@ -61,6 +80,11 @@ public class UIPlayerStatus : MonoBehaviour
         }
     }
 
+    private void UpdateSanityText(float sanity)
+    {
+        sanityText.text = "" + sanity;
+    }
+
     public void ApplyNewStatus(int index)
     {
         if(lastIndex != index)
@@ -86,8 +110,38 @@ public class UIPlayerStatus : MonoBehaviour
         }
     }
 
+    public void ApplyNewSanityStatus(float index)
+    {
+        if (lastIndexSanity != (int)index)
+        {
+            if (lastIndexSanity >= 0)
+            {
+                //healthStatusImages[lastIndex].SetActive(false);
+                sanityStatusImages[lastIndexSanity].SetActive(false);
+            }
+
+            // healthStatusImages[index].SetActive(true);
+            sanityStatusImages[(int)index].SetActive(true);
+
+            for (int i = 0; i < sanityStatusImages[(int)index].transform.childCount; i++)
+            {
+                sanityStatusImages[(int)index].transform.GetChild(i).GetComponent<Image>().color = colorSanityStatus[(int)index];
+            }
+
+            sanityText.color = colorSanityStatus[(int)index];
+            tierText.color = colorSanityStatus[(int)index];
+            scroll2.speed = readingSpeed[(int)index];
+            scroll2.currentImage = sanityStatusImages[(int)index].GetComponent<RectTransform>();
+            tierText.text = "Tier " + ((int)index+1);
+
+            lastIndexSanity = (int)index;
+        }
+    }
+
     private void OnDestroy()
     {
         Player.OnPlayerChangeHP -= CheckStatus;
+        Player.OnPlayerChangeSanity -= UpdateSanityText;
+        Player.OnPlayerChangeSanityTier -= ApplyNewSanityStatus;
     }
 }

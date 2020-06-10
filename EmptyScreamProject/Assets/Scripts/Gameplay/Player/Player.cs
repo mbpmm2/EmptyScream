@@ -8,7 +8,10 @@ public class Player : MonoBehaviour
     public delegate void OnPlayerStatusAction(float amount);
     public delegate void OnPlayerStatusAction2();
     public static OnPlayerStatusAction OnPlayerChangeHP;
+    public static OnPlayerStatusAction OnPlayerChangeSanity;
+    public static OnPlayerStatusAction OnPlayerChangeSanityTier;
     public static OnPlayerStatusAction2 OnPlayerHurt;
+    public static OnPlayerStatusAction2 OnPlayerAffectedBySanity;
 
     [System.Serializable]
     public struct SanityTierChanges
@@ -55,6 +58,11 @@ public class Player : MonoBehaviour
         if (OnPlayerChangeHP != null)
         {
             OnPlayerChangeHP(health);
+        }
+
+        if (OnPlayerChangeSanity != null)
+        {
+            OnPlayerChangeSanity(sanity);
         }
 
         ApplyNewSanityStatus(0);
@@ -104,6 +112,21 @@ public class Player : MonoBehaviour
             }
         }
 
+        if(sanity <= 0)
+        {
+            sanity = 0;
+        }
+
+        if(OnPlayerChangeSanity != null)
+        {
+            OnPlayerChangeSanity(sanity);
+        }
+
+        if(OnPlayerAffectedBySanity != null)
+        {
+            OnPlayerAffectedBySanity();
+        }
+
         /*if (sanity <= sanityTierRanges[0].y)
         {
            // ApplyNewStatus(0);
@@ -130,6 +153,11 @@ public class Player : MonoBehaviour
         fpsController.m_RunSpeed = runSpeed * sanityTierChanges[index].speedMultiplier;
         fpsController.crouchMovSpeed = crouchMovSpeed * sanityTierChanges[index].speedMultiplier;
         currentSanityIndex = index;
+
+        if(OnPlayerChangeSanityTier != null)
+        {
+            OnPlayerChangeSanityTier(index);
+        }
 
         Debug.Log("Applied Sanity Tier : " + (index) );
     }
