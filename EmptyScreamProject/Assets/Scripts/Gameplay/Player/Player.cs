@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
     //public float damageSpeed;
     public bool isBeingDamaged;
     private FirstPersonController fpsController;
-    private int currentSanityIndex;
+    private int lastSanityIndex;
 
     //[Header("Components Assigment")]
     //Player Inventory;
@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
         fpsController.originalSpeed = walkSpeed;
         fpsController.m_RunSpeed = runSpeed;
         fpsController.crouchMovSpeed = crouchMovSpeed;
+        lastSanityIndex = -1;
 
         health = maxHealth;
         sanity = maxSanity;
@@ -103,12 +104,10 @@ public class Player : MonoBehaviour
 
         for (int i = 0; i < sanityTierRanges.Length; i++)
         {
-            if (sanity <= sanityTierRanges[i].y)
+            if (sanity <= sanityTierRanges[i].y && sanity >= sanityTierRanges[i].x)
             {
-                if(currentSanityIndex != i)
-                {
-                    ApplyNewSanityStatus(i);
-                }
+                ApplyNewSanityStatus(i);
+                i = sanityTierRanges.Length;
             }
         }
 
@@ -145,21 +144,30 @@ public class Player : MonoBehaviour
     private void ApplyNewSanityStatus(int index)
     {
         //sanityTierChanges[0];
-        maxHealth = sanityTierChanges[index].maxHealth;
-        health = maxHealth;
-        damageMultiplier = sanityTierChanges[index].damageMultiplier;
-        speedMultiplier = sanityTierChanges[index].speedMultiplier;
-        fpsController.originalSpeed = walkSpeed * sanityTierChanges[index].speedMultiplier;
-        fpsController.m_RunSpeed = runSpeed * sanityTierChanges[index].speedMultiplier;
-        fpsController.crouchMovSpeed = crouchMovSpeed * sanityTierChanges[index].speedMultiplier;
-        currentSanityIndex = index;
-
-        if(OnPlayerChangeSanityTier != null)
+        if(index != lastSanityIndex)
         {
-            OnPlayerChangeSanityTier(index);
-        }
+            maxHealth = sanityTierChanges[index].maxHealth;
+            health = maxHealth;
+            damageMultiplier = sanityTierChanges[index].damageMultiplier;
+            speedMultiplier = sanityTierChanges[index].speedMultiplier;
+            fpsController.originalSpeed = walkSpeed * sanityTierChanges[index].speedMultiplier;
+            fpsController.m_RunSpeed = runSpeed * sanityTierChanges[index].speedMultiplier;
+            fpsController.crouchMovSpeed = crouchMovSpeed * sanityTierChanges[index].speedMultiplier;
+            lastSanityIndex = index;
 
-        Debug.Log("Applied Sanity Tier : " + (index) );
+            if (OnPlayerChangeSanityTier != null)
+            {
+                OnPlayerChangeSanityTier(index);
+            }
+
+            if (OnPlayerChangeHP != null)
+            {
+                OnPlayerChangeHP(health);
+            }
+
+            Debug.Log("Applied Sanity Tier : " + (index));
+        }
+        
     }
 
 

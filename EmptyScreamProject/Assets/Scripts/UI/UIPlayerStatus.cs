@@ -65,15 +65,17 @@ public class UIPlayerStatus : MonoBehaviour
 
         //Debug.Log("Test HP: " + hp + "   " + healthValue[1].y);
 
-        if(hp <= healthValue[0].y)
+        if(hp <= healthValue[0].y && hp >= healthValue[0].x)
         {
             ApplyNewStatus(0);
+            blood.DeactivateMask();
         }
-        if(hp <= healthValue[1].y)
+        if(hp <= healthValue[1].y && hp >= healthValue[1].x)
         {
             ApplyNewStatus(1);
+            blood.DeactivateMask();
         }
-        if(hp <= healthValue[2].y)
+        if(hp <= healthValue[2].y && hp >= healthValue[2].x)
         {
             ApplyNewStatus(2);
             blood.ActivateMask();
