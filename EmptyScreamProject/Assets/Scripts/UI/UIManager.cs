@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         UIInventory.OnUIActive += RestartTimer;
+        Player.OnPlayerHurt += RestartTimer;
         canvasGroup.alpha = 0;
         RestartTimer();
     }
@@ -67,5 +68,11 @@ public class UIManager : MonoBehaviour
         }
         idleTimer = 0;
         canFadeOut = false;
+    }
+
+    private void OnDestroy()
+    {
+        Player.OnPlayerHurt -= RestartTimer;
+        UIInventory.OnUIActive -= RestartTimer;
     }
 }

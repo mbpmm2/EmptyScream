@@ -5,7 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public delegate void OnPlayerStatusAction(float amount);
+    public delegate void OnPlayerStatusAction2();
     public static OnPlayerStatusAction OnPlayerChangeHP;
+    public static OnPlayerStatusAction2 OnPlayerHurt;
 
     [Header("Player Config")]
     public float maxHealth;
@@ -36,13 +38,13 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isBeingDamaged)
+        /*if(isBeingDamaged)
         {
-            GetHurt(damage);
-        }
+            CauseDamage(damage);
+        }*/
     }
 
-    private void GetHurt(float amount)
+    public void CauseDamage(float amount)
     {
         health -= amount;
 
@@ -54,6 +56,11 @@ public class Player : MonoBehaviour
         if(OnPlayerChangeHP != null)
         {
             OnPlayerChangeHP(health);
+        }
+
+        if(OnPlayerHurt != null)
+        {
+            OnPlayerHurt();
         }
     }
 
