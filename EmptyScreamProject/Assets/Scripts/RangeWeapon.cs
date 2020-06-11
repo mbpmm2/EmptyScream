@@ -54,7 +54,11 @@ public class RangeWeapon : MonoBehaviour
 
     private void OnDisable()
     {
-        crosshair.gameObject.SetActive(false);
+        if(crosshair)
+        {
+            crosshair.gameObject.SetActive(false);
+        }
+        
     }
 
     void Update()
