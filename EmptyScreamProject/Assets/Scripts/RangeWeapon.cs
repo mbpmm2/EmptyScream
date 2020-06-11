@@ -90,10 +90,10 @@ public class RangeWeapon : MonoBehaviour
         {
             if (Input.GetButton("Fire1") && Time.time >= nextFire && clipBullets > 0)
             {
-                nextFire = Time.time + 1f / fireRate;
+                nextFire = Time.time + 1f/fireRate;
                 Shoot();
             }
-        }
+        } 
         else if (type == WeaponType.SemiAutomatic)
         {
             if (Input.GetButtonDown("Fire1") && clipBullets > 0)

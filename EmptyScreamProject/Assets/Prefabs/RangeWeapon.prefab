@@ -9590,7 +9590,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3877419534923737736}
   m_LocalRotation: {x: 0.38091797, y: -0, z: -0, w: 0.9246089}
-  m_LocalPosition: {x: 0, y: 0, z: 0.533}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5487}
   m_LocalScale: {x: 0.00015600052, y: 0.0001641012, z: 0.002}
   m_Children:
   - {fileID: 4136065816839048810}
@@ -9599,7 +9599,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 44.781002, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.435, y: -0.0481}
+  m_AnchoredPosition: {x: 0.4322, y: -0.0705}
   m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8247485449224036093
@@ -9930,18 +9930,18 @@ MonoBehaviour:
   type: 0
   damage: 10
   range: 50
-  fireRate: 14.65
-  impactForce: 41.83
-  bullets: 60
+  fireRate: 0.6
+  impactForce: 222.27
+  bullets: 300
   clipMaxBullets: 30
-  clipBullets: 0
+  clipBullets: 30
   reloadTime: 1
   bulletsDisplay: {fileID: 354778508383026039}
   clipBulletsDisplay: {fileID: 3702652989138851083}
   crosshair: {fileID: 0}
   cam: {fileID: 0}
   muzzleFlash: {fileID: 453220109202245152}
-  impact: {fileID: 7615628913741262135, guid: 1653c27a01705ce468964935128b70ce, type: 3}
+  impact: {fileID: 0}
   weaponModel: {fileID: 2090896431160527019}
 --- !u!114 &3181014284136972952
 MonoBehaviour:
