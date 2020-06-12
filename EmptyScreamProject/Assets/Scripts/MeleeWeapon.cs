@@ -16,7 +16,24 @@ public class MeleeWeapon : MonoBehaviour
     public GameObject model;
     private Animator animator;
     private bool animationEnded;
+
+    public GameObject crosshair;
     // Start is called before the first frame update
+
+
+    private void OnEnable()
+    {
+        crosshair.gameObject.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        if (crosshair)
+        {
+            crosshair.gameObject.SetActive(false);
+        }
+    }
+
     void Start()
     {
         animator = GetComponent<Animator>();
