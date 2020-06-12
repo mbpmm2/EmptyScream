@@ -30,6 +30,8 @@ public class PlayerInventory : MonoBehaviour
         ItemAnimation.OnReloadStart += DisableItemChange;
         ItemAnimation.OnShootEnd += EnableItemChange;
         ItemAnimation.OnReloadEnd += EnableItemChange;
+        ItemAnimation.OnHitStart += DisableItemChange;
+        ItemAnimation.OnHitEnd += EnableItemChange;
 
         hotkeyItems = new GameObject[itemsParent.transform.childCount];
 
@@ -103,5 +105,7 @@ public class PlayerInventory : MonoBehaviour
         ItemAnimation.OnReloadStart -= DisableItemChange;
         ItemAnimation.OnShootEnd -= EnableItemChange;
         ItemAnimation.OnReloadEnd -= EnableItemChange;
+        ItemAnimation.OnHitStart -= DisableItemChange;
+        ItemAnimation.OnHitEnd -= EnableItemChange;
     }
 }
