@@ -9861,7 +9861,7 @@ GameObject:
   - component: {fileID: 4297458646298436808}
   - component: {fileID: 3181014284136972952}
   m_Layer: 9
-  m_Name: RangeWeapon
+  m_Name: RangeWeapon V2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9940,7 +9940,7 @@ MonoBehaviour:
   crosshair: {fileID: 0}
   cam: {fileID: 0}
   muzzleFlash: {fileID: 453220109202245152}
-  impact: {fileID: 0}
+  impact: {fileID: 7615628913741262135, guid: 1653c27a01705ce468964935128b70ce, type: 3}
   weaponModel: {fileID: 0}
 --- !u!114 &3181014284136972952
 MonoBehaviour:
