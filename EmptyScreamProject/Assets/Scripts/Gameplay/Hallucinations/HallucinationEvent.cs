@@ -8,11 +8,20 @@ public class HallucinationEvent : MonoBehaviour
    // public delegate void OnHallucinationAction2(int index);
     public OnHallucinationAction OnHallucinationStart;
     public OnHallucinationAction OnHallucinationEnd;
-   // public OnHallucinationAction2 OnHallucinationEndIndex;
+    // public OnHallucinationAction2 OnHallucinationEndIndex;
+
+    public enum eventTiers
+    {
+        Tier1,
+        Tier2,
+        Tier3,
+        maxTiers
+    }
 
     [Header("Main Configuration")]
     public float eventDuration;
     public bool isActive;
+    public eventTiers tier;
 
     private float eventTimer;
 

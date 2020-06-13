@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     public float crouchMovSpeed;
     public Vector2[] sanityTierRanges;
     public SanityTierChanges[] sanityTierChanges;
+    public int sanityCurrentTier;
     
 
     [Header("Player Current State")]
@@ -166,6 +167,7 @@ public class Player : MonoBehaviour
             }
 
             Debug.Log("Applied Sanity Tier : " + (index));
+            sanityCurrentTier = index + 1;
         }
         
     }

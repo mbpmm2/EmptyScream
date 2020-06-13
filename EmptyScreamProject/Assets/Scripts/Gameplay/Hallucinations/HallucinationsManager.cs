@@ -12,6 +12,7 @@ public class HallucinationsManager : MonoBehaviour
 
     public int lastIndex;
     public List<int> indexesToUse;
+    public Player currentPlayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,17 +45,26 @@ public class HallucinationsManager : MonoBehaviour
     {
         for (int i = 0; i < events.Length; i++)
         {
-            if(i != lastIndex)
+            if(i != lastIndex && (int)events[i].tier <= (currentPlayer.sanityCurrentTier-1))
             {
                 indexesToUse.Add(i);
+                
             }
         }
 
         indexesToUse.Sort();
 
-        int newIndex = Random.Range(indexesToUse[0], indexesToUse.Count - 1);
+        for (int i = 0; i < indexesToUse.Count; i++)
+        {
+            Debug.Log("Testttt: " + indexesToUse[i]);
+        }
 
-        if(lastIndex >= 0)
+        int newIndex = Random.Range(indexesToUse[0], indexesToUse[indexesToUse.Count-1]+1);
+        Debug.Log("first number is : " + indexesToUse[0]);
+        Debug.Log("last number is : " + (indexesToUse[indexesToUse.Count - 1]));
+        Debug.Log("Choosen number is : " + newIndex);
+
+        if (lastIndex >= 0)
         {
             if (!events[lastIndex].isActive)
             {
