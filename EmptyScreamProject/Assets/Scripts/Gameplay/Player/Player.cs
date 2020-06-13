@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         fpsController = GetComponent<FirstPersonController>();
-        fpsController.originalSpeed = walkSpeed;
+        fpsController.m_WalkSpeed = walkSpeed;
         fpsController.m_RunSpeed = runSpeed;
         fpsController.crouchMovSpeed = crouchMovSpeed;
         lastSanityIndex = -1;
@@ -151,7 +151,7 @@ public class Player : MonoBehaviour
             health = maxHealth;
             damageMultiplier = sanityTierChanges[index].damageMultiplier;
             speedMultiplier = sanityTierChanges[index].speedMultiplier;
-            fpsController.originalSpeed = walkSpeed * sanityTierChanges[index].speedMultiplier;
+            fpsController.m_WalkSpeed = walkSpeed * sanityTierChanges[index].speedMultiplier;
             fpsController.m_RunSpeed = runSpeed * sanityTierChanges[index].speedMultiplier;
             fpsController.crouchMovSpeed = crouchMovSpeed * sanityTierChanges[index].speedMultiplier;
             lastSanityIndex = index;

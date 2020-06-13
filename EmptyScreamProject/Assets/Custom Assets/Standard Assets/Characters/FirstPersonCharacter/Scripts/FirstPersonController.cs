@@ -50,8 +50,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float crouchHeight=0.5f;
         public float t = 0;
         public float crouchSpeed;
-        public float originalSpeed;
         public float crouchMovSpeed;
+
+        private float originalSpeed;
+        private float originalRunSpeed;
 
         // Use this for initialization
         private void Start()
@@ -68,6 +70,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			m_MouseLook.Init(transform , m_Camera.transform);
             originalHeight = m_CharacterController.height;
             originalSpeed = m_WalkSpeed;
+            originalRunSpeed = m_RunSpeed;
         }
 
 
@@ -252,6 +255,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (!m_IsCrouching)
             {
                 m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+            }
+            
+            if(m_IsCrouching && !m_IsWalking)
+            {
+                m_RunSpeed = crouchMovSpeed;
+            }
+            else
+            {
+                m_RunSpeed = originalRunSpeed;
             }
 #endif
             // set the desired speed to be walking or running
