@@ -18,11 +18,13 @@ public class UIBloodEffect : MonoBehaviour
     public bool startWaitingTimer;
 
     public Image criticalHealthVignette;
-    public GameObject[] bloodsplats;
+    public UIBloodSplat[] bloodsplats;
+    public List<int> bloodsplatsUsed;
 
     // Start is called before the first frame update
     void Start()
     {
+        Player.OnPlayerHurt += SetRandomBloodSplat;
         isVignetteActivated = false;
         DeactivateMask();
     }
@@ -73,7 +75,24 @@ public class UIBloodEffect : MonoBehaviour
 
     public void SetRandomBloodSplat()
     {
+        for (int i = 0; i < bloodsplats.Length; i++)
+        {
+            if(!bloodsplats[i].IsBloodActive())
+            {
+                bloodsplatsUsed.Add(i);
+            }
+        }
 
+        bloodsplatsUsed.Sort();
+
+        if(bloodsplatsUsed.Count > 0)
+        {
+            int newIndex = Random.Range(bloodsplatsUsed[0], bloodsplatsUsed[bloodsplatsUsed.Count - 1] + 1);
+
+            bloodsplats[newIndex].Activate();
+        }
+
+        bloodsplatsUsed.Clear();
     }
 
     public void ActivateMask()
@@ -89,5 +108,10 @@ public class UIBloodEffect : MonoBehaviour
         setFadeIn = false;
         setFadeOut = false;
         criticalHealthVignette.color = new Vector4(criticalHealthVignette.color.r, criticalHealthVignette.color.g, criticalHealthVignette.color.b, 0);
+    }
+
+    private void OnDestroy()
+    {
+        Player.OnPlayerHurt -= SetRandomBloodSplat;
     }
 }

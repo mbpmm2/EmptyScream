@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public static OnPlayerStatusAction OnPlayerChangeSanityTier;
     public static OnPlayerStatusAction2 OnPlayerHurt;
     public static OnPlayerStatusAction2 OnPlayerAffectedBySanity;
+   // public static OnPlayerStatusAction OnPlayerChangeSanityStatus;
 
     [System.Serializable]
     public struct SanityTierChanges
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
     public Vector2[] sanityTierRanges;
     public SanityTierChanges[] sanityTierChanges;
     public int sanityCurrentTier;
+    private TraumaInducer screenShake;
     
 
     [Header("Player Current State")]
@@ -49,6 +51,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        screenShake = GetComponent<TraumaInducer>();
         fpsController = GetComponent<FirstPersonController>();
         fpsController.m_WalkSpeed = walkSpeed;
         fpsController.m_RunSpeed = runSpeed;
@@ -97,6 +100,8 @@ public class Player : MonoBehaviour
         {
             OnPlayerHurt();
         }
+
+        StartCoroutine(screenShake.Shake());
     }
 
     public void ChangeSanityValue(float amount)

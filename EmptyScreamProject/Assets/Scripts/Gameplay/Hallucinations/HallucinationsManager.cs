@@ -54,15 +54,7 @@ public class HallucinationsManager : MonoBehaviour
 
         indexesToUse.Sort();
 
-        for (int i = 0; i < indexesToUse.Count; i++)
-        {
-            Debug.Log("Testttt: " + indexesToUse[i]);
-        }
-
         int newIndex = Random.Range(indexesToUse[0], indexesToUse[indexesToUse.Count-1]+1);
-        Debug.Log("first number is : " + indexesToUse[0]);
-        Debug.Log("last number is : " + (indexesToUse[indexesToUse.Count - 1]));
-        Debug.Log("Choosen number is : " + newIndex);
 
         if (lastIndex >= 0)
         {

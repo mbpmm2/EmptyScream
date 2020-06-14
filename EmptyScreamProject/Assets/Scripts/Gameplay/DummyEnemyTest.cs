@@ -25,7 +25,7 @@ public class DummyEnemyTest : MonoBehaviour
 
             if(damageRateTimer >= damageRate)
             {
-                if(currentPlayer)
+                if(currentPlayer != null)
                 {
                     currentPlayer.CauseDamage(damage);
                 }
@@ -41,7 +41,7 @@ public class DummyEnemyTest : MonoBehaviour
         {
             currentPlayer = other.GetComponent<Player>();
             canDamage = true;
-            damageRateTimer = damageRate;
+            damageRateTimer = 0;
         }
     }
 

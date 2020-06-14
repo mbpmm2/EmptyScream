@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
 
 public class UIPlayerStatus : MonoBehaviour
 {
+    public delegate void OnPlayerStatusAction(int tier);
+    public static OnPlayerStatusAction OnPlayerChangeStatus;
+
     [Header("General Config")]
     public float[] readingSpeed;
 
@@ -24,6 +29,8 @@ public class UIPlayerStatus : MonoBehaviour
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI bpmText;
     public TextMeshProUGUI hpText;
+    public Volume postProcess;
+    private ColorAdjustments color;
 
     [Header("Components Assign Sanity")]
     //public UIBloodEffect blood;
@@ -51,6 +58,12 @@ public class UIPlayerStatus : MonoBehaviour
         
         ApplyNewStatus(0);
         ApplyNewSanityStatus(0);
+
+        ColorAdjustments colorAdjust;
+        if (postProcess.profile.TryGet<ColorAdjustments>(out colorAdjust))
+        {
+            color = colorAdjust;
+        }
     }
 
     /*// Update is called once per frame
@@ -69,16 +82,31 @@ public class UIPlayerStatus : MonoBehaviour
         {
             ApplyNewStatus(0);
             blood.DeactivateMask();
+            color.saturation.value = 0.0f;
+            /*if(OnPlayerChangeStatus != null)
+            {
+                OnPlayerChangeStatus(0);
+            }*/
         }
         if(hp <= healthValue[1].y && hp >= healthValue[1].x)
         {
             ApplyNewStatus(1);
             blood.DeactivateMask();
+            color.saturation.value = -20.0f;
+            /*if (OnPlayerChangeStatus != null)
+            {
+                OnPlayerChangeStatus(1);
+            }*/
         }
         if(hp <= healthValue[2].y && hp >= healthValue[2].x)
         {
             ApplyNewStatus(2);
             blood.ActivateMask();
+            color.saturation.value = -60.0f;
+           /* if (OnPlayerChangeStatus != null)
+            {
+                OnPlayerChangeStatus(2);
+            }*/
         }
     }
 
@@ -109,6 +137,7 @@ public class UIPlayerStatus : MonoBehaviour
             scroll.speed = readingSpeed[index];
             scroll.currentImage = healthStatusImages[index].GetComponent<RectTransform>();
             lastIndex = index;
+
         }
     }
 
@@ -137,6 +166,11 @@ public class UIPlayerStatus : MonoBehaviour
             tierText.text = "Tier " + ((int)index+1);
 
             lastIndexSanity = (int)index;
+
+            if (OnPlayerChangeStatus != null)
+            {
+                OnPlayerChangeStatus(lastIndexSanity);
+            }
         }
     }
 
