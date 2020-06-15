@@ -32,6 +32,7 @@ public class RangeWeapon : MonoBehaviour
     public Camera cam;
     public ParticleSystem muzzleFlash;
     public GameObject impact;
+    public GameObject impactTarget;
     public GameObject weaponModel;
 
     private Animator animator;
@@ -119,9 +120,9 @@ public class RangeWeapon : MonoBehaviour
         if (Physics.Raycast(cam.transform.position + (cam.transform.forward * 0.5f), cam.transform.forward,out hit, range))
         {
             Debug.Log(hit.transform.name);
-            
 
-            Target target = hit.transform.GetComponent<Target>();
+            GameObject impactGO;
+            Target target = hit.transform.GetComponentInParent<Target>();
 
             if (hit.rigidbody!=null)
             {
@@ -131,9 +132,13 @@ public class RangeWeapon : MonoBehaviour
             if (target!=null)
             {
                 target.TakeDamage(damage);
+                impactGO = Instantiate(impactTarget, hit.point, Quaternion.LookRotation(hit.normal));
+            }
+            else
+            {
+                impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
             }
 
-            GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
             impactGO.transform.SetParent(hit.transform);
             impactGO.transform.position += (impactGO.transform.forward * -0.0001f);
             Destroy(impactGO, 5f);
