@@ -21,6 +21,7 @@ public class EnemyController : MonoBehaviour
 
     public States currentState;
     public States lastState;
+    private Animator animator;
 
     public bool canFollow;
     Transform target;
@@ -31,8 +32,13 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetRigidbodyState(true);
+        SetColliderState(true);
+        GetComponent<Animator>().enabled = true;
+
         target = GameManager.Get().playerGO.transform;
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -50,7 +56,6 @@ public class EnemyController : MonoBehaviour
             case States.Stunned:
                 break;
             case States.Dead:
-                DeathUpdate();
                 break;
             default:
                 break;
@@ -84,8 +89,14 @@ public class EnemyController : MonoBehaviour
         switch (currentState)
         {
             case States.Idle:
+                animator.SetBool("Idle", true);
+                animator.SetBool("Follow", false);
                 break;
             case States.Follow:
+                animator.SetBool("Stun", false);
+                animator.SetBool("Idle", false);
+                animator.SetBool("Follow", true);
+                animator.SetBool("Hit", false);
                 agent.SetDestination(target.position);
                 break;
             case States.Hit:
@@ -96,6 +107,48 @@ public class EnemyController : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    void SetRigidbodyState(bool state)
+    {
+
+        Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>();
+
+        foreach (Rigidbody rigidbody in rigidbodies)
+        {
+            rigidbody.isKinematic = state;
+        }
+
+        //GetComponent<Rigidbody>().isKinematic = !state;
+
+    }
+
+
+    void SetColliderState(bool state)
+    {
+
+        Collider[] colliders = GetComponentsInChildren<Collider>();
+
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = state;
+        }
+
+        //GetComponent<Collider>().enabled = !state;
+
+    }
+
+    public void Die()
+    {
+        agent.isStopped = true;
+        GetComponent<Animator>().enabled = false;
+        SetRigidbodyState(false);
+        SetColliderState(true);
+        ChangeState(States.Dead);
+        if (gameObject != null)
+        {
+            Destroy(gameObject, 3f);
         }
     }
 
