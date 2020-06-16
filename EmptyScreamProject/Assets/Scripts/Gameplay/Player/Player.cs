@@ -12,7 +12,8 @@ public class Player : MonoBehaviour
     public static OnPlayerStatusAction OnPlayerChangeSanityTier;
     public static OnPlayerStatusAction2 OnPlayerHurt;
     public static OnPlayerStatusAction2 OnPlayerAffectedBySanity;
-   // public static OnPlayerStatusAction OnPlayerChangeSanityStatus;
+    public static OnPlayerStatusAction2 OnPlayerChangeHP2;
+    // public static OnPlayerStatusAction OnPlayerChangeSanityStatus;
 
     [System.Serializable]
     public struct SanityTierChanges
@@ -102,6 +103,36 @@ public class Player : MonoBehaviour
         }
 
         StartCoroutine(screenShake.Shake());
+    }
+
+    public void HealPlayer(int amount)
+    {
+        health += amount;
+
+        if (health >= maxHealth)
+        {
+            health = maxHealth;
+        }
+
+        if (OnPlayerChangeHP != null)
+        {
+            OnPlayerChangeHP(health);
+        }
+
+        if (OnPlayerChangeHP2 != null)
+        {
+            OnPlayerChangeHP2();
+        }
+    }
+
+    public bool CanHeal()
+    {
+        if (health >= maxHealth)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     public void ChangeSanityValue(float amount)

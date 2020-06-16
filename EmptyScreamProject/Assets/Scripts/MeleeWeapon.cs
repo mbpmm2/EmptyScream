@@ -4,7 +4,7 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class MeleeWeapon : MonoBehaviour
+public class MeleeWeapon : ItemCore
 {
     public float damage;
     public float impactForce;
@@ -44,10 +44,13 @@ public class MeleeWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && !animationEnded)
+        if(canUse)
         {
-            animationEnded = true;
-            Hit();
+            if (Input.GetButtonDown("Fire1") && !animationEnded)
+            {
+                animationEnded = true;
+                Hit();
+            }
         }
         
     }

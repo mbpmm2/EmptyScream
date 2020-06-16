@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RangeWeapon : MonoBehaviour
+public class RangeWeapon : ItemCore
 {
     public enum WeaponType
     {
@@ -67,42 +67,44 @@ public class RangeWeapon : MonoBehaviour
         bulletsDisplay.text = bullets.ToString();
         clipBulletsDisplay.text = clipBullets.ToString();
 
-        if (isReloading)
+        if (canUse)
         {
-            return;
-        }
-
-        if (clipBullets<=0)
-        {
-            if (bullets > 0)
+            if (isReloading)
             {
-                if(!doOnce)
+                return;
+            }
+
+            if (clipBullets <= 0)
+            {
+                if (bullets > 0)
                 {
-                    animator.Play("Reload", -1, 0f);
-                    doOnce = true;
-                }
-                
-            }
-            StartCoroutine(Reload());
-            return;
-        }
+                    if (!doOnce)
+                    {
+                        animator.Play("Reload", -1, 0f);
+                        doOnce = true;
+                    }
 
-        if (type == WeaponType.Automatic)
-        {
-            if (Input.GetButton("Fire1") && Time.time >= nextFire && clipBullets > 0)
-            {
-                nextFire = Time.time + 1f/fireRate;
-                Shoot();
+                }
+                StartCoroutine(Reload());
+                return;
             }
-        } 
-        else if (type == WeaponType.SemiAutomatic)
-        {
-            if (Input.GetButtonDown("Fire1") && clipBullets > 0)
+
+            if (type == WeaponType.Automatic)
             {
-                Shoot();
+                if (Input.GetButton("Fire1") && Time.time >= nextFire && clipBullets > 0)
+                {
+                    nextFire = Time.time + 1f / fireRate;
+                    Shoot();
+                }
+            }
+            else if (type == WeaponType.SemiAutomatic)
+            {
+                if (Input.GetButtonDown("Fire1") && clipBullets > 0)
+                {
+                    Shoot();
+                }
             }
         }
-       
     }
 
     public void Shoot()

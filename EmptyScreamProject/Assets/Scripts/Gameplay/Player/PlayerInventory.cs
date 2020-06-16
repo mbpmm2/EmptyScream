@@ -14,7 +14,8 @@ public class PlayerInventory : MonoBehaviour
     //[Header("Inventory Config")]
     private int newIndex = 0;
     public int lastIndex=0;
-    private GameObject[] hotkeyItems;
+    public GameObject[] hotkeyItems;
+    public ItemCore[] items;
     private bool itemChangeFinished = true;
 
     private void Awake()
@@ -34,16 +35,19 @@ public class PlayerInventory : MonoBehaviour
         ItemAnimation.OnHitEnd += EnableItemChange;
 
         hotkeyItems = new GameObject[itemsParent.transform.childCount];
+        items = new ItemCore[itemsParent.transform.childCount];
 
         for (int i = 0; i < hotkeyItems.Length; i++)
         {
             hotkeyItems[i] = itemsParent.transform.GetChild(i).gameObject;
+            items[i] = hotkeyItems[i].GetComponent<ItemCore>();
             hotkeyItems[i].SetActive(false);
         }
 
         hotkeyItems[0].SetActive(true);
         hotkeyItems[0].GetComponent<Animator>().SetTrigger("Draw");
         lastIndex = 0;
+        //ActivateItem(0);
     }
 
     // Update is called once per frame
@@ -62,18 +66,24 @@ public class PlayerInventory : MonoBehaviour
     {
         if(index != lastIndex)
         {
-            if(itemChangeFinished)
+            if (itemChangeFinished)
             {
-                hotkeyItems[lastIndex].GetComponent<Animator>().SetTrigger("Hide");
-
-                if (OnInventoryChange != null)
+                if (items[lastIndex].canUse)
                 {
-                    OnInventoryChange(index);
+                    items[lastIndex].canUse = false;
+
+                    hotkeyItems[lastIndex].GetComponent<Animator>().SetTrigger("Hide");
+
+                    if (OnInventoryChange != null)
+                    {
+                        OnInventoryChange(index);
+                    }
+
+                    newIndex = index;
+
+                    itemChangeFinished = false;
                 }
 
-                newIndex = index;
-
-                itemChangeFinished = false;
             }
         }
     }
@@ -90,6 +100,8 @@ public class PlayerInventory : MonoBehaviour
     private void EnableItemChange()
     {
         itemChangeFinished = true;
+       // hotkeyItems[lastIndex].GetComponent<ItemCore>().canUse = true;
+        items[lastIndex].canUse = true;
     }
 
     private void DisableItemChange()
