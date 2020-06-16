@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour
 
     public bool canFollow;
     Transform target;
-    NavMeshAgent agent;
+    public NavMeshAgent agent;
     public float timer;
     public float deathTime;
     public float healthPoints;
@@ -152,19 +152,4 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.name == "Player")
-        {
-            ChangeState(States.Follow);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.name == "Player")
-        {
-            ChangeState(States.Idle);
-        }
-    }
 }
