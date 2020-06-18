@@ -148,7 +148,7 @@ public class EnemyController : MonoBehaviour
         ChangeState(States.Dead);
         if (gameObject != null)
         {
-            Destroy(gameObject, 3f);
+            Destroy(gameObject, 6f);
         }
     }
 
