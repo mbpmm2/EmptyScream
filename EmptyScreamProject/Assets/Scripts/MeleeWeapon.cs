@@ -19,6 +19,7 @@ public class MeleeWeapon : ItemCore
     private bool animationEnded;
 
     public GameObject crosshair;
+    Player player;
     // Start is called before the first frame update
 
 
@@ -38,7 +39,8 @@ public class MeleeWeapon : ItemCore
     void Start()
     {
         animator = GetComponent<Animator>();
-        
+        player = GameManager.Get().playerGO.GetComponent<Player>();
+        Player.OnPlayerChangeSanityTier += UpdateDamage;
     }
 
     // Update is called once per frame
@@ -96,5 +98,10 @@ public class MeleeWeapon : ItemCore
     public void OnAnimationEnd()
     {
         animationEnded = false;
+    }
+
+    public void UpdateDamage(float test)
+    {
+        damage = damage * player.damageMultiplier;
     }
 }

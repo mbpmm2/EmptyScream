@@ -187,8 +187,8 @@ public class Player : MonoBehaviour
             health = maxHealth;
             damageMultiplier = sanityTierChanges[index].damageMultiplier;
             speedMultiplier = sanityTierChanges[index].speedMultiplier;
-            fpsController.m_WalkSpeed = walkSpeed * sanityTierChanges[index].speedMultiplier;
-            fpsController.m_RunSpeed = runSpeed * sanityTierChanges[index].speedMultiplier;
+            fpsController.originalSpeed = walkSpeed * sanityTierChanges[index].speedMultiplier;
+            fpsController.originalRunSpeed = runSpeed * sanityTierChanges[index].speedMultiplier;
             fpsController.crouchMovSpeed = crouchMovSpeed * sanityTierChanges[index].speedMultiplier;
             lastSanityIndex = index;
 

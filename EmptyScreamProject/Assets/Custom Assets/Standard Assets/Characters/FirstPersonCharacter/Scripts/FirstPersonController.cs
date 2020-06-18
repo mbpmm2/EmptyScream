@@ -52,8 +52,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float crouchSpeed;
         public float crouchMovSpeed;
 
-        private float originalSpeed;
-        private float originalRunSpeed;
+        public float originalSpeed;
+        public float originalRunSpeed;
 
         // Use this for initialization
         private void Start()
