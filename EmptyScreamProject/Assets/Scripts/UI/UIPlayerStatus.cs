@@ -20,6 +20,7 @@ public class UIPlayerStatus : MonoBehaviour
     public GameObject[] healthStatusImages;
 
     [Header("Player Sanity Status Config")]
+    public GameObject immunityIcon;
     public Color[] colorSanityStatus;
     public GameObject[] sanityStatusImages;
 
@@ -33,10 +34,8 @@ public class UIPlayerStatus : MonoBehaviour
     private ColorAdjustments color;
 
     [Header("Components Assign Sanity")]
-    //public UIBloodEffect blood;
     public UIScrollingTexture scroll2;
     public TextMeshProUGUI sanityText;
-    //public TextMeshProUGUI bpmText;
     public TextMeshProUGUI tierText;
 
     public int lastIndex;
@@ -48,6 +47,8 @@ public class UIPlayerStatus : MonoBehaviour
         Player.OnPlayerChangeHP += CheckStatus;
         Player.OnPlayerChangeSanity += UpdateSanityText;
         Player.OnPlayerChangeSanityTier += ApplyNewSanityStatus;
+        Player.OnImmunityStart += ActivateImmunityIcon;
+        Player.OnImmunityStop += DeactivateImmunityIcon;
         lastIndex = -1;
         lastIndexSanity = -1;
         for (int i = 0; i < healthStatusImages.Length; i++)
@@ -58,6 +59,7 @@ public class UIPlayerStatus : MonoBehaviour
         
         ApplyNewStatus(0);
         ApplyNewSanityStatus(0);
+        DeactivateImmunityIcon();
 
         ColorAdjustments colorAdjust;
         if (postProcess.profile.TryGet<ColorAdjustments>(out colorAdjust))
@@ -66,47 +68,27 @@ public class UIPlayerStatus : MonoBehaviour
         }
     }
 
-    /*// Update is called once per frame
-    void Update()
-    {
-        
-    }*/
-
     public void CheckStatus(float hp)
     {
         healthText.text = "" + (int)hp;
-
-        //Debug.Log("Test HP: " + hp + "   " + healthValue[1].y);
 
         if(hp <= healthValue[0].y && hp >= healthValue[0].x)
         {
             ApplyNewStatus(0);
             blood.DeactivateMask();
             color.saturation.value = 0.0f;
-            /*if(OnPlayerChangeStatus != null)
-            {
-                OnPlayerChangeStatus(0);
-            }*/
         }
         if(hp <= healthValue[1].y && hp >= healthValue[1].x)
         {
             ApplyNewStatus(1);
             blood.DeactivateMask();
             color.saturation.value = -20.0f;
-            /*if (OnPlayerChangeStatus != null)
-            {
-                OnPlayerChangeStatus(1);
-            }*/
         }
         if(hp <= healthValue[2].y && hp >= healthValue[2].x)
         {
             ApplyNewStatus(2);
             blood.ActivateMask();
             color.saturation.value = -60.0f;
-           /* if (OnPlayerChangeStatus != null)
-            {
-                OnPlayerChangeStatus(2);
-            }*/
         }
     }
 
@@ -147,11 +129,9 @@ public class UIPlayerStatus : MonoBehaviour
         {
             if (lastIndexSanity >= 0)
             {
-                //healthStatusImages[lastIndex].SetActive(false);
                 sanityStatusImages[lastIndexSanity].SetActive(false);
             }
 
-            // healthStatusImages[index].SetActive(true);
             sanityStatusImages[(int)index].SetActive(true);
 
             for (int i = 0; i < sanityStatusImages[(int)index].transform.childCount; i++)
@@ -174,10 +154,22 @@ public class UIPlayerStatus : MonoBehaviour
         }
     }
 
+    private void ActivateImmunityIcon()
+    {
+        immunityIcon.SetActive(true);
+    }
+
+    private void DeactivateImmunityIcon()
+    {
+        immunityIcon.SetActive(false);
+    }
+
     private void OnDestroy()
     {
         Player.OnPlayerChangeHP -= CheckStatus;
         Player.OnPlayerChangeSanity -= UpdateSanityText;
         Player.OnPlayerChangeSanityTier -= ApplyNewSanityStatus;
+        Player.OnImmunityStart -= ActivateImmunityIcon;
+        Player.OnImmunityStop -= DeactivateImmunityIcon;
     }
 }

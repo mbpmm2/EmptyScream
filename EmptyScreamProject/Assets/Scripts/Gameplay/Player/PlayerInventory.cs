@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
     public delegate void OnInventoryAction(int index);
+    public delegate void OnInventoryAction2(Sprite newIcon, string amount);
     public OnInventoryAction OnInventoryChange;
+    public static OnInventoryAction2 OnNewStackableItem;
+    public static OnInventoryAction OnNoNewStackableItem;
 
     [Header("Inventory Config")]
     public KeyCode[] hotkeyKeys;
@@ -77,6 +81,21 @@ public class PlayerInventory : MonoBehaviour
                     if (OnInventoryChange != null)
                     {
                         OnInventoryChange(index);
+                    }
+
+                    if (items[index].canStack)
+                    {
+                        if(OnNewStackableItem != null)
+                        {
+                            OnNewStackableItem(items[index].icon, items[index].amountText);
+                        }
+                    }
+                    else
+                    {
+                        if (OnNoNewStackableItem != null)
+                        {
+                            OnNoNewStackableItem(-1);
+                        }
                     }
 
                     newIndex = index;

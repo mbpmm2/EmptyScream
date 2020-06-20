@@ -16,6 +16,7 @@ public class Medkit : ItemCore
     {
         canHeal = true;
         animator = GetComponent<Animator>();
+        amountText = "" + amountLeft;
     }
 
     // Update is called once per frame
@@ -40,6 +41,13 @@ public class Medkit : ItemCore
             canHeal = false;
             amountLeft--;
             animator.SetTrigger("Use");
+            amountText = "" + amountLeft;
+
+            if (OnStackableItemUse != null)
+            {
+                OnStackableItemUse(amountText);
+            }
+
             Debug.Log("using medkit");
         }
         else

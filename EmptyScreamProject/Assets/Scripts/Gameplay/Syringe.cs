@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Syringe : ItemCore
 {
+    
+
     public int amountLeft;
     public float immunityTime;
 
@@ -17,6 +19,7 @@ public class Syringe : ItemCore
         //Player.OnImmunityStop += StopImmunity;
         //canInject = true;
         animator = GetComponent<Animator>();
+        amountText = "" + amountLeft;
     }
 
     // Update is called once per frame
@@ -39,6 +42,13 @@ public class Syringe : ItemCore
             //canInject = false;
             amountLeft--;
             animator.SetTrigger("Use");
+            amountText = "" + amountLeft;
+
+            if(OnStackableItemUse != null)
+            {
+                OnStackableItemUse(amountText);
+            }
+
             Debug.Log("using syringe");
         }
         else

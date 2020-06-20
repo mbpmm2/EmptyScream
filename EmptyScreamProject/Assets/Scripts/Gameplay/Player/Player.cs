@@ -13,7 +13,8 @@ public class Player : MonoBehaviour
     public static OnPlayerStatusAction2 OnPlayerHurt;
     public static OnPlayerStatusAction2 OnPlayerAffectedBySanity;
     public static OnPlayerStatusAction2 OnPlayerChangeHP2;
-    //public static OnPlayerStatusAction2 OnImmunityStop;
+    public static OnPlayerStatusAction2 OnImmunityStart;
+    public static OnPlayerStatusAction2 OnImmunityStop;
     // public static OnPlayerStatusAction OnPlayerChangeSanityStatus;
 
     [System.Serializable]
@@ -236,6 +237,10 @@ public class Player : MonoBehaviour
     {
         immunityTime = time;
         isImmune = true;
+        if (OnImmunityStart != null)
+        {
+            OnImmunityStart();
+        }
     }
 
     private void StopImmunity()
@@ -243,9 +248,9 @@ public class Player : MonoBehaviour
         immunityTime = 0;
         isImmune = false;
 
-        /*if(OnImmunityStop != null)
+        if(OnImmunityStop != null)
         {
             OnImmunityStop();
-        }*/
+        }
     }
 }
