@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public static OnPlayerStatusAction2 OnPlayerHurt;
     public static OnPlayerStatusAction2 OnPlayerAffectedBySanity;
     public static OnPlayerStatusAction2 OnPlayerChangeHP2;
+    //public static OnPlayerStatusAction2 OnImmunityStop;
     // public static OnPlayerStatusAction OnPlayerChangeSanityStatus;
 
     [System.Serializable]
@@ -40,11 +41,14 @@ public class Player : MonoBehaviour
     public float sanity;
     public float damageMultiplier;
     public float speedMultiplier;
+    public bool isImmune;
 
     //public float damageSpeed;
     public bool isBeingDamaged;
     private FirstPersonController fpsController;
     private int lastSanityIndex;
+    private float immunityTimer;
+    private float immunityTime;
 
     //[Header("Components Assigment")]
     //Player Inventory;
@@ -58,6 +62,8 @@ public class Player : MonoBehaviour
         fpsController.m_RunSpeed = runSpeed;
         fpsController.crouchMovSpeed = crouchMovSpeed;
         lastSanityIndex = -1;
+
+        isImmune = false;
 
         health = maxHealth;
         sanity = maxSanity;
@@ -77,10 +83,16 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if(isBeingDamaged)
+        if (isImmune)
         {
-            CauseDamage(damage);
-        }*/
+            immunityTimer += Time.deltaTime;
+
+            if (immunityTimer >= immunityTime)
+            {
+                StopImmunity();
+                immunityTimer = 0;
+            }
+        }
     }
 
     public void CauseDamage(float amount)
@@ -137,45 +149,34 @@ public class Player : MonoBehaviour
 
     public void ChangeSanityValue(float amount)
     {
-        sanity += amount;
-
-        for (int i = 0; i < sanityTierRanges.Length; i++)
+        if(!isImmune)
         {
-            if (sanity <= sanityTierRanges[i].y && sanity >= sanityTierRanges[i].x)
+            sanity += amount;
+
+            for (int i = 0; i < sanityTierRanges.Length; i++)
             {
-                ApplyNewSanityStatus(i);
-                i = sanityTierRanges.Length;
+                if (sanity <= sanityTierRanges[i].y && sanity >= sanityTierRanges[i].x)
+                {
+                    ApplyNewSanityStatus(i);
+                    i = sanityTierRanges.Length;
+                }
+            }
+
+            if (sanity <= 0)
+            {
+                sanity = 0;
+            }
+
+            if (OnPlayerChangeSanity != null)
+            {
+                OnPlayerChangeSanity(sanity);
+            }
+
+            if (OnPlayerAffectedBySanity != null)
+            {
+                OnPlayerAffectedBySanity();
             }
         }
-
-        if(sanity <= 0)
-        {
-            sanity = 0;
-        }
-
-        if(OnPlayerChangeSanity != null)
-        {
-            OnPlayerChangeSanity(sanity);
-        }
-
-        if(OnPlayerAffectedBySanity != null)
-        {
-            OnPlayerAffectedBySanity();
-        }
-
-        /*if (sanity <= sanityTierRanges[0].y)
-        {
-           // ApplyNewStatus(0);
-        }
-        if (sanity <= sanityTierRanges[1].y)
-        {
-            //ApplyNewStatus(1);
-        }
-        if (sanity <= sanityTierRanges[2].y)
-        {
-           // ApplyNewStatus(2);
-           // blood.ActivateMask();
-        }*/
     }
 
     private void ApplyNewSanityStatus(int index)
@@ -229,5 +230,22 @@ public class Player : MonoBehaviour
         {
             isBeingDamaged = false;
         }
+    }
+
+    public void SetImmunityTimer(float time)
+    {
+        immunityTime = time;
+        isImmune = true;
+    }
+
+    private void StopImmunity()
+    {
+        immunityTime = 0;
+        isImmune = false;
+
+        /*if(OnImmunityStop != null)
+        {
+            OnImmunityStop();
+        }*/
     }
 }
