@@ -31,6 +31,9 @@ public class EnemyController : MonoBehaviour
     public float timer;
     public float deathTime;
     public float healthPoints;
+    public float distance;
+
+    private bool doOnce;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +49,8 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        distance = Vector3.Distance(transform.position, target.position);
+
         switch (currentState)
         {
             case States.Idle:
@@ -62,6 +67,34 @@ public class EnemyController : MonoBehaviour
             default:
                 break;
         }
+
+        if (distance <= agent.stoppingDistance && currentState!=States.Dead)
+        {
+            Attack();
+            FaceTarget();
+            doOnce = true;
+        }
+        else if (currentState != States.Dead)
+        {
+            if (doOnce)
+            {
+                doOnce = false;
+                ChangeState(States.Follow);
+            }
+            
+        }
+    }
+
+    private void Attack()
+    {
+        ChangeState(States.Hit);
+    }
+
+    private void FaceTarget()
+    {
+        Vector3 direction = (target.position - transform.position).normalized;
+        Quaternion lookRot = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * 5f);
     }
 
     private void DeathUpdate()
@@ -102,6 +135,10 @@ public class EnemyController : MonoBehaviour
                 agent.SetDestination(target.position);
                 break;
             case States.Hit:
+                animator.SetBool("Stun", false);
+                animator.SetBool("Idle", false);
+                animator.SetBool("Follow", false);
+                animator.SetBool("Hit", true);
                 break;
             case States.Stunned:
                 break;
