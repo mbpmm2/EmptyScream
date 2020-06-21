@@ -176,9 +176,12 @@ public class PlayerInventory : MonoBehaviour
         items[lastIndex].DisableCrosshair();
         items[newIndex].EnableCrosshair();
 
-        
-       /* hotkeyItems[lastIndex].SetActive(false);
-        hotkeyItems[newIndex].SetActive(true);*/
+        items[lastIndex].canUse = false;
+        items[newIndex].canUse = true;
+
+
+        /* hotkeyItems[lastIndex].SetActive(false);
+         hotkeyItems[newIndex].SetActive(true);*/
 
 
         hotkeyItems[newIndex].GetComponent<Animator>().SetTrigger("Draw");
