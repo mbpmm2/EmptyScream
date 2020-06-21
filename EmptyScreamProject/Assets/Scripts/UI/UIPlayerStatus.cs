@@ -11,11 +11,17 @@ public class UIPlayerStatus : MonoBehaviour
     public delegate void OnPlayerStatusAction(int tier);
     public static OnPlayerStatusAction OnPlayerChangeStatus;
 
+    [System.Serializable]
+    public struct HealthValue
+    {
+        public Vector2[] healthValue;
+    }
+
     [Header("General Config")]
     public float[] readingSpeed;
 
     [Header("Player Health Status Config")]
-    public Vector2[] healthValue;
+    public HealthValue[] healthValues;
     public Color[] colorHealthStatus;
     public GameObject[] healthStatusImages;
 
@@ -72,19 +78,19 @@ public class UIPlayerStatus : MonoBehaviour
     {
         healthText.text = "" + (int)hp;
 
-        if(hp <= healthValue[0].y && hp >= healthValue[0].x)
+        if(hp <= healthValues[lastIndexSanity].healthValue[0].y && hp >= healthValues[lastIndexSanity].healthValue[0].x)
         {
             ApplyNewStatus(0);
             blood.DeactivateMask();
             color.saturation.value = 0.0f;
         }
-        if(hp <= healthValue[1].y && hp >= healthValue[1].x)
+        if(hp <= healthValues[lastIndexSanity].healthValue[1].y && hp >= healthValues[lastIndexSanity].healthValue[1].x)
         {
             ApplyNewStatus(1);
             blood.DeactivateMask();
             color.saturation.value = -20.0f;
         }
-        if(hp <= healthValue[2].y && hp >= healthValue[2].x)
+        if(hp <= healthValues[lastIndexSanity].healthValue[2].y && hp >= healthValues[lastIndexSanity].healthValue[2].x)
         {
             ApplyNewStatus(2);
             blood.ActivateMask();
