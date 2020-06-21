@@ -18,23 +18,7 @@ public class MeleeWeapon : ItemCore
     private Animator animator;
     private bool animationEnded;
 
-    public GameObject crosshair;
     Player player;
-    // Start is called before the first frame update
-
-
-    private void OnEnable()
-    {
-        crosshair.gameObject.SetActive(true);
-    }
-
-    private void OnDisable()
-    {
-        if (crosshair)
-        {
-            crosshair.gameObject.SetActive(false);
-        }
-    }
 
     void Start()
     {
