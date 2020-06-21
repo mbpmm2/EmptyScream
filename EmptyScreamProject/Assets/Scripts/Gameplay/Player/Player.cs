@@ -96,7 +96,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void CauseDamage(float amount)
+    public void ReceiveDamage(float amount)
     {
         health -= amount;
 
