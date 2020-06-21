@@ -95,7 +95,10 @@ public class EnemyController : MonoBehaviour
 
     public void DoDamage()
     {
-        player.ReceiveDamage(damage);
+        if (distance <= agent.stoppingDistance)
+        {
+            player.ReceiveDamage(damage);
+        }
     }
 
     private void FaceTarget()

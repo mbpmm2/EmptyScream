@@ -145,7 +145,7 @@ public class RangeWeapon : ItemCore
 
             impactGO.transform.SetParent(hit.transform);
             impactGO.transform.position += (impactGO.transform.forward * -0.0001f);
-            Destroy(impactGO, 5f);
+            Destroy(impactGO, 15f);
         }
     }
 
