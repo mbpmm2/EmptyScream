@@ -219,10 +219,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   lastState: 0
+  bloodSplat: {fileID: 8559720990344066614, guid: 523be130463bf8e4b8845a8e9247eee4,
+    type: 3}
+  bloodSplatPosition: {fileID: 6335447453402425672}
   canFollow: 0
   agent: {fileID: 0}
   timer: 0
-  deathTime: 53.2
+  deathTime: 15
   healthPoints: 1000
 --- !u!195 &1451120072610328220
 NavMeshAgent:
@@ -3037,15 +3040,21 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1543716266884096212}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &337508897840196892 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -7943378556525867576, guid: 2efa8fc617074104ba23e62e1d2dabd6,
+--- !u!4 &6335447453402425672 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4431429744085825124, guid: 2efa8fc617074104ba23e62e1d2dabd6,
     type: 3}
   m_PrefabInstance: {fileID: 1543716266884096212}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2953984141291186601 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4436829760782469501, guid: 2efa8fc617074104ba23e62e1d2dabd6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1543716266884096212}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &337508897840196892 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7943378556525867576, guid: 2efa8fc617074104ba23e62e1d2dabd6,
     type: 3}
   m_PrefabInstance: {fileID: 1543716266884096212}
   m_PrefabAsset: {fileID: 0}

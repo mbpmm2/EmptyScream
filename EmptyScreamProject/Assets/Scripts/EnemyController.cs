@@ -23,6 +23,8 @@ public class EnemyController : MonoBehaviour
     public States lastState;
     private Animator animator;
 
+    public GameObject bloodSplat;
+    public Transform bloodSplatPosition;
     public bool canFollow;
     Transform target;
     public NavMeshAgent agent;
@@ -146,9 +148,21 @@ public class EnemyController : MonoBehaviour
         SetRigidbodyState(false);
         SetColliderState(true);
         ChangeState(States.Dead);
+
+        Invoke("CreateBlood", 3.0f);
+
         if (gameObject != null)
         {
-            Destroy(gameObject, 6f);
+            Destroy(gameObject, deathTime);
+        }
+    }
+
+    private void CreateBlood()
+    {
+        if (bloodSplat)
+        {
+            GameObject newBlood = Instantiate(bloodSplat, bloodSplatPosition.position, bloodSplat.transform.rotation);
+            newBlood.transform.position = newBlood.transform.position + newBlood.transform.forward * -1.3f;
         }
     }
 
