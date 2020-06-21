@@ -31,9 +31,11 @@ public class EnemyController : MonoBehaviour
     public float timer;
     public float deathTime;
     public float healthPoints;
+    public float damage;
     public float distance;
 
     private bool doOnce;
+    private Player player;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +46,7 @@ public class EnemyController : MonoBehaviour
         target = GameManager.Get().playerGO.transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        player = GameManager.Get().playerGO.GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -88,6 +91,11 @@ public class EnemyController : MonoBehaviour
     private void Attack()
     {
         ChangeState(States.Hit);
+    }
+
+    public void DoDamage()
+    {
+        player.ReceiveDamage(damage);
     }
 
     private void FaceTarget()

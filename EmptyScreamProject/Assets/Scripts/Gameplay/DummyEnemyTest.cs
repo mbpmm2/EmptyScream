@@ -27,7 +27,7 @@ public class DummyEnemyTest : MonoBehaviour
             {
                 if(currentPlayer != null)
                 {
-                    currentPlayer.CauseDamage(damage);
+                    currentPlayer.ReceiveDamage(damage);
                 }
 
                 damageRateTimer = 0;
