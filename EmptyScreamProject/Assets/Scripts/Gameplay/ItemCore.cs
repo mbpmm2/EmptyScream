@@ -10,8 +10,27 @@ public class ItemCore : MonoBehaviour
 
     public bool canUse;
     public bool canStack;
+    public ItemPickup.PickupType ammoType;
+    public int amountLeft;
 
     [Header("Icons & Text")]
+    public Image crosshair;
     public Sprite icon;
     public string amountText;
+
+    public void EnableCrosshair()
+    {
+        if(crosshair)
+        {
+            crosshair.gameObject.SetActive(true);
+        }
+    }
+
+    public void DisableCrosshair()
+    {
+        if (crosshair)
+        {
+            crosshair.gameObject.SetActive(false);
+        }
+    }
 }

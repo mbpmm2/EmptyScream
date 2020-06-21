@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Medkit : ItemCore
 {
-    public int amountLeft;
+    //public int amountLeft;
     public int healthPointsToGive;
 
     public bool canHeal;

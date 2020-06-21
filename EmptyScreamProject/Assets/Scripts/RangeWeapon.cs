@@ -19,15 +19,15 @@ public class RangeWeapon : ItemCore
     public float fireRate;
     public float impactForce;
 
-    public int bullets;
+    //public int bullets;
     public int clipMaxBullets;
     public int clipBullets;
     public float reloadTime;
-    private bool isReloading = false;
+    public bool isReloading = false;
 
     public Text bulletsDisplay;
     public Text clipBulletsDisplay;
-    public Image crosshair;
+    //public Image crosshair;
 
     public Camera cam;
     public ParticleSystem muzzleFlash;
@@ -49,7 +49,7 @@ public class RangeWeapon : ItemCore
 
     private void OnEnable()
     {
-        isReloading = false;
+        isReloading = false; // Check this.
         crosshair.gameObject.SetActive(true);
     }
 
@@ -64,7 +64,7 @@ public class RangeWeapon : ItemCore
 
     void Update()
     {
-        bulletsDisplay.text = bullets.ToString();
+        bulletsDisplay.text = amountLeft.ToString();
         clipBulletsDisplay.text = clipBullets.ToString();
 
         if (canUse)
@@ -76,7 +76,7 @@ public class RangeWeapon : ItemCore
 
             if (clipBullets <= 0)
             {
-                if (bullets > 0)
+                if (amountLeft > 0)
                 {
                     if (!doOnce)
                     {
@@ -106,6 +106,8 @@ public class RangeWeapon : ItemCore
             }
         }
     }
+
+    
 
     public void Shoot()
     {
@@ -154,9 +156,9 @@ public class RangeWeapon : ItemCore
 
         yield return new WaitForSeconds(reloadTime);
 
-        if (bullets>0)
+        if (amountLeft > 0)
         {
-            bullets -= clipMaxBullets;
+            amountLeft -= clipMaxBullets;
             clipBullets = clipMaxBullets;
             doOnce = false;
             //animator.Play("Shoot", -1, 1f);

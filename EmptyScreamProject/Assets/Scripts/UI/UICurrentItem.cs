@@ -16,6 +16,7 @@ public class UICurrentItem : MonoBehaviour
         PlayerInventory.OnNewStackableItem += ChangeIcon;
         PlayerInventory.OnNoNewStackableItem += DeleteIcon;
         ItemCore.OnStackableItemUse += UpdateText;
+        PlayerInventory.OnAmmoAdded += UpdateText;
     }
 
     public void UpdateText(string newText)
@@ -40,5 +41,6 @@ public class UICurrentItem : MonoBehaviour
         PlayerInventory.OnNewStackableItem -= ChangeIcon;
         PlayerInventory.OnNoNewStackableItem -= DeleteIcon;
         ItemCore.OnStackableItemUse -= UpdateText;
+        PlayerInventory.OnAmmoAdded -= UpdateText;
     }
 }

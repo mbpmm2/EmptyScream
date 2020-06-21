@@ -6,7 +6,7 @@ public class Syringe : ItemCore
 {
     
 
-    public int amountLeft;
+    //public int amountLeft;
     public float immunityTime;
 
    // public bool canInject;
@@ -40,6 +40,7 @@ public class Syringe : ItemCore
         if (!player.isImmune)
         {
             //canInject = false;
+            canUse = false;
             amountLeft--;
             animator.SetTrigger("Use");
             amountText = "" + amountLeft;
