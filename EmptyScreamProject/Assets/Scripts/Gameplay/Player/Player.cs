@@ -222,6 +222,12 @@ public class Player : MonoBehaviour
 
            // Debug.Log("gg ameo");
         }
+
+        /*if (other.gameObject.tag == "Hologram")
+        {
+            other.gameObject.GetComponent<HologramNPC>().Activate();
+            Debug.Log("entering");
+        }*/
     }
 
 
@@ -231,6 +237,12 @@ public class Player : MonoBehaviour
         {
             isBeingDamaged = false;
         }
+
+        /*if (other.gameObject.tag == "Hologram")
+        {
+            Debug.Log("exitt");
+            other.gameObject.GetComponent<HologramNPC>().Deactivate();
+        }*/
     }
 
     public void SetImmunityTimer(float time)
