@@ -10,8 +10,12 @@ public class EnemyDetection : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            controller.ChangeState(EnemyController.States.Follow);
-            controller.agent.isStopped = false;
+            if(controller.currentState != EnemyController.States.Dead)
+            {
+                controller.ChangeState(EnemyController.States.Follow);
+                controller.agent.isStopped = false;
+            }
+            
         }
         
     }
@@ -20,8 +24,11 @@ public class EnemyDetection : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            controller.ChangeState(EnemyController.States.Idle);
-            controller.agent.isStopped = true;
+            if (controller.currentState != EnemyController.States.Dead)
+            {
+                controller.ChangeState(EnemyController.States.Idle);
+                controller.agent.isStopped = true;
+            }
         }
     }
 }

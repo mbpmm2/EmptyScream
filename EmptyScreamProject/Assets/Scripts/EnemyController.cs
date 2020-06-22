@@ -196,6 +196,8 @@ public class EnemyController : MonoBehaviour
         SetRigidbodyState(false);
         SetColliderState(true);
         ChangeState(States.Dead);
+        //agent.enabled = false;
+        //agent.Stop();
 
         Invoke("CreateBlood", 3.0f);
 
