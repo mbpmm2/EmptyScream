@@ -46,7 +46,7 @@ public class ShadowsEvent : HallucinationEvent
 
     private void OnDestroy()
     {
-        OnHallucinationStart -= SpawnShadows;
-        OnHallucinationEnd -= DeleteShadows;
+        this.OnHallucinationStart -= SpawnShadows;
+        this.OnHallucinationEnd -= DeleteShadows;
     }
 }
