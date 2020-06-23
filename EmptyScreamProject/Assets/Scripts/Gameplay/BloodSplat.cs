@@ -12,12 +12,20 @@ public class BloodSplat : MonoBehaviour
     private bool canIncreaseSize;
     private float stayTimer;
     private float sizeTimer;
-    private DecalProjector decal;
+    private DecalProjector[] decals;
 
     // Start is called before the first frame update
     void Start()
     {
-        decal = GetComponent<DecalProjector>();
+        decals = new DecalProjector[2];
+        decals[0] = GetComponent<DecalProjector>();
+        decals[1] = transform.GetChild(0).GetComponent<DecalProjector>();
+        for (int i = 0; i < decals.Length; i++)
+        {
+            Vector3 newSize = new Vector3(0, 0, decals[i].size.z);
+            decals[i].size = newSize;
+        }
+        //decal = GetComponent<DecalProjector>();
         canIncreaseSize = true;
     }
 
@@ -28,9 +36,12 @@ public class BloodSplat : MonoBehaviour
         {
             sizeTimer += Time.deltaTime * sizeSpeedMultiplier;
 
-            Vector3 newSize = new Vector3(sizeTimer,sizeTimer,decal.size.z);
-
-            decal.size = newSize;
+            for (int i = 0; i < decals.Length; i++)
+            {
+                Vector3 newSize = new Vector3(sizeTimer, sizeTimer, decals[i].size.z);
+                decals[i].size = newSize;
+            }
+            
 
             if (sizeTimer >= desiredSize)
             {
