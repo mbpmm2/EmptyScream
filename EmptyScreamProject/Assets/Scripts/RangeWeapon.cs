@@ -93,6 +93,14 @@ public class RangeWeapon : ItemCore
             {
                 if (Input.GetButton("Fire1") && Time.time >= nextFire && clipBullets > 0)
                 {
+                    if (clipBullets==3)
+                    {
+                        AkSoundEngine.PostEvent("nail_gun_low_ammo", gameObject);
+                    }
+                    if (clipBullets == 1)
+                    {
+                        AkSoundEngine.PostEvent("nail_gun_last_bullet", gameObject);
+                    }
                     nextFire = Time.time + 1f / fireRate;
                     Shoot();
                 }
@@ -101,6 +109,14 @@ public class RangeWeapon : ItemCore
             {
                 if (Input.GetButtonDown("Fire1") && clipBullets > 0)
                 {
+                    if (clipBullets == 4)
+                    {
+                        AkSoundEngine.PostEvent("nail_gun_low_ammo", gameObject);
+                    }
+                    if (clipBullets == 2)
+                    {
+                        AkSoundEngine.PostEvent("nail_gun_last_bullet", gameObject);
+                    }
                     Shoot();
                 }
             }
@@ -116,7 +132,7 @@ public class RangeWeapon : ItemCore
         //animator.SetTrigger("Shoot");
         animator.Play("Shoot", -1, 0f);
         //implementar sonido
-        //AkSoundEngine.PostEvent("nail_gun_shoot", gameObject);
+        AkSoundEngine.PostEvent("nail_gun_shoot", gameObject);
         clipBullets--;
         muzzleFlash.Play();
         RaycastHit hit;
@@ -152,6 +168,7 @@ public class RangeWeapon : ItemCore
     {
         isReloading = true;
         Debug.Log("Reloading");
+        AkSoundEngine.PostEvent("nail_gun_reload", gameObject);
 
         yield return new WaitForSeconds(reloadTime);
 
