@@ -4,22 +4,23 @@ using UnityEngine;
 
 public class Syringe : ItemCore
 {
-    
-
-    //public int amountLeft;
     public float immunityTime;
+    public Color liquidColor;
+    public Color emptyColor;
 
-   // public bool canInject;
     private Animator animator;
+    public MeshRenderer mesh;
     public Player player;
 
     // Start is called before the first frame update
     void Start()
     {
+        PlayerInventory.OnSyringePickedUp += SetLiquidFull;
         //Player.OnImmunityStop += StopImmunity;
         //canInject = true;
         animator = GetComponent<Animator>();
         amountText = "" + amountLeft;
+        SetLiquidFull(UIInteract.UIPickupType.maxTypes);
     }
 
     // Update is called once per frame
@@ -45,6 +46,11 @@ public class Syringe : ItemCore
             animator.SetTrigger("Use");
             amountText = "" + amountLeft;
 
+            if(amountLeft <= 0)
+            {
+                Invoke("SetLiquidEmpty", 1f);
+            }
+
             if(OnStackableItemUse != null)
             {
                 OnStackableItemUse(amountText);
@@ -64,6 +70,16 @@ public class Syringe : ItemCore
         player.SetImmunityTimer(immunityTime);
     }
 
+    public void SetLiquidFull(UIInteract.UIPickupType type)
+    {
+        mesh.material.SetColor("_BaseColor", liquidColor);
+    }
+
+    public void SetLiquidEmpty()
+    {
+        mesh.material.SetColor("_BaseColor", emptyColor);
+    }
+
     /*private void StopImmunity()
     {
         canInject = true;
@@ -71,6 +87,6 @@ public class Syringe : ItemCore
 
     private void OnDestroy()
     {
-        //Player.OnImmunityStop -= StopImmunity;
+        PlayerInventory.OnSyringePickedUp -= SetLiquidFull;
     }
 }

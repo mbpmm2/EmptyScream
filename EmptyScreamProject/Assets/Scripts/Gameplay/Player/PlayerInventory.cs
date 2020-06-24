@@ -15,6 +15,7 @@ public class PlayerInventory : MonoBehaviour
     public static OnInventoryAction3 OnAmmoAdded;
     public static OnItemPickupAction OnItemAvailable;
     public static OnItemPickupAction OnItemNull;
+    public static OnItemPickupAction OnSyringePickedUp;
 
     [Header("Inventory Config")]
     public KeyCode[] hotkeyKeys;
@@ -276,6 +277,14 @@ public class PlayerInventory : MonoBehaviour
                         {
                             //items[newIndex].gameObject.GetComponent<RangeWeapon>().isReloading = false;
                             OnAmmoAdded(items[i].amountText);
+
+                            if(items[i].ammoType == ItemPickup.PickupType.syringe)
+                            {
+                                if(OnSyringePickedUp != null)
+                                {
+                                    OnSyringePickedUp(UIInteract.UIPickupType.maxTypes);
+                                }
+                            }
                         }
                         
                     }
