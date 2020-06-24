@@ -25,11 +25,14 @@ public class EnemyController : MonoBehaviour
 
     public GameObject bloodSplat;
     public Transform bloodSplatPosition;
-    public bool canFollow;
+
     Transform target;
     public NavMeshAgent agent;
+
     public float timer;
     public float deathTime;
+
+    public float sanityChangeValue;
     public float healthPoints;
     public float damage;
     public float distance;
@@ -196,6 +199,7 @@ public class EnemyController : MonoBehaviour
         SetRigidbodyState(false);
         SetColliderState(true);
         ChangeState(States.Dead);
+        player.ChangeSanityValue(sanityChangeValue);
         //agent.enabled = false;
         //agent.Stop();
 

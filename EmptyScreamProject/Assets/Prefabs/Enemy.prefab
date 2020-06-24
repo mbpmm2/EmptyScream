@@ -167,10 +167,10 @@ MonoBehaviour:
   bloodSplat: {fileID: 8559720990344066614, guid: 523be130463bf8e4b8845a8e9247eee4,
     type: 3}
   bloodSplatPosition: {fileID: 6335447453402425672}
-  canFollow: 0
   agent: {fileID: 0}
   timer: 0
   deathTime: 15
+  sanityChangeValue: -10
   healthPoints: 1000
   damage: 20
   distance: 0
