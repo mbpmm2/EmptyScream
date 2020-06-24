@@ -116,6 +116,8 @@ public class Player : MonoBehaviour
                 immunityTimer = 0;
             }
         }
+
+<<<<<<< HEAD
         if (lightsOnPlayer.Count != 0)
         {
             isInLight = true;
@@ -128,8 +130,7 @@ public class Player : MonoBehaviour
         if (!isInLight)
         {
             ChangeSanityValue(Time.deltaTime * -1f * decreaseSanitySpeed);
-        }
-
+=======
         RaycastHit hit;
 
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, rayDistance, rayCastLayer))
@@ -206,6 +207,7 @@ public class Player : MonoBehaviour
                 checkOnce = false;
             }
             Debug.DrawRay(cam.transform.position, cam.transform.forward * rayDistance, Color.white);
+>>>>>>> f288f0909def4112c8fc3ac1fa8a71c845bc7627
         }
     }
 
