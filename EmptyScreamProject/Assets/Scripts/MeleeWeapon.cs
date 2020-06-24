@@ -54,7 +54,6 @@ public class MeleeWeapon : ItemCore
 
         if (Physics.Raycast(cam.transform.position + (cam.transform.forward * 0.2f), cam.transform.forward, out hit, range))
         {
-            Debug.Log(hit.transform.name);
 
             GameObject impactGO;
             Target target = hit.transform.GetComponentInParent<Target>();

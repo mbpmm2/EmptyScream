@@ -100,7 +100,7 @@ public class UIPlayerStatus : MonoBehaviour
 
     private void UpdateSanityText(float sanity)
     {
-        sanityText.text = "" + sanity;
+        sanityText.text = sanity.ToString("F0");
     }
 
     public void ApplyNewStatus(int index)

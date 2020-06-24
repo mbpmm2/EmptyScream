@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 
@@ -51,12 +52,20 @@ public class Player : MonoBehaviour
     private float immunityTimer;
     private float immunityTime;
 
+
+    // Light effects
+    [Header("Darkness effect config")]
+    public bool isInLight;
+    public List<GameObject> lightsOnPlayer;
+    public float decreaseSanitySpeed;
+
     //[Header("Components Assigment")]
     //Player Inventory;
 
     // Start is called before the first frame update
     void Start()
     {
+        isInLight = true;
         screenShake = GetComponent<TraumaInducer>();
         fpsController = GetComponent<FirstPersonController>();
         fpsController.m_WalkSpeed = walkSpeed;
@@ -93,6 +102,20 @@ public class Player : MonoBehaviour
                 StopImmunity();
                 immunityTimer = 0;
             }
+        }
+
+        if (lightsOnPlayer.Count != 0)
+        {
+            isInLight = true;
+        }
+        else
+        {
+            isInLight = false;
+        }
+
+        if (!isInLight)
+        {
+            ChangeSanityValue(Time.deltaTime * -1f * decreaseSanitySpeed);
         }
     }
 
