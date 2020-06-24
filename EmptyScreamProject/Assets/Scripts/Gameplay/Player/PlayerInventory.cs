@@ -8,10 +8,13 @@ public class PlayerInventory : MonoBehaviour
     public delegate void OnInventoryAction(int index);
     public delegate void OnInventoryAction2(Sprite newIcon, string amount);
     public delegate void OnInventoryAction3(string amount);
+    public delegate void OnItemPickupAction(UIInteract.UIPickupType type);
     public OnInventoryAction OnInventoryChange;
     public static OnInventoryAction2 OnNewStackableItem;
     public static OnInventoryAction OnNoNewStackableItem;
     public static OnInventoryAction3 OnAmmoAdded;
+    public static OnItemPickupAction OnItemAvailable;
+    public static OnItemPickupAction OnItemNull;
 
     [Header("Inventory Config")]
     public KeyCode[] hotkeyKeys;
@@ -97,6 +100,12 @@ public class PlayerInventory : MonoBehaviour
                 case "pickup":
                     
                     Debug.DrawRay(cam.transform.position, cam.transform.forward * hit.distance, Color.green);
+
+                    if(OnItemAvailable != null)
+                    {
+                        OnItemAvailable(UIInteract.UIPickupType.defaultPickup);
+                    }
+
                     if (Input.GetKeyDown(pickupKey))
                     {
                         
@@ -105,12 +114,22 @@ public class PlayerInventory : MonoBehaviour
                         //PickUpItem(hit.transform.gameObject);
                     }
                     break;
+                case "interactable":
+                    break;
                 default:
+                    if(OnItemNull != null)
+                    {
+                        OnItemNull(UIInteract.UIPickupType.maxTypes);
+                    }
                     break;
             }
         }
         else
         {
+            /*if (OnItemNull != null)
+            {
+                OnItemNull(UIInteract.UIPickupType.maxTypes);
+            }*/
             Debug.DrawRay(cam.transform.position, cam.transform.forward * rayDistance, Color.white);
         }
     }
