@@ -5,6 +5,15 @@ using UnityEngine.UI;
 
 public class ItemCore : MonoBehaviour
 {
+    public enum ItemType
+    {
+        NailGun,
+        Wrench,
+        Bandages,
+        Syringe,
+        AllItems
+    }
+
     public delegate void OnItemAction(string amount);
     public static OnItemAction OnStackableItemUse;
 
@@ -12,6 +21,7 @@ public class ItemCore : MonoBehaviour
     public bool canStack;
     public ItemPickup.PickupType ammoType;
     public int amountLeft;
+    public ItemCore.ItemType itType;
 
     [Header("Icons & Text")]
     public Image crosshair;

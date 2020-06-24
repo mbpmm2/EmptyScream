@@ -72,6 +72,7 @@ public class PlayerInventory : MonoBehaviour
         //hotkeyItems[0].SetActive(true);
         items[0].EnableCrosshair();
         hotkeyItems[0].GetComponent<Animator>().SetTrigger("Draw");
+        AkSoundEngine.PostEvent("select_nail_gun", gameObject);
         lastIndex = 0;
         //ActivateItem(0);
     }
@@ -146,6 +147,24 @@ public class PlayerInventory : MonoBehaviour
 
                     hotkeyItems[lastIndex].GetComponent<Animator>().SetTrigger("Hide");
 
+                    switch (items[lastIndex].itType)
+                    {
+                        case ItemCore.ItemType.NailGun:
+                            AkSoundEngine.PostEvent("baja_nail_gun", gameObject);
+                            break;
+                        case ItemCore.ItemType.Wrench:
+                            AkSoundEngine.PostEvent("baja_wrench", gameObject);
+                            break;
+                        case ItemCore.ItemType.Bandages:
+                            AkSoundEngine.PostEvent("baja_bandages", gameObject);
+                            break;
+                        case ItemCore.ItemType.Syringe:
+                            AkSoundEngine.PostEvent("baja_jeringa", gameObject);
+                            break;
+                        case ItemCore.ItemType.AllItems:
+                            break;
+                    }
+
                     if (OnInventoryChange != null)
                     {
                         OnInventoryChange(index);
@@ -202,6 +221,23 @@ public class PlayerInventory : MonoBehaviour
         /* hotkeyItems[lastIndex].SetActive(false);
          hotkeyItems[newIndex].SetActive(true);*/
 
+        switch (items[newIndex].itType)
+        {
+            case ItemCore.ItemType.NailGun:
+                AkSoundEngine.PostEvent("select_nail_gun", gameObject);
+                break;
+            case ItemCore.ItemType.Wrench:
+                AkSoundEngine.PostEvent("select_wrench", gameObject);
+                break;
+            case ItemCore.ItemType.Bandages:
+                AkSoundEngine.PostEvent("select_bandages", gameObject);
+                break;
+            case ItemCore.ItemType.Syringe:
+                AkSoundEngine.PostEvent("select_jeringa", gameObject);
+                break;
+            case ItemCore.ItemType.AllItems:
+                break;
+        }
 
         hotkeyItems[newIndex].GetComponent<Animator>().SetTrigger("Draw");
         lastIndex = newIndex;
