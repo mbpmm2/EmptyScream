@@ -116,7 +116,7 @@ public class RangeWeapon : ItemCore
         //animator.SetTrigger("Shoot");
         animator.Play("Shoot", -1, 0f);
         //implementar sonido
-        //AkSoundEngine.PostEvent("shoot", gameObject);
+        //AkSoundEngine.PostEvent("nail_gun_shoot", gameObject);
         clipBullets--;
         muzzleFlash.Play();
         RaycastHit hit;
