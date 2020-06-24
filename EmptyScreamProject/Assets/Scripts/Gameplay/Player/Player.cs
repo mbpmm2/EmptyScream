@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     public delegate void OnPlayerStatusAction(float amount);
     public delegate void OnPlayerStatusAction2();
+    public delegate void OnInteractionAction(UIInteract.UIPickupType type);
     public static OnPlayerStatusAction OnPlayerChangeHP;
     public static OnPlayerStatusAction OnPlayerChangeSanity;
     public static OnPlayerStatusAction OnPlayerChangeSanityTier;
@@ -15,6 +16,9 @@ public class Player : MonoBehaviour
     public static OnPlayerStatusAction2 OnPlayerChangeHP2;
     public static OnPlayerStatusAction2 OnImmunityStart;
     public static OnPlayerStatusAction2 OnImmunityStop;
+    public static OnInteractionAction OnInteractAvailable;
+    public static OnInteractionAction OnInteractUnavailable;
+    public static OnInteractionAction OnInteractNull;
     // public static OnPlayerStatusAction OnPlayerChangeSanityStatus;
 
     [System.Serializable]
@@ -44,12 +48,20 @@ public class Player : MonoBehaviour
     public float speedMultiplier;
     public bool isImmune;
 
-    //public float damageSpeed;
+    [Header("Interact Settings")]
+    public KeyCode interactKey;
+    public Camera cam;
+    public LayerMask rayCastLayer;
+    public float rayDistance;
+
+    [Header("Private Variables")]
     public bool isBeingDamaged;
     private FirstPersonController fpsController;
     private int lastSanityIndex;
     private float immunityTimer;
     private float immunityTime;
+    private bool checkOnce;
+    private GameObject lastGO;
 
     //[Header("Components Assigment")]
     //Player Inventory;
@@ -63,6 +75,7 @@ public class Player : MonoBehaviour
         fpsController.m_RunSpeed = runSpeed;
         fpsController.crouchMovSpeed = crouchMovSpeed;
         lastSanityIndex = -1;
+        lastGO = gameObject;
 
         isImmune = false;
 
@@ -93,6 +106,84 @@ public class Player : MonoBehaviour
                 StopImmunity();
                 immunityTimer = 0;
             }
+        }
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, rayDistance, rayCastLayer))
+        {
+            Debug.DrawRay(cam.transform.position, cam.transform.forward * hit.distance, Color.yellow);
+
+            //string layerHitted = LayerMask.LayerToName(hit.transform.gameObject.layer);
+
+            switch (hit.transform.tag)
+            {
+                case "interactable":
+                    if(lastGO != hit.transform.gameObject)
+                    {
+                        lastGO = hit.transform.gameObject;
+                        checkOnce = false;
+                    }
+                    //Debug.Log("hitting door");
+                    Debug.DrawRay(cam.transform.position, cam.transform.forward * hit.distance, Color.green);
+
+                    if(!checkOnce)
+                    {
+                        if(hit.transform.gameObject.GetComponent<Door>().CheckInteract())
+                        {
+                            if (OnInteractAvailable != null)
+                            {
+                                OnInteractAvailable(UIInteract.UIPickupType.defaultPickup);
+                            }
+                        }
+                        else
+                        {
+                            if (OnInteractUnavailable != null)
+                            {
+                                OnInteractAvailable(UIInteract.UIPickupType.lockedPickup);
+                            }
+                        }
+
+                        checkOnce = true;
+                    }
+
+                    if (Input.GetKeyDown(interactKey))
+                    {
+                        hit.transform.gameObject.GetComponent<Interactable>().Interact();
+                        //CheckAmmoType(hit.transform.gameObject.GetComponent<ItemPickup>().itemInfo);
+                        //Debug.Log("getting ammo");
+                        //PickUpItem(hit.transform.gameObject);
+                    }
+                    break;
+                case "pickup":
+                    break;
+                default:
+                    if(OnInteractNull != null)
+                    {
+                        OnInteractNull(UIInteract.UIPickupType.maxTypes);
+                    }
+
+                    if (lastGO != gameObject)
+                    {
+                        lastGO = gameObject;
+                        checkOnce = false;
+                    }
+                    break;
+            }
+        }
+        else
+        {
+            if (OnInteractNull != null)
+            {
+                OnInteractNull(UIInteract.UIPickupType.maxTypes);
+            }
+
+            if (lastGO != gameObject)
+            {
+                lastGO = gameObject;
+                checkOnce = false;
+            }
+            Debug.DrawRay(cam.transform.position, cam.transform.forward * rayDistance, Color.white);
         }
     }
 
