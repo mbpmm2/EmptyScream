@@ -5918,6 +5918,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changeScene: 0
+  quickChange: 0
   nameOfNewScene: 
   screenToChangeTo: {fileID: 128236959}
 --- !u!114 &725568164
@@ -8535,6 +8536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changeScene: 1
+  quickChange: 0
   nameOfNewScene: Testing Area
   screenToChangeTo: {fileID: 0}
 --- !u!1 &928029039
@@ -8900,6 +8902,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changeScene: 0
+  quickChange: 0
   nameOfNewScene: 
   screenToChangeTo: {fileID: 165244917}
 --- !u!114 &967472891
@@ -21402,6 +21405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changeScene: 0
+  quickChange: 0
   nameOfNewScene: 
   screenToChangeTo: {fileID: 0}
 --- !u!114 &1798725390
