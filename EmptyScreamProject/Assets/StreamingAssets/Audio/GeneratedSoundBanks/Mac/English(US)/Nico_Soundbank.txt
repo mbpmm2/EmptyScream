@@ -1,0 +1,95 @@
+Event	ID	Name			Wwise Object Path	Notes
+	191847127	baja_nail_gun			\Default Work Unit\baja_nail_gun	
+	378167701	select_bandages			\Default Work Unit\select_bandages	
+	696679620	nail_gun_last_bullet			\Default Work Unit\nail_gun_last_bullet	
+	733168346	game_start			\Default Work Unit\game_start	
+	823633657	baja_bandages			\Default Work Unit\baja_bandages	
+	1184512974	nail_gun_low_ammo			\Default Work Unit\nail_gun_low_ammo	
+	1295127210	baja_jeringa			\Default Work Unit\baja_jeringa	
+	1305133589	player_jump			\Default Work Unit\player_jump	
+	1522848774	select_jeringa			\Default Work Unit\select_jeringa	
+	1694775219	select_nail_gun			\Default Work Unit\select_nail_gun	
+	2943739775	baja_wrench			\Default Work Unit\baja_wrench	
+	3461836331	player_step			\Default Work Unit\player_step	
+	3671605299	select_wrench			\Default Work Unit\select_wrench	
+	3701391786	nail_gun_shoot			\Default Work Unit\nail_gun_shoot	
+	3703715790	nail_gun_reload			\Default Work Unit\nail_gun_reload	
+
+Effect plug-ins	ID	Name	Type				Notes
+	702543456	Tunnel1	Wwise Matrix Reverb			
+
+Source plug-ins	ID	Name	Type		Wwise Object Path	Notes
+	81300148	Wwise Silence	Wwise Silence		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Far_Hits_R\Silence\Wwise Silence	
+	595792415	Wwise Silence	Wwise Silence		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Ambient\Dark_Moan\Empty Voice\Wwise Silence	
+	953756041	Wwise Silence	Wwise Silence		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Far_Hits_L\Silence_01\Wwise Silence	
+	955602833	Wwise Silence	Wwise Silence		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Far_Hits_L\Silence\Wwise Silence	
+	1046941887	Wwise Silence	Wwise Silence		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Far_Hits_R\Silence_01\Wwise Silence	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	10989375	Dark_Moan_Loop_4	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Dark_Moan_Loop_4_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Ambient\Dark_Moan\Dark_Moan_Loop_4		3456064
+	20835535	Hit_Far_L_07	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Hit_Far_L_07_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Far_Hits_L\Hit_Far_L_07		1440392
+	71290031	NailGun_Select_02	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\NailGun_Select_02_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\UI\Item_Select\Nail_Gun\NailGun_Select_02		319632
+	73324413	Jump_01	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Jump_01_D5E39482.wem		\Actor-Mixer Hierarchy\Nico\FootSteps\Jump\Jump_01		159036
+	93018211	NailGun_Select_03	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\NailGun_Select_03_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\UI\Item_Select\Nail_Gun\NailGun_Select_03		372348
+	110114193	Dark_Sub_Loop_3	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Dark_Sub_Loop_3_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Ambient\Sub_Dark_Loop\Dark_Sub_Loop_3		9984064
+	117654492	Dark_Moan_Loop_3	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Dark_Moan_Loop_3_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Ambient\Dark_Moan\Dark_Moan_Loop_3		3840064
+	129016264	Hit_Far_L_06	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Hit_Far_L_06_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Far_Hits_L\Hit_Far_L_06		972400
+	149574755	Wrench_Select_02	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Wrench_Select_02_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\UI\Item_Select\Wrench\Wrench_Select_02		298320
+	176788984	NailGun_Select_04	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\NailGun_Select_04_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\UI\Item_Select\Nail_Gun\NailGun_Select_04		282928
+	182955657	Footstep_Metal_Soft_11	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Footstep_Metal_Soft_5BC21FF1.wem		\Actor-Mixer Hierarchy\Nico\FootSteps\Pasos_Metal\Footstep_Metal_Soft_11		73964
+	200908208	Hit_Far_L_02	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Hit_Far_L_02_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Far_Hits_L\Hit_Far_L_02		1625612
+	202646735	NailGun_Low_Ammo_01	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\NailGun_Low_Ammo_01_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\NailGun\Nailgun_Low_Ammo\NailGun_Low_Ammo_01		164976
+	206493945	NailGun_Low_Ammo_02	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\NailGun_Low_Ammo_02_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\NailGun\Nailgun_Low_Ammo\NailGun_Low_Ammo_02		164976
+	219898293	Hit_Far_R_01	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Hit_Far_R_01_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Far_Hits_R\Hit_Far_R_01		1143164
+	223485006	Ship_Amb_1_Lp_3	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Ship_Amb_1_Lp_3_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Ambient\Ship_Amb\Ship_Amb_1_Lp_3		5568064
+	253365156	Footstep_Metal_Soft_07	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Footstep_Metal_Soft_CB5B0AC1.wem		\Actor-Mixer Hierarchy\Nico\FootSteps\Pasos_Metal\Footstep_Metal_Soft_07		119972
+	254092915	Hit_Far_R_04	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Hit_Far_R_04_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Far_Hits_R\Hit_Far_R_04		1015996
+	269839947	NailGun_Shoot_07	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\NailGun_Shoot_07_988892FC.wem		\Actor-Mixer Hierarchy\Nico\NailGun\NailGun_Shoot\NailGun_Shoot_07		240064
+	272320757	Footstep_Metal_Soft_01	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Footstep_Metal_Soft_1AB72212.wem		\Actor-Mixer Hierarchy\Nico\FootSteps\Pasos_Metal\Footstep_Metal_Soft_01		57550
+	312929799	Hit_Far_L_01	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Hit_Far_L_01_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Far_Hits_L\Hit_Far_L_01		1475388
+	319180865	Hit_Far_R_02	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Hit_Far_R_02_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Far_Hits_R\Hit_Far_R_02		943500
+	319512033	Footstep_Metal_Soft_12	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Footstep_Metal_Soft_C9B80A6C.wem		\Actor-Mixer Hierarchy\Nico\FootSteps\Pasos_Metal\Footstep_Metal_Soft_12		77308
+	326452331	Dark_Moan_Loop_2	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Dark_Moan_Loop_2_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Ambient\Dark_Moan\Dark_Moan_Loop_2		3840064
+	379350325	Dark_Moan_Loop_1	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Dark_Moan_Loop_1_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Ambient\Dark_Moan\Dark_Moan_Loop_1		5376064
+	402916509	Jeringa_Select_02	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Jeringa_Select_02_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\UI\Item_Select\Jeringa\Jeringa_Select_02		157284
+	421610206	NailGun_Last_Bullet_02	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\NailGun_Last_Bullet_02_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\NailGun\Nailgun_Last_Bullet\NailGun_Last_Bullet_02		134252
+	446978252	Hit_Far_L_09	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Hit_Far_L_09_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Far_Hits_L\Hit_Far_L_09		1758772
+	485337434	Hit_Far_R_06	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Hit_Far_R_06_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Far_Hits_R\Hit_Far_R_06		697196
+	506272813	Footstep_Metal_Soft_04	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Footstep_Metal_Soft_BC1F7CF6.wem		\Actor-Mixer Hierarchy\Nico\FootSteps\Pasos_Metal\Footstep_Metal_Soft_04		70758
+	520425410	Ship_Amb_1_Lp_2	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Ship_Amb_1_Lp_2_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Ambient\Ship_Amb\Ship_Amb_1_Lp_2		4800064
+	522514570	Footstep_Metal_Soft_13	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Footstep_Metal_Soft_034633FA.wem		\Actor-Mixer Hierarchy\Nico\FootSteps\Pasos_Metal\Footstep_Metal_Soft_13		66120
+	532499077	NailGun_Shoot_01	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\NailGun_Shoot_01_99A40EC1.wem		\Actor-Mixer Hierarchy\Nico\NailGun\NailGun_Shoot\NailGun_Shoot_01		240064
+	538051718	Dark_Moan_Loop_5	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Dark_Moan_Loop_5_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Ambient\Dark_Moan\Dark_Moan_Loop_5		4608064
+	564892891	Footstep_Metal_Soft_06	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Footstep_Metal_Soft_F825227B.wem		\Actor-Mixer Hierarchy\Nico\FootSteps\Pasos_Metal\Footstep_Metal_Soft_06		100490
+	585790461	Wrench_Select_01	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Wrench_Select_01_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\UI\Item_Select\Wrench\Wrench_Select_01		248940
+	593882865	Hit_Far_L_04	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Hit_Far_L_04_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Far_Hits_L\Hit_Far_L_04		1595508
+	681523002	NailGun_Select_01	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\NailGun_Select_01_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\UI\Item_Select\Nail_Gun\NailGun_Select_01		369720
+	684187754	NailGun_Shoot_08	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\NailGun_Shoot_08_9BFDC193.wem		\Actor-Mixer Hierarchy\Nico\NailGun\NailGun_Shoot\NailGun_Shoot_08		240064
+	706645540	NailGun_Shoot_02	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\NailGun_Shoot_02_72668A13.wem		\Actor-Mixer Hierarchy\Nico\NailGun\NailGun_Shoot\NailGun_Shoot_02		196096
+	722793495	Dark_Sub_Loop_2	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Dark_Sub_Loop_2_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Ambient\Sub_Dark_Loop\Dark_Sub_Loop_2		9216064
+	740038353	NailGun_Shoot_06	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\NailGun_Shoot_06_723F6905.wem		\Actor-Mixer Hierarchy\Nico\NailGun\NailGun_Shoot\NailGun_Shoot_06		157228
+	746289313	Dark_Sub_Loop_1	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Dark_Sub_Loop_1_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Ambient\Sub_Dark_Loop\Dark_Sub_Loop_1		7680064
+	760108935	NailGun_Last_Bullet_01	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\NailGun_Last_Bullet_01_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\NailGun\Nailgun_Last_Bullet\NailGun_Last_Bullet_01		134252
+	777193131	Benda_Select_01	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Benda_Select_01_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\UI\Item_Select\Bandita\Benda_Select_01		223284
+	781700512	Dark_Sub_Loop_4	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Dark_Sub_Loop_4_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Ambient\Sub_Dark_Loop\Dark_Sub_Loop_4		8425252
+	799232595	NailGun_Shoot_04	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\NailGun_Shoot_04_E13278C8.wem		\Actor-Mixer Hierarchy\Nico\NailGun\NailGun_Shoot\NailGun_Shoot_04		154584
+	820501827	Footstep_Metal_Soft_09	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Footstep_Metal_Soft_CDA14517.wem		\Actor-Mixer Hierarchy\Nico\FootSteps\Pasos_Metal\Footstep_Metal_Soft_09		69412
+	823842224	Hit_Far_R_05	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Hit_Far_R_05_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Far_Hits_R\Hit_Far_R_05		1447208
+	843921631	Jeringa_Select_01	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Jeringa_Select_01_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\UI\Item_Select\Jeringa\Jeringa_Select_01		283800
+	855659865	Hit_Far_L_08	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Hit_Far_L_08_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Far_Hits_L\Hit_Far_L_08		1290452
+	899011719	Hit_Far_L_05	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Hit_Far_L_05_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Far_Hits_L\Hit_Far_L_05		1617076
+	906501742	NailGun_Shoot_03	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\NailGun_Shoot_03_1B6E538D.wem		\Actor-Mixer Hierarchy\Nico\NailGun\NailGun_Shoot\NailGun_Shoot_03		158272
+	918450319	Footstep_Metal_Soft_03	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Footstep_Metal_Soft_79AFD5FB.wem		\Actor-Mixer Hierarchy\Nico\FootSteps\Pasos_Metal\Footstep_Metal_Soft_03		86716
+	925406703	Benda_Select_02	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Benda_Select_02_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\UI\Item_Select\Bandita\Benda_Select_02		258796
+	945943743	Footstep_Metal_Soft_02	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Footstep_Metal_Soft_F127A396.wem		\Actor-Mixer Hierarchy\Nico\FootSteps\Pasos_Metal\Footstep_Metal_Soft_02		71882
+	969845615	Hit_Far_R_03	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Hit_Far_R_03_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Far_Hits_R\Hit_Far_R_03		866680
+	976348142	Footstep_Metal_Soft	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Footstep_Metal_Soft_F5EA077F.wem		\Actor-Mixer Hierarchy\Nico\FootSteps\Pasos_Metal\Footstep_Metal_Soft		63672
+	983568055	NailGun_Shoot_05	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\NailGun_Shoot_05_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\NailGun\NailGun_Shoot\NailGun_Shoot_05		0
+	991047087	Ship_Amb_1_Lp_1	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Ship_Amb_1_Lp_1_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Ambient\Ship_Amb\Ship_Amb_1_Lp_1		5760064
+	992834667	Footstep_Metal_Soft_05	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Footstep_Metal_Soft_03404C7B.wem		\Actor-Mixer Hierarchy\Nico\FootSteps\Pasos_Metal\Footstep_Metal_Soft_05		86860
+	995748525	Hit_Far_L_03	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Hit_Far_L_03_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\Ambience\General Ambience\Far_Hits_L\Hit_Far_L_03		1411128
+	997277890	NailGun_Select_05	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\NailGun_Select_05_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\UI\Item_Select\Nail_Gun\NailGun_Select_05		306624
+	1034146626	NailGun_Reload_01	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\NailGun_Reload_01_10C4C929.wem		\Actor-Mixer Hierarchy\Nico\NailGun\NailGun_Reload_01		514908
+	1041346467	Footstep_Metal_Soft_10	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Footstep_Metal_Soft_555DB039.wem		\Actor-Mixer Hierarchy\Nico\FootSteps\Pasos_Metal\Footstep_Metal_Soft_10		74664
+	1045476222	Footstep_Metal_Soft_08	C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\SFX\Footstep_Metal_Soft_31DE17EB.wem		\Actor-Mixer Hierarchy\Nico\FootSteps\Pasos_Metal\Footstep_Metal_Soft_08		71860
+

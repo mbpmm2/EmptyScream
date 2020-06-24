@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Mac" BasePlatform="Mac" SchemaVersion="12" SoundbankVersion="135">
+	<RootPaths>
+		<ProjectRoot>C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\</ProjectRoot>
+		<SourceFilesRoot>C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\.cache\Mac\</SourceFilesRoot>
+		<SoundBanksRoot>C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\GeneratedSoundBanks\Mac\</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>C:\Users\Mariano Martinez\Desktop\EmptyScream\EmptyScreamProject_WwiseProject\GeneratedSoundBanks\Mac</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<StreamedFiles/>
+	<MediaFilesNotInAnyBank/>
+	<SoundBanks>
+		<SoundBank Id="1355168291" Language="SFX">
+			<ObjectPath>Init</ObjectPath>
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+		</SoundBank>
+		<SoundBank Id="2484424382" Language="English(US)">
+			<ObjectPath>\SoundBanks\Default Work Unit\Nico_Soundbank</ObjectPath>
+			<ShortName>Nico_Soundbank</ShortName>
+			<Path>English(US)\Nico_Soundbank.bnk</Path>
+			<IncludedEvents>
+				<Event Id="823633657" Name="baja_bandages" ObjectPath="\Events\Default Work Unit\baja_bandages" DurationType="OneShot" DurationMin="1.110103" DurationMax="1.411294"/>
+				<Event Id="1295127210" Name="baja_jeringa" ObjectPath="\Events\Default Work Unit\baja_jeringa" DurationType="OneShot" DurationMin="0.772895" DurationMax="1.565666"/>
+				<Event Id="191847127" Name="baja_nail_gun" ObjectPath="\Events\Default Work Unit\baja_nail_gun" DurationType="OneShot" DurationMin="1.390563" DurationMax="2.054277"/>
+				<Event Id="2943739775" Name="baja_wrench" ObjectPath="\Events\Default Work Unit\baja_wrench" DurationType="OneShot" DurationMin="1.223477" DurationMax="1.655322"/>
+				<Event Id="733168346" Name="game_start" ObjectPath="\Events\Default Work Unit\game_start" DurationType="Infinite"/>
+				<Event Id="696679620" Name="nail_gun_last_bullet" ObjectPath="\Events\Default Work Unit\nail_gun_last_bullet" DurationType="OneShot" DurationMin="0.659670" DurationMax="0.740454"/>
+				<Event Id="1184512974" Name="nail_gun_low_ammo" ObjectPath="\Events\Default Work Unit\nail_gun_low_ammo" DurationType="OneShot" DurationMin="0.806040" DurationMax="0.915262"/>
+				<Event Id="3703715790" Name="nail_gun_reload" ObjectPath="\Events\Default Work Unit\nail_gun_reload" DurationType="OneShot" DurationMin="2.530979" DurationMax="2.840928"/>
+				<Event Id="3701391786" Name="nail_gun_shoot" ObjectPath="\Events\Default Work Unit\nail_gun_shoot" DurationType="OneShot" DurationMin="0.000000" DurationMax="1.309118"/>
+				<Event Id="1305133589" Name="player_jump" ObjectPath="\Events\Default Work Unit\player_jump" DurationType="OneShot" DurationMin="0.781508" DurationMax="0.877213"/>
+				<Event Id="3461836331" Name="player_step" ObjectPath="\Events\Default Work Unit\player_step" DurationType="OneShot" DurationMin="0.591938" DurationMax="1.263551"/>
+				<Event Id="378167701" Name="select_bandages" ObjectPath="\Events\Default Work Unit\select_bandages" DurationType="OneShot" DurationMin="1.110103" DurationMax="1.411294"/>
+				<Event Id="1522848774" Name="select_jeringa" ObjectPath="\Events\Default Work Unit\select_jeringa" DurationType="OneShot" DurationMin="0.772895" DurationMax="1.565666"/>
+				<Event Id="1694775219" Name="select_nail_gun" ObjectPath="\Events\Default Work Unit\select_nail_gun" DurationType="OneShot" DurationMin="1.390563" DurationMax="2.054277"/>
+				<Event Id="3671605299" Name="select_wrench" ObjectPath="\Events\Default Work Unit\select_wrench" DurationType="OneShot" DurationMin="1.223477" DurationMax="1.655322"/>
+			</IncludedEvents>
+			<IncludedMemoryFiles>
+				<File Id="10989375" Language="SFX">
+					<ShortName>Dark_Moan_Loop_4.wav</ShortName>
+					<Path>SFX\Dark_Moan_Loop_4_10C4C929.wem</Path>
+				</File>
+				<File Id="20835535" Language="SFX">
+					<ShortName>Hit_Far_L_07.wav</ShortName>
+					<Path>SFX\Hit_Far_L_07_10C4C929.wem</Path>
+				</File>
+				<File Id="71290031" Language="SFX">
+					<ShortName>NailGun_Select_02.wav</ShortName>
+					<Path>SFX\NailGun_Select_02_10C4C929.wem</Path>
+				</File>
+				<File Id="73324413" Language="SFX">
+					<ShortName>Jump_01.wav</ShortName>
+					<Path>SFX\Jump_01_D5E39482.wem</Path>
+				</File>
+				<File Id="93018211" Language="SFX">
+					<ShortName>NailGun_Select_03.wav</ShortName>
+					<Path>SFX\NailGun_Select_03_10C4C929.wem</Path>
+				</File>
+				<File Id="110114193" Language="SFX">
+					<ShortName>Dark_Sub_Loop_3.wav</ShortName>
+					<Path>SFX\Dark_Sub_Loop_3_10C4C929.wem</Path>
+				</File>
+				<File Id="117654492" Language="SFX">
+					<ShortName>Dark_Moan_Loop_3.wav</ShortName>
+					<Path>SFX\Dark_Moan_Loop_3_10C4C929.wem</Path>
+				</File>
+				<File Id="129016264" Language="SFX">
+					<ShortName>Hit_Far_L_06.wav</ShortName>
+					<Path>SFX\Hit_Far_L_06_10C4C929.wem</Path>
+				</File>
+				<File Id="149574755" Language="SFX">
+					<ShortName>Wrench_Select_02.wav</ShortName>
+					<Path>SFX\Wrench_Select_02_10C4C929.wem</Path>
+				</File>
+				<File Id="176788984" Language="SFX">
+					<ShortName>NailGun_Select_04.wav</ShortName>
+					<Path>SFX\NailGun_Select_04_10C4C929.wem</Path>
+				</File>
+				<File Id="182955657" Language="SFX">
+					<ShortName>Footstep_Metal_Soft.wav</ShortName>
+					<Path>SFX\Footstep_Metal_Soft_5BC21FF1.wem</Path>
+				</File>
+				<File Id="200908208" Language="SFX">
+					<ShortName>Hit_Far_L_02.wav</ShortName>
+					<Path>SFX\Hit_Far_L_02_10C4C929.wem</Path>
+				</File>
+				<File Id="202646735" Language="SFX">
+					<ShortName>NailGun_Low_Ammo_01.wav</ShortName>
+					<Path>SFX\NailGun_Low_Ammo_01_10C4C929.wem</Path>
+				</File>
+				<File Id="206493945" Language="SFX">
+					<ShortName>NailGun_Low_Ammo_02.wav</ShortName>
+					<Path>SFX\NailGun_Low_Ammo_02_10C4C929.wem</Path>
+				</File>
+				<File Id="219898293" Language="SFX">
+					<ShortName>Hit_Far_R_01.wav</ShortName>
+					<Path>SFX\Hit_Far_R_01_10C4C929.wem</Path>
+				</File>
+				<File Id="223485006" Language="SFX">
+					<ShortName>Ship_Amb_1_Lp_3.wav</ShortName>
+					<Path>SFX\Ship_Amb_1_Lp_3_10C4C929.wem</Path>
+				</File>
+				<File Id="253365156" Language="SFX">
+					<ShortName>Footstep_Metal_Soft.wav</ShortName>
+					<Path>SFX\Footstep_Metal_Soft_CB5B0AC1.wem</Path>
+				</File>
+				<File Id="254092915" Language="SFX">
+					<ShortName>Hit_Far_R_04.wav</ShortName>
+					<Path>SFX\Hit_Far_R_04_10C4C929.wem</Path>
+				</File>
+				<File Id="269839947" Language="SFX">
+					<ShortName>NailGun_Shoot_07.wav</ShortName>
+					<Path>SFX\NailGun_Shoot_07_988892FC.wem</Path>
+				</File>
+				<File Id="272320757" Language="SFX">
+					<ShortName>Footstep_Metal_Soft.wav</ShortName>
+					<Path>SFX\Footstep_Metal_Soft_1AB72212.wem</Path>
+				</File>
+				<File Id="312929799" Language="SFX">
+					<ShortName>Hit_Far_L_01.wav</ShortName>
+					<Path>SFX\Hit_Far_L_01_10C4C929.wem</Path>
+				</File>
+				<File Id="319180865" Language="SFX">
+					<ShortName>Hit_Far_R_02.wav</ShortName>
+					<Path>SFX\Hit_Far_R_02_10C4C929.wem</Path>
+				</File>
+				<File Id="319512033" Language="SFX">
+					<ShortName>Footstep_Metal_Soft.wav</ShortName>
+					<Path>SFX\Footstep_Metal_Soft_C9B80A6C.wem</Path>
+				</File>
+				<File Id="326452331" Language="SFX">
+					<ShortName>Dark_Moan_Loop_2.wav</ShortName>
+					<Path>SFX\Dark_Moan_Loop_2_10C4C929.wem</Path>
+				</File>
+				<File Id="379350325" Language="SFX">
+					<ShortName>Dark_Moan_Loop_1.wav</ShortName>
+					<Path>SFX\Dark_Moan_Loop_1_10C4C929.wem</Path>
+				</File>
+				<File Id="402916509" Language="SFX">
+					<ShortName>Jeringa_Select_02.wav</ShortName>
+					<Path>SFX\Jeringa_Select_02_10C4C929.wem</Path>
+				</File>
+				<File Id="421610206" Language="SFX">
+					<ShortName>NailGun_Last_Bullet_02.wav</ShortName>
+					<Path>SFX\NailGun_Last_Bullet_02_10C4C929.wem</Path>
+				</File>
+				<File Id="446978252" Language="SFX">
+					<ShortName>Hit_Far_L_09.wav</ShortName>
+					<Path>SFX\Hit_Far_L_09_10C4C929.wem</Path>
+				</File>
+				<File Id="485337434" Language="SFX">
+					<ShortName>Hit_Far_R_06.wav</ShortName>
+					<Path>SFX\Hit_Far_R_06_10C4C929.wem</Path>
+				</File>
+				<File Id="506272813" Language="SFX">
+					<ShortName>Footstep_Metal_Soft.wav</ShortName>
+					<Path>SFX\Footstep_Metal_Soft_BC1F7CF6.wem</Path>
+				</File>
+				<File Id="520425410" Language="SFX">
+					<ShortName>Ship_Amb_1_Lp_2.wav</ShortName>
+					<Path>SFX\Ship_Amb_1_Lp_2_10C4C929.wem</Path>
+				</File>
+				<File Id="522514570" Language="SFX">
+					<ShortName>Footstep_Metal_Soft.wav</ShortName>
+					<Path>SFX\Footstep_Metal_Soft_034633FA.wem</Path>
+				</File>
+				<File Id="532499077" Language="SFX">
+					<ShortName>NailGun_Shoot_01.wav</ShortName>
+					<Path>SFX\NailGun_Shoot_01_99A40EC1.wem</Path>
+				</File>
+				<File Id="538051718" Language="SFX">
+					<ShortName>Dark_Moan_Loop_5.wav</ShortName>
+					<Path>SFX\Dark_Moan_Loop_5_10C4C929.wem</Path>
+				</File>
+				<File Id="564892891" Language="SFX">
+					<ShortName>Footstep_Metal_Soft.wav</ShortName>
+					<Path>SFX\Footstep_Metal_Soft_F825227B.wem</Path>
+				</File>
+				<File Id="585790461" Language="SFX">
+					<ShortName>Wrench_Select_01.wav</ShortName>
+					<Path>SFX\Wrench_Select_01_10C4C929.wem</Path>
+				</File>
+				<File Id="593882865" Language="SFX">
+					<ShortName>Hit_Far_L_04.wav</ShortName>
+					<Path>SFX\Hit_Far_L_04_10C4C929.wem</Path>
+				</File>
+				<File Id="681523002" Language="SFX">
+					<ShortName>NailGun_Select_01.wav</ShortName>
+					<Path>SFX\NailGun_Select_01_10C4C929.wem</Path>
+				</File>
+				<File Id="684187754" Language="SFX">
+					<ShortName>NailGun_Shoot_08.wav</ShortName>
+					<Path>SFX\NailGun_Shoot_08_9BFDC193.wem</Path>
+				</File>
+				<File Id="706645540" Language="SFX">
+					<ShortName>NailGun_Shoot_02.wav</ShortName>
+					<Path>SFX\NailGun_Shoot_02_72668A13.wem</Path>
+				</File>
+				<File Id="722793495" Language="SFX">
+					<ShortName>Dark_Sub_Loop_2.wav</ShortName>
+					<Path>SFX\Dark_Sub_Loop_2_10C4C929.wem</Path>
+				</File>
+				<File Id="740038353" Language="SFX">
+					<ShortName>NailGun_Shoot_06.wav</ShortName>
+					<Path>SFX\NailGun_Shoot_06_723F6905.wem</Path>
+				</File>
+				<File Id="746289313" Language="SFX">
+					<ShortName>Dark_Sub_Loop_1.wav</ShortName>
+					<Path>SFX\Dark_Sub_Loop_1_10C4C929.wem</Path>
+				</File>
+				<File Id="760108935" Language="SFX">
+					<ShortName>NailGun_Last_Bullet_01.wav</ShortName>
+					<Path>SFX\NailGun_Last_Bullet_01_10C4C929.wem</Path>
+				</File>
+				<File Id="777193131" Language="SFX">
+					<ShortName>Benda_Select_01.wav</ShortName>
+					<Path>SFX\Benda_Select_01_10C4C929.wem</Path>
+				</File>
+				<File Id="781700512" Language="SFX">
+					<ShortName>Dark_Sub_Loop_4.wav</ShortName>
+					<Path>SFX\Dark_Sub_Loop_4_10C4C929.wem</Path>
+				</File>
+				<File Id="799232595" Language="SFX">
+					<ShortName>NailGun_Shoot_04.wav</ShortName>
+					<Path>SFX\NailGun_Shoot_04_E13278C8.wem</Path>
+				</File>
+				<File Id="820501827" Language="SFX">
+					<ShortName>Footstep_Metal_Soft.wav</ShortName>
+					<Path>SFX\Footstep_Metal_Soft_CDA14517.wem</Path>
+				</File>
+				<File Id="823842224" Language="SFX">
+					<ShortName>Hit_Far_R_05.wav</ShortName>
+					<Path>SFX\Hit_Far_R_05_10C4C929.wem</Path>
+				</File>
+				<File Id="843921631" Language="SFX">
+					<ShortName>Jeringa_Select_01.wav</ShortName>
+					<Path>SFX\Jeringa_Select_01_10C4C929.wem</Path>
+				</File>
+				<File Id="855659865" Language="SFX">
+					<ShortName>Hit_Far_L_08.wav</ShortName>
+					<Path>SFX\Hit_Far_L_08_10C4C929.wem</Path>
+				</File>
+				<File Id="899011719" Language="SFX">
+					<ShortName>Hit_Far_L_05.wav</ShortName>
+					<Path>SFX\Hit_Far_L_05_10C4C929.wem</Path>
+				</File>
+				<File Id="906501742" Language="SFX">
+					<ShortName>NailGun_Shoot_03.wav</ShortName>
+					<Path>SFX\NailGun_Shoot_03_1B6E538D.wem</Path>
+				</File>
+				<File Id="918450319" Language="SFX">
+					<ShortName>Footstep_Metal_Soft.wav</ShortName>
+					<Path>SFX\Footstep_Metal_Soft_79AFD5FB.wem</Path>
+				</File>
+				<File Id="925406703" Language="SFX">
+					<ShortName>Benda_Select_02.wav</ShortName>
+					<Path>SFX\Benda_Select_02_10C4C929.wem</Path>
+				</File>
+				<File Id="945943743" Language="SFX">
+					<ShortName>Footstep_Metal_Soft.wav</ShortName>
+					<Path>SFX\Footstep_Metal_Soft_F127A396.wem</Path>
+				</File>
+				<File Id="969845615" Language="SFX">
+					<ShortName>Hit_Far_R_03.wav</ShortName>
+					<Path>SFX\Hit_Far_R_03_10C4C929.wem</Path>
+				</File>
+				<File Id="976348142" Language="SFX">
+					<ShortName>Footstep_Metal_Soft.wav</ShortName>
+					<Path>SFX\Footstep_Metal_Soft_F5EA077F.wem</Path>
+				</File>
+				<File Id="983568055" Language="SFX">
+					<ShortName>NailGun_Shoot_05.wav</ShortName>
+					<Path>SFX\NailGun_Shoot_05_10C4C929.wem</Path>
+				</File>
+				<File Id="991047087" Language="SFX">
+					<ShortName>Ship_Amb_1_Lp_1.wav</ShortName>
+					<Path>SFX\Ship_Amb_1_Lp_1_10C4C929.wem</Path>
+				</File>
+				<File Id="992834667" Language="SFX">
+					<ShortName>Footstep_Metal_Soft.wav</ShortName>
+					<Path>SFX\Footstep_Metal_Soft_03404C7B.wem</Path>
+				</File>
+				<File Id="995748525" Language="SFX">
+					<ShortName>Hit_Far_L_03.wav</ShortName>
+					<Path>SFX\Hit_Far_L_03_10C4C929.wem</Path>
+				</File>
+				<File Id="997277890" Language="SFX">
+					<ShortName>NailGun_Select_05.wav</ShortName>
+					<Path>SFX\NailGun_Select_05_10C4C929.wem</Path>
+				</File>
+				<File Id="1034146626" Language="SFX">
+					<ShortName>NailGun_Reload_01.wav</ShortName>
+					<Path>SFX\NailGun_Reload_01_10C4C929.wem</Path>
+				</File>
+				<File Id="1041346467" Language="SFX">
+					<ShortName>Footstep_Metal_Soft.wav</ShortName>
+					<Path>SFX\Footstep_Metal_Soft_555DB039.wem</Path>
+				</File>
+				<File Id="1045476222" Language="SFX">
+					<ShortName>Footstep_Metal_Soft.wav</ShortName>
+					<Path>SFX\Footstep_Metal_Soft_31DE17EB.wem</Path>
+				</File>
+			</IncludedMemoryFiles>
+		</SoundBank>
+	</SoundBanks>
+</SoundBanksInfo>
