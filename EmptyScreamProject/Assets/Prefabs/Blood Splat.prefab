@@ -66,6 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2aedf3b13a6cab41b76e7b6a920c056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isParent: 0
   stayTime: 30
   sizeSpeedMultiplier: 0.6
   desiredSize: 5
@@ -136,6 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2aedf3b13a6cab41b76e7b6a920c056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isParent: 1
   stayTime: 30
   sizeSpeedMultiplier: 0.6
   desiredSize: 5

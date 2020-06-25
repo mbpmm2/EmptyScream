@@ -5,6 +5,7 @@ using UnityEngine.Rendering.HighDefinition;
 
 public class BloodSplat : MonoBehaviour
 {
+    public bool isParent;
     public float stayTime;
     public float sizeSpeedMultiplier;
     public float desiredSize;
@@ -17,9 +18,19 @@ public class BloodSplat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        decals = new DecalProjector[2];
+        
+        if(isParent)
+        {
+            decals = new DecalProjector[2];
+            decals[1] = transform.GetChild(0).GetComponent<DecalProjector>();
+        }
+        else
+        {
+            decals = new DecalProjector[1];
+        }
+
         decals[0] = GetComponent<DecalProjector>();
-        decals[1] = transform.GetChild(0).GetComponent<DecalProjector>();
+
         for (int i = 0; i < decals.Length; i++)
         {
             Vector3 newSize = new Vector3(0, 0, decals[i].size.z);

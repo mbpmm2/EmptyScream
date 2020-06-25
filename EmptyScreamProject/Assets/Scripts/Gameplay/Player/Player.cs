@@ -106,6 +106,22 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            ForceSanityValue(sanityTierRanges[0].y-1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            ForceSanityValue(sanityTierRanges[1].y - 1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            ForceSanityValue(sanityTierRanges[2].y - 1);
+        }
+
+
         if (isImmune)
         {
             immunityTimer += Time.deltaTime;
@@ -259,6 +275,35 @@ public class Player : MonoBehaviour
         }
 
         return true;
+    }
+
+    public void ForceSanityValue(float amount)
+    {
+        sanity = amount;
+
+        for (int i = 0; i < sanityTierRanges.Length; i++)
+        {
+            if (sanity <= sanityTierRanges[i].y && sanity >= sanityTierRanges[i].x)
+            {
+                ApplyNewSanityStatus(i);
+                i = sanityTierRanges.Length;
+            }
+        }
+
+        if (sanity <= 0)
+        {
+            sanity = 0;
+        }
+
+        if (OnPlayerChangeSanity != null)
+        {
+            OnPlayerChangeSanity(sanity);
+        }
+
+        if (OnPlayerAffectedBySanity != null)
+        {
+            OnPlayerAffectedBySanity();
+        }
     }
 
     public void ChangeSanityValue(float amount)
