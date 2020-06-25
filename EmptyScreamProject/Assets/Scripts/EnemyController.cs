@@ -98,10 +98,21 @@ public class EnemyController : MonoBehaviour
 
     public void DoDamage()
     {
+        AkSoundEngine.PostEvent("Attack_E", this.gameObject);
         if (distance <= agent.stoppingDistance)
         {
             player.ReceiveDamage(damage);
         }
+    }
+
+    public void PlayFootStep()
+    {
+        AkSoundEngine.PostEvent("Steps_E", this.gameObject);
+    }
+
+    public void PlayIdle()
+    {
+        AkSoundEngine.PostEvent("Enemy_Idle", this.gameObject);
     }
 
     private void FaceTarget()
@@ -127,6 +138,7 @@ public class EnemyController : MonoBehaviour
     private void MovementUpdate()
     {
         agent.SetDestination(target.position);
+        
     }
 
     public void ChangeState(States newState)
@@ -142,14 +154,13 @@ public class EnemyController : MonoBehaviour
                 animator.SetBool("Follow", false);
                 break;
             case States.Follow:
-                animator.SetBool("Stun", false);
+                
                 animator.SetBool("Idle", false);
                 animator.SetBool("Follow", true);
                 animator.SetBool("Hit", false);
                 agent.SetDestination(target.position);
                 break;
             case States.Hit:
-                animator.SetBool("Stun", false);
                 animator.SetBool("Idle", false);
                 animator.SetBool("Follow", false);
                 animator.SetBool("Hit", true);
@@ -194,6 +205,7 @@ public class EnemyController : MonoBehaviour
 
     public void Die()
     {
+        AkSoundEngine.PostEvent("Death_E", this.gameObject);
         agent.isStopped = true;
         GetComponent<Animator>().enabled = false;
         SetRigidbodyState(false);

@@ -64,8 +64,14 @@ public class MeleeWeapon : ItemCore
 
             if (target != null)
             {
+                if (target.health >= 0)
+                {
+                    AkSoundEngine.PostEvent("Hit_E_Wrench", gameObject);
+                }
                 target.TakeDamage(damage);
                 impactGO = Instantiate(impactTarget, hit.point, Quaternion.LookRotation(hit.normal));
+                
+                
             }
             else
             {
