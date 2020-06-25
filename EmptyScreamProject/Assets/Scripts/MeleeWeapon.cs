@@ -7,6 +7,7 @@ using UnityEngine.Rendering;
 public class MeleeWeapon : ItemCore
 {
     public float damage;
+    private float originalDamage;
     public float impactForce;
     public float range;
 
@@ -22,6 +23,7 @@ public class MeleeWeapon : ItemCore
 
     void Start()
     {
+        originalDamage = damage;
         animator = GetComponent<Animator>();
         player = GameManager.Get().playerGO.GetComponent<Player>();
         Player.OnPlayerChangeSanityTier += UpdateDamage;
@@ -90,6 +92,6 @@ public class MeleeWeapon : ItemCore
 
     public void UpdateDamage(float test)
     {
-        damage = damage * player.damageMultiplier;
+        damage = originalDamage * player.damageMultiplier;
     }
 }
