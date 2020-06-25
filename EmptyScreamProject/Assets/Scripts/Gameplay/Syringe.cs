@@ -9,7 +9,7 @@ public class Syringe : ItemCore
     public Color emptyColor;
 
     private Animator animator;
-    public MeshRenderer mesh;
+    public MeshRenderer[] mesh;
     public Player player;
 
     // Start is called before the first frame update
@@ -72,12 +72,19 @@ public class Syringe : ItemCore
 
     public void SetLiquidFull(UIInteract.UIPickupType type)
     {
-        mesh.material.SetColor("_BaseColor", liquidColor);
+        for (int i = 0; i < mesh.Length; i++)
+        {
+            mesh[i].material.SetColor("_BaseColor", liquidColor);
+        }
+        
     }
 
     public void SetLiquidEmpty()
     {
-        mesh.material.SetColor("_BaseColor", emptyColor);
+        for (int i = 0; i < mesh.Length; i++)
+        {
+            mesh[i].material.SetColor("_BaseColor", emptyColor);
+        }
     }
 
     /*private void StopImmunity()
