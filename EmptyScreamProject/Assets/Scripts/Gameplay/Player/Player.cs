@@ -167,20 +167,31 @@ public class Player : MonoBehaviour
 
                     if(!checkOnce)
                     {
-                        if(hit.transform.gameObject.GetComponent<Door>().CheckInteract())
+                        if(hit.transform.gameObject.GetComponent<Door>())
+                        {
+                            if (hit.transform.gameObject.GetComponent<Door>().CheckInteract())
+                            {
+                                if (OnInteractAvailable != null)
+                                {
+                                    OnInteractAvailable(UIInteract.UIPickupType.defaultPickup);
+                                }
+                            }
+                            else
+                            {
+                                if (OnInteractUnavailable != null)
+                                {
+                                    OnInteractAvailable(UIInteract.UIPickupType.lockedPickup);
+                                }
+                            }
+                        }
+                        else if(hit.transform.gameObject.GetComponent<ButtonWorld>())
                         {
                             if (OnInteractAvailable != null)
                             {
                                 OnInteractAvailable(UIInteract.UIPickupType.defaultPickup);
                             }
                         }
-                        else
-                        {
-                            if (OnInteractUnavailable != null)
-                            {
-                                OnInteractAvailable(UIInteract.UIPickupType.lockedPickup);
-                            }
-                        }
+                        
 
                         checkOnce = true;
                     }
@@ -188,9 +199,6 @@ public class Player : MonoBehaviour
                     if (Input.GetKeyDown(interactKey))
                     {
                         hit.transform.gameObject.GetComponent<Interactable>().Interact();
-                        //CheckAmmoType(hit.transform.gameObject.GetComponent<ItemPickup>().itemInfo);
-                        //Debug.Log("getting ammo");
-                        //PickUpItem(hit.transform.gameObject);
                     }
                     break;
                 case "pickup":

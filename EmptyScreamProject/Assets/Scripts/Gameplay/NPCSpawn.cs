@@ -19,7 +19,12 @@ public class NPCSpawn : MonoBehaviour
     {
         if(Input.GetKeyDown(spawnKey))
         {
-            Instantiate(npcToSpawn, spawnPosition.position, spawnPosition.rotation);
+            SpawnNPC();
         }
+    }
+
+    public void SpawnNPC()
+    {
+        Instantiate(npcToSpawn, spawnPosition.position, spawnPosition.rotation);
     }
 }
