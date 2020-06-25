@@ -51,6 +51,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float t = 0;
         public float crouchSpeed;
         public float crouchMovSpeed;
+        public LayerMask layer;
 
         public float originalSpeed;
         public float originalRunSpeed;
@@ -98,8 +99,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             if (Input.GetKeyDown(KeyCode.C))
             {
-                m_IsCrouching = !m_IsCrouching;
-                t = 0;
+                if (CanStandUp())
+                {
+                    m_IsCrouching = !m_IsCrouching;
+                    t = 0;
+                }
+                
             }
 
             CheckCrouch();
@@ -122,6 +127,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_CharacterController.height = Mathf.Lerp(crouchHeight, originalHeight, t * crouchSpeed);
                 m_WalkSpeed = originalSpeed;
             }
+        }
+
+        private bool CanStandUp()
+        {
+            if (Physics.CheckCapsule(transform.position + Vector3.up * (crouchHeight),transform.position + Vector3.up * (originalHeight - m_CharacterController.radius),
+                 m_CharacterController.radius - Physics.defaultContactOffset, layer, QueryTriggerInteraction.Ignore))
+                return false;
+            else
+                return true; // can  stand up
         }
 
         private void PlayLandingSound()
