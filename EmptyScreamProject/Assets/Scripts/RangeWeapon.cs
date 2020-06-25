@@ -83,15 +83,15 @@ public class RangeWeapon : ItemCore
                         animator.Play("Reload", -1, 0f);
                         doOnce = true;
                     }
-
+                    StartCoroutine(Reload());
                 }
-                StartCoroutine(Reload());
+                
                 return;
             }
 
             if (type == WeaponType.Automatic)
             {
-                if (Input.GetButton("Fire1") && Time.time >= nextFire && clipBullets > 0)
+                if (Input.GetMouseButton(0) && Time.time >= nextFire && clipBullets > 0)
                 {
                     if (clipBullets==3)
                     {
@@ -107,7 +107,7 @@ public class RangeWeapon : ItemCore
             }
             else if (type == WeaponType.SemiAutomatic)
             {
-                if (Input.GetButtonDown("Fire1") && clipBullets > 0)
+                if (Input.GetMouseButtonDown(0) && clipBullets > 0)
                 {
                     if (clipBullets == 4)
                     {
@@ -174,9 +174,18 @@ public class RangeWeapon : ItemCore
 
         if (amountLeft > 0)
         {
-            amountLeft -= clipMaxBullets;
-            clipBullets = clipMaxBullets;
-            doOnce = false;
+            if (amountLeft<clipMaxBullets)
+            {
+                clipBullets = amountLeft;
+                amountLeft = 0;
+            }
+            else
+            {
+                amountLeft -= clipMaxBullets;
+                clipBullets = clipMaxBullets;
+                doOnce = false;
+            }
+            
             //animator.Play("Shoot", -1, 1f);
         }
         

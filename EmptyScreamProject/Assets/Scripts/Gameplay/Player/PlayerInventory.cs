@@ -266,6 +266,12 @@ public class PlayerInventory : MonoBehaviour
             if(items[i].ammoType == itemInfo.type)
             {
                 hasFoundItem = true;
+
+                if (items[i].amountLeft == 0)
+                {
+                    hotkeyItems[i].GetComponent<Animator>().Play("Reload", -1, 0f);
+                }
+
                 items[i].amountLeft += itemInfo.amount;
                 items[i].amountText = "" + items[i].amountLeft;
 
