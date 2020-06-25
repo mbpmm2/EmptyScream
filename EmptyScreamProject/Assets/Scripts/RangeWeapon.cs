@@ -74,7 +74,7 @@ public class RangeWeapon : ItemCore
                 return;
             }
 
-            if (clipBullets <= 0)
+            if (clipBullets <= 0 || (Input.GetKeyDown(KeyCode.R) && clipBullets<clipMaxBullets))
             {
                 if (amountLeft > 0)
                 {
@@ -187,12 +187,20 @@ public class RangeWeapon : ItemCore
             }
             else
             {
-                amountLeft -= clipMaxBullets;
-                clipBullets = clipMaxBullets;
-                doOnce = false;
+                if (clipBullets < clipMaxBullets && clipBullets > 0)
+                {
+                    int aux = clipMaxBullets - clipBullets;
+                    amountLeft -= aux;
+                    clipBullets = clipMaxBullets;
+                    doOnce = false;
+                }
+                else
+                {
+                    amountLeft -= clipMaxBullets;
+                    clipBullets = clipMaxBullets;
+                    doOnce = false;
+                }
             }
-            
-            //animator.Play("Shoot", -1, 1f);
         }
         
         isReloading = false;
