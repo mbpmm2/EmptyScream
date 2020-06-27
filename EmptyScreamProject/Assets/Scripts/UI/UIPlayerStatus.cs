@@ -46,10 +46,13 @@ public class UIPlayerStatus : MonoBehaviour
 
     public int lastIndex;
     public int lastIndexSanity;
+    private Image immunityImage;
+    private bool canUpdateImmunityIcon;
 
     // Start is called before the first frame update
     void Start()
     {
+        Player.OnImmunityTimerON += UpdateFillAmount;
         Player.OnPlayerChangeHP += CheckStatus;
         Player.OnPlayerChangeSanity += UpdateSanityText;
         Player.OnPlayerChangeSanityTier += ApplyNewSanityStatus;
@@ -72,6 +75,13 @@ public class UIPlayerStatus : MonoBehaviour
         {
             color = colorAdjust;
         }
+
+        immunityImage = immunityIcon.GetComponent<Image>();
+    }
+
+    private void UpdateFillAmount(float amount, float maxAmount)
+    {
+        immunityImage.fillAmount = 1 - (amount /maxAmount);
     }
 
     public void CheckStatus(float hp)
@@ -172,6 +182,7 @@ public class UIPlayerStatus : MonoBehaviour
 
     private void OnDestroy()
     {
+        Player.OnImmunityTimerON -= UpdateFillAmount;
         Player.OnPlayerChangeHP -= CheckStatus;
         Player.OnPlayerChangeSanity -= UpdateSanityText;
         Player.OnPlayerChangeSanityTier -= ApplyNewSanityStatus;

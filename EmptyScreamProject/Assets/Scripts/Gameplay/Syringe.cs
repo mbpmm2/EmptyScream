@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Syringe : ItemCore
 {
+    public delegate void OnSyringeAction(ItemType type);
+    public static OnSyringeAction OnSyringeEmpty;
+    public static OnSyringeAction OnSyringeFilled;
+
     public float immunityTime;
     public Color liquidColor;
     public Color emptyColor;
@@ -49,6 +53,11 @@ public class Syringe : ItemCore
             if(amountLeft <= 0)
             {
                 Invoke("SetLiquidEmpty", 1f);
+
+                if(OnSyringeEmpty != null)
+                {
+                    OnSyringeEmpty(ItemType.Syringe);
+                }
             }
 
             if(OnStackableItemUse != null)
@@ -75,6 +84,11 @@ public class Syringe : ItemCore
         for (int i = 0; i < mesh.Length; i++)
         {
             mesh[i].material.SetColor("_BaseColor", liquidColor);
+        }
+
+        if(OnSyringeFilled != null)
+        {
+            OnSyringeFilled(ItemType.Syringe);
         }
         
     }

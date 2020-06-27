@@ -16,6 +16,7 @@ public class PlayerInventory : MonoBehaviour
     public static OnItemPickupAction OnItemAvailable;
     public static OnItemPickupAction OnItemNull;
     public static OnItemPickupAction OnSyringePickedUp;
+    public static OnItemPickupAction OnMedkitPickedUp;
 
     [Header("Inventory Config")]
     public KeyCode[] hotkeyKeys;
@@ -289,6 +290,13 @@ public class PlayerInventory : MonoBehaviour
                                 if(OnSyringePickedUp != null)
                                 {
                                     OnSyringePickedUp(UIInteract.UIPickupType.maxTypes);
+                                }
+                            }
+                            else if (items[i].ammoType == ItemPickup.PickupType.band)
+                            {
+                                if (OnMedkitPickedUp != null)
+                                {
+                                    OnMedkitPickedUp(UIInteract.UIPickupType.maxTypes);
                                 }
                             }
                         }

@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 {
     public delegate void OnPlayerStatusAction(float amount);
     public delegate void OnPlayerStatusAction2();
+    public delegate void OnPlayerStatusAction3(float amount, float maxAmount);
     public delegate void OnInteractionAction(UIInteract.UIPickupType type);
     public static OnPlayerStatusAction OnPlayerChangeHP;
     public static OnPlayerStatusAction OnPlayerChangeSanity;
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
     public static OnInteractionAction OnInteractAvailable;
     public static OnInteractionAction OnInteractUnavailable;
     public static OnInteractionAction OnInteractNull;
+    public static OnPlayerStatusAction3 OnImmunityTimerON;
     // public static OnPlayerStatusAction OnPlayerChangeSanityStatus;
 
     [System.Serializable]
@@ -125,6 +127,11 @@ public class Player : MonoBehaviour
         if (isImmune)
         {
             immunityTimer += Time.deltaTime;
+
+            if(OnImmunityTimerON != null)
+            {
+                OnImmunityTimerON(immunityTimer,immunityTime);
+            }
 
             if (immunityTimer >= immunityTime)
             {

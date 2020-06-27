@@ -23,6 +23,10 @@ public class UIInventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Syringe.OnSyringeEmpty += DeactivateIcon;
+        Syringe.OnSyringeFilled += ActivateIcon;
+        Medkit.OnMedkitEmpty += DeactivateIcon;
+        Medkit.OnMedkitFilled += ActivateIcon;
         inventory.OnInventoryChange += ActivateSlot;
 
         slots = new UIItemSlot[slotsParent.transform.childCount];
@@ -80,8 +84,38 @@ public class UIInventory : MonoBehaviour
         }
     }
 
+    private void ActivateIcon(ItemCore.ItemType type)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (i == (int)type)
+            {
+                Color newColor = new Vector4(slots[i].icon.color.r, slots[i].icon.color.g, slots[i].icon.color.b, 1);
+                slots[i].icon.color = newColor;
+                i = slots.Length;
+            }
+        }
+    }
+
+    private void DeactivateIcon(ItemCore.ItemType type)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if(i == (int)type)
+            {
+                Color newColor = new Vector4(slots[i].icon.color.r, slots[i].icon.color.g, slots[i].icon.color.b, 0);
+                slots[i].icon.color = newColor;
+                i = slots.Length;
+            }
+        }
+    }
+
     private void OnDestroy()
     {
+        Syringe.OnSyringeEmpty -= DeactivateIcon;
+        Syringe.OnSyringeFilled -= ActivateIcon;
+        Medkit.OnMedkitEmpty -= DeactivateIcon;
+        Medkit.OnMedkitFilled -= ActivateIcon;
         inventory.OnInventoryChange -= ActivateSlot;
     }
 }

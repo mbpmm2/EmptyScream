@@ -35,6 +35,13 @@ public class RangeWeapon : ItemCore
     public GameObject impactTarget;
     public GameObject weaponModel;
 
+    [Header("Material Settings")]
+    public MeshRenderer mesh;
+    public Color normalColor;
+    public float normalIntensity = 60.016924f;
+    public Color noAmmoColor;
+    public float noAmmoIntensity = 160.016924f;
+
     private Animator animator;
     private TraumaInducer shakeThing;
     private float nextFire;
@@ -45,6 +52,9 @@ public class RangeWeapon : ItemCore
         clipBullets = clipMaxBullets;
         shakeThing = gameObject.GetComponent<TraumaInducer>();
         animator = GetComponent<Animator>();
+        mesh.material.SetColor("_EmissiveColor", normalColor * normalIntensity);
+       // mesh.material.SetColor("_EmissionColor", normalColor * 6.016924f);
+
     }
 
     private void OnEnable()
@@ -134,6 +144,12 @@ public class RangeWeapon : ItemCore
         //implementar sonido
         AkSoundEngine.PostEvent("nail_gun_shoot", gameObject);
         clipBullets--;
+
+        if(clipBullets <= 0)
+        {
+            mesh.material.SetColor("_EmissiveColor", noAmmoColor * noAmmoIntensity);
+        }
+
         muzzleFlash.Play();
         RaycastHit hit;
 
@@ -180,6 +196,11 @@ public class RangeWeapon : ItemCore
 
         if (amountLeft > 0)
         {
+            if (clipBullets <= 0)
+            {
+                mesh.material.SetColor("_EmissiveColor", normalColor * normalIntensity);
+            }
+
             if (amountLeft<clipMaxBullets)
             {
                 clipBullets = amountLeft;
