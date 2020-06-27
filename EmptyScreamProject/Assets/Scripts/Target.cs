@@ -23,6 +23,9 @@ public class Target : MonoBehaviour
 
     public void Die()
     {
-        enemyController.Die();
+        if (enemyController.currentState != EnemyController.States.Dead)
+        {
+            enemyController.Die();
+        }
     }
 }
