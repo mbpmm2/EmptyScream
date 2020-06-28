@@ -41,6 +41,10 @@ public class RangeWeapon : ItemCore
     public float normalIntensity = 60.016924f;
     public Color noAmmoColor;
     public float noAmmoIntensity = 160.016924f;
+    public Color lowAmmoColor;
+    public float lowAmmoIntensity = 100.016924f;
+    public Color lastBulletColor;
+    public float lastBulletIntensity = 100.016924f;
 
     private Animator animator;
     private TraumaInducer shakeThing;
@@ -122,10 +126,12 @@ public class RangeWeapon : ItemCore
                     if (clipBullets == 4)
                     {
                         AkSoundEngine.PostEvent("nail_gun_low_ammo", gameObject);
+                        mesh.material.SetColor("_EmissiveColor", lowAmmoColor * lowAmmoIntensity);
                     }
                     if (clipBullets == 2)
                     {
                         AkSoundEngine.PostEvent("nail_gun_last_bullet", gameObject);
+                        mesh.material.SetColor("_EmissiveColor", lastBulletColor * lastBulletIntensity);
                     }
                     Shoot();
                 }
