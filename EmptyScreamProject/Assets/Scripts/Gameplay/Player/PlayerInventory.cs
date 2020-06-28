@@ -16,6 +16,7 @@ public class PlayerInventory : MonoBehaviour
     public static OnInventoryAction3 OnAmmoAdded;
     public static OnItemPickupAction OnItemAvailable;
     public static OnItemPickupAction OnItemNull;
+    public static OnItemPickupAction2 OnItemPickedUp;
     public static OnItemPickupAction2 OnSyringePickedUp;
     public static OnItemPickupAction2 OnMedkitPickedUp;
 
@@ -313,6 +314,10 @@ public class PlayerInventory : MonoBehaviour
 
         if(hasFoundItem)
         {
+            if(OnItemPickedUp != null)
+            {
+                OnItemPickedUp(ItemCore.ItemType.AllItems);
+            }
             Destroy(itemInfo.owner);
         }
     }

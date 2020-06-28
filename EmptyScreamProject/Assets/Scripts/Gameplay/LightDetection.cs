@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class LightDetection : MonoBehaviour
 {
+    public LayerMask rayCastLayer;
+    public float range;
+
     private GameObject playerGO;
     private Player player;
-    private Light lightComp;
+    public bool isLightOnPlayer;
 
     private bool doOnce;
     // Start is called before the first frame update
@@ -14,7 +17,6 @@ public class LightDetection : MonoBehaviour
     {
         playerGO = GameManager.Get().playerGO;
         player = GameManager.Get().playerGO.GetComponent<Player>();
-        lightComp = GetComponent<Light>();
     }
 
     // Update is called once per frame
@@ -22,7 +24,7 @@ public class LightDetection : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, (transform.position - playerGO.transform.position) * -1f, out hit, lightComp.range))
+        if (Physics.Raycast(transform.position, (transform.position - playerGO.transform.position) * -1f, out hit, range, rayCastLayer))
         {
 
             if (hit.collider.tag == "Player")
@@ -31,6 +33,7 @@ public class LightDetection : MonoBehaviour
                 {
                     player.lightsOnPlayer.Add(this.gameObject);
                     doOnce = true;
+                    isLightOnPlayer = true;
                 }
                 
             }
@@ -40,6 +43,15 @@ public class LightDetection : MonoBehaviour
                 doOnce = false;
             }
 
+        }
+        else
+        {
+            if(isLightOnPlayer)
+            {
+                isLightOnPlayer = false;
+                doOnce = false;
+                player.lightsOnPlayer.Remove(gameObject);
+            }
         }
     }
 }
