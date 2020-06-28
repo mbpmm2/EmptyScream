@@ -1287,8 +1287,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9010915497064748849}
+  - component: {fileID: 5431916990359917841}
   m_Layer: 0
-  m_Name: Terminal_Low
+  m_Name: Terminal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1314,6 +1315,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5431916990359917841
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5428643223818839330}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.9801583, z: 1.49263}
+  m_Center: {x: 0, y: -0.055939913, z: -0.20677185}
 --- !u!1 &5813235299116415441
 GameObject:
   m_ObjectHideFlags: 0

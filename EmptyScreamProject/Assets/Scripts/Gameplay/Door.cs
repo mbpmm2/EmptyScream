@@ -27,7 +27,11 @@ public class Door : Interactable
     protected override void Start()
     {
         base.Start();
-        isOpen = true;
+        if(doorType != DoorType.automaticDoor)
+        {
+            isOpen = true;
+        }
+        
         canInteract = true;
         //isLocked = false;
         animator = GetComponent<Animator>();
@@ -111,7 +115,26 @@ public class Door : Interactable
             {
                 case "Player":
                     {
-                        InteractDoor();
+                        if(!isOpen)
+                        {
+                            animator.SetBool("Open", true);
+                            animator.SetBool("Close", false);
+                            canInteract = false;
+                            isOpen = true;
+                        }
+                        
+                    }
+                    break;
+                case "enemy":
+                    {
+                        if (!isOpen)
+                        {
+                            animator.SetBool("Open", true);
+                            animator.SetBool("Close", false);
+                            canInteract = false;
+                            isOpen = true;
+                        }
+                        
                     }
                     break;
                 default:
@@ -140,7 +163,26 @@ public class Door : Interactable
             {
                 case "Player":
                     {
-                        InteractDoor();
+                        if(isOpen)
+                        {
+                            animator.SetBool("Close", true);
+                            animator.SetBool("Open", false);
+                            canInteract = false;
+                            isOpen = false;
+                        }
+                        
+                    }
+                    break;
+                case "enemy":
+                    {
+                        if (isOpen)
+                        {
+                            animator.SetBool("Close", true);
+                            animator.SetBool("Open", false);
+                            canInteract = false;
+                            isOpen = false;
+                        }
+                            
                     }
                     break;
                 default:
