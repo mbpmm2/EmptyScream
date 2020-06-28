@@ -6,7 +6,7 @@ public class Syringe : ItemCore
 {
     public delegate void OnSyringeAction(ItemType type);
     public static OnSyringeAction OnSyringeEmpty;
-    public static OnSyringeAction OnSyringeFilled;
+    //public static OnSyringeAction OnSyringeFilled;
 
     public float immunityTime;
     public Color liquidColor;
@@ -20,11 +20,9 @@ public class Syringe : ItemCore
     void Start()
     {
         PlayerInventory.OnSyringePickedUp += SetLiquidFull;
-        //Player.OnImmunityStop += StopImmunity;
-        //canInject = true;
         animator = GetComponent<Animator>();
         amountText = "" + amountLeft;
-        SetLiquidFull(UIInteract.UIPickupType.maxTypes);
+        SetLiquidFull(ItemType.AllItems);
     }
 
     // Update is called once per frame
@@ -79,18 +77,12 @@ public class Syringe : ItemCore
         player.SetImmunityTimer(immunityTime);
     }
 
-    public void SetLiquidFull(UIInteract.UIPickupType type)
+    public void SetLiquidFull(ItemType type)
     {
         for (int i = 0; i < mesh.Length; i++)
         {
             mesh[i].material.SetColor("_BaseColor", liquidColor);
-        }
-
-        if(OnSyringeFilled != null)
-        {
-            OnSyringeFilled(ItemType.Syringe);
-        }
-        
+        }       
     }
 
     public void SetLiquidEmpty()
@@ -100,11 +92,6 @@ public class Syringe : ItemCore
             mesh[i].material.SetColor("_BaseColor", emptyColor);
         }
     }
-
-    /*private void StopImmunity()
-    {
-        canInject = true;
-    }*/
 
     private void OnDestroy()
     {

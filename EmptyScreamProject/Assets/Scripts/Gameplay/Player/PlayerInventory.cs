@@ -9,14 +9,15 @@ public class PlayerInventory : MonoBehaviour
     public delegate void OnInventoryAction2(Sprite newIcon, string amount);
     public delegate void OnInventoryAction3(string amount);
     public delegate void OnItemPickupAction(UIInteract.UIPickupType type);
+    public delegate void OnItemPickupAction2(ItemCore.ItemType type);
     public OnInventoryAction OnInventoryChange;
     public static OnInventoryAction2 OnNewStackableItem;
     public static OnInventoryAction OnNoNewStackableItem;
     public static OnInventoryAction3 OnAmmoAdded;
     public static OnItemPickupAction OnItemAvailable;
     public static OnItemPickupAction OnItemNull;
-    public static OnItemPickupAction OnSyringePickedUp;
-    public static OnItemPickupAction OnMedkitPickedUp;
+    public static OnItemPickupAction2 OnSyringePickedUp;
+    public static OnItemPickupAction2 OnMedkitPickedUp;
 
     [Header("Inventory Config")]
     public KeyCode[] hotkeyKeys;
@@ -276,6 +277,21 @@ public class PlayerInventory : MonoBehaviour
                 items[i].amountLeft += itemInfo.amount;
                 items[i].amountText = "" + items[i].amountLeft;
 
+                if (items[i].ammoType == ItemPickup.PickupType.syringe)
+                {
+                    if (OnSyringePickedUp != null)
+                    {
+                        OnSyringePickedUp(ItemCore.ItemType.Syringe);
+                    }
+                }
+                else if (items[i].ammoType == ItemPickup.PickupType.band)
+                {
+                    if (OnMedkitPickedUp != null)
+                    {
+                        OnMedkitPickedUp(ItemCore.ItemType.Bandages);
+                    }
+                }
+
                 if (OnAmmoAdded != null)
                 {
                     if(i == lastIndex)
@@ -285,20 +301,6 @@ public class PlayerInventory : MonoBehaviour
                             //items[newIndex].gameObject.GetComponent<RangeWeapon>().isReloading = false;
                             OnAmmoAdded(items[i].amountText);
 
-                            if(items[i].ammoType == ItemPickup.PickupType.syringe)
-                            {
-                                if(OnSyringePickedUp != null)
-                                {
-                                    OnSyringePickedUp(UIInteract.UIPickupType.maxTypes);
-                                }
-                            }
-                            else if (items[i].ammoType == ItemPickup.PickupType.band)
-                            {
-                                if (OnMedkitPickedUp != null)
-                                {
-                                    OnMedkitPickedUp(UIInteract.UIPickupType.maxTypes);
-                                }
-                            }
                         }
                         
                     }

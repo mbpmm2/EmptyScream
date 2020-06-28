@@ -24,9 +24,9 @@ public class UIInventory : MonoBehaviour
     void Start()
     {
         Syringe.OnSyringeEmpty += DeactivateIcon;
-        Syringe.OnSyringeFilled += ActivateIcon;
         Medkit.OnMedkitEmpty += DeactivateIcon;
-        Medkit.OnMedkitFilled += ActivateIcon;
+        PlayerInventory.OnSyringePickedUp += ActivateIcon;
+        PlayerInventory.OnMedkitPickedUp += ActivateIcon;
         inventory.OnInventoryChange += ActivateSlot;
 
         slots = new UIItemSlot[slotsParent.transform.childCount];
@@ -34,7 +34,6 @@ public class UIInventory : MonoBehaviour
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i] = slotsParent.transform.GetChild(i).gameObject.GetComponent<UIItemSlot>();
-            //hotkeyItems[i].SetActive(false);
         }
 
         GetHotkeyKeys();
@@ -90,6 +89,7 @@ public class UIInventory : MonoBehaviour
         {
             if (i == (int)type)
             {
+                Debug.Log("modo messi");
                 Color newColor = new Vector4(slots[i].icon.color.r, slots[i].icon.color.g, slots[i].icon.color.b, 1);
                 slots[i].icon.color = newColor;
                 i = slots.Length;
@@ -113,9 +113,9 @@ public class UIInventory : MonoBehaviour
     private void OnDestroy()
     {
         Syringe.OnSyringeEmpty -= DeactivateIcon;
-        Syringe.OnSyringeFilled -= ActivateIcon;
         Medkit.OnMedkitEmpty -= DeactivateIcon;
-        Medkit.OnMedkitFilled -= ActivateIcon;
+        PlayerInventory.OnSyringePickedUp -= ActivateIcon;
+        PlayerInventory.OnMedkitPickedUp -= ActivateIcon;
         inventory.OnInventoryChange -= ActivateSlot;
     }
 }
