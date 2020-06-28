@@ -200,17 +200,24 @@ public class RangeWeapon : ItemCore
 
         yield return new WaitForSeconds(reloadTime);
 
+        
+
         if (amountLeft > 0)
         {
-            if (clipBullets <= 0)
-            {
-                mesh.material.SetColor("_EmissiveColor", normalColor * normalIntensity);
-            }
+            mesh.material.SetColor("_EmissiveColor", normalColor * normalIntensity);
 
             if (amountLeft<clipMaxBullets)
             {
-                clipBullets = amountLeft;
-                amountLeft = 0;
+                int aux2= (clipMaxBullets - clipBullets);
+                clipBullets += aux2;
+                amountLeft -= aux2;
+
+                if (amountLeft<0)
+                {
+                    clipBullets += amountLeft;
+                    amountLeft = 0;
+                }
+                doOnce = false;
             }
             else
             {
