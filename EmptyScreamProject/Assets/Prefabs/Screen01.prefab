@@ -76,7 +76,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: 2ad045f05024099468adcdefc6383af4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1948,6 +1948,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Hologram
+      objectReference: {fileID: 0}
+    - target: {fileID: 6981081641471620971, guid: 5bf7a88e454acb4489e53f3674288d42,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6981081641471781515, guid: 5bf7a88e454acb4489e53f3674288d42,
         type: 3}
