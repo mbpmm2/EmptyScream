@@ -30,7 +30,7 @@ public class RangeWeapon : ItemCore
     //public Image crosshair;
 
     public Camera cam;
-    public ParticleSystem muzzleFlash;
+    //public ParticleSystem muzzleFlash;
     public GameObject impact;
     public GameObject impactTarget;
     public GameObject weaponModel;
@@ -156,7 +156,7 @@ public class RangeWeapon : ItemCore
             mesh.material.SetColor("_EmissiveColor", noAmmoColor * noAmmoIntensity);
         }
 
-        muzzleFlash.Play();
+        //muzzleFlash.Play();
         RaycastHit hit;
 
         if (Physics.Raycast(cam.transform.position + (cam.transform.forward * 0.5f), cam.transform.forward,out hit, range))

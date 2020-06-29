@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
     public delegate void OnEnemyAction();
-    public OnEnemyAction OnEnemyDeath;
+    public static OnEnemyAction OnEnemyDeath;
 
     public enum States
     {
@@ -128,10 +128,7 @@ public class EnemyController : MonoBehaviour
         {
             //gameObject.SetActive(false);
             Destroy(this.gameObject);
-            if (OnEnemyDeath != null)
-            {
-                OnEnemyDeath();
-            }
+            
         }
     }
 
@@ -220,6 +217,11 @@ public class EnemyController : MonoBehaviour
         if (gameObject != null)
         {
             Destroy(gameObject, deathTime);
+        }
+
+        if (OnEnemyDeath != null)
+        {
+            OnEnemyDeath();
         }
     }
 
