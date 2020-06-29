@@ -36,7 +36,6 @@ public class UIScreenChanger : MonoBehaviour
     {
         if(changeScene)
         {
-            SceneManager.LoadScene(nameOfNewScene);
 
             if (GameManager.Get())
             {
@@ -44,6 +43,9 @@ public class UIScreenChanger : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }
+
+            SceneManager.LoadScene(nameOfNewScene);
+            
             /**/
         }
         else

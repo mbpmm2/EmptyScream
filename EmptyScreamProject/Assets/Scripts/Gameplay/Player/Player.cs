@@ -66,6 +66,11 @@ public class Player : MonoBehaviour
     private bool checkOnce;
     private GameObject lastGO;
 
+    [Header("Death Settings")]
+    public float restartTime;
+    public GameObject ragdoll;
+    public GameObject headParent;
+
 
     // Light effects
     [Header("Darkness effect config")]
@@ -246,6 +251,7 @@ public class Player : MonoBehaviour
 
         if(health <= 0)
         {
+            Die();
             health = 0;
         }
 
@@ -437,5 +443,18 @@ public class Player : MonoBehaviour
         {
             OnImmunityStop();
         }
+    }
+
+    private void Die()
+    {
+        GameManager.Get().restartTime = restartTime;
+        GameManager.Get().restart = true;
+        ragdoll.SetActive(true);
+        cam.transform.SetParent(headParent.transform);
+        GetComponent<FirstPersonController>().enabled = false;
+        GetComponent<PlayerInventory>().itemsParent.SetActive(false);
+        GetComponent<PlayerInventory>().enabled = false;
+        GetComponent<CharacterController>().enabled = false;
+        enabled = false;
     }
 }

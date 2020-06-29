@@ -7,6 +7,9 @@ public class SimplePickupQuest : MonoBehaviour
     public bool isOn;
     public int itemsToPickup;
     public GameObject barricade;
+    public Light questLight;
+    public Color enableColor;
+    public Color disableColor;
 
     public int currentAmount;
 
@@ -14,6 +17,12 @@ public class SimplePickupQuest : MonoBehaviour
     void Start()
     {
         PlayerInventory.OnItemPickedUp += CheckQuest;
+
+        if (questLight)
+        {
+            questLight.color = disableColor;
+        }
+            
     }
 
     private void CheckQuest(ItemCore.ItemType type)
@@ -32,6 +41,12 @@ public class SimplePickupQuest : MonoBehaviour
     private void OpenBarricade()
     {
         isOn = false;
+
+        if(questLight)
+        {
+            questLight.color = enableColor;
+        }
+        
         barricade.SetActive(false);
     }
 
