@@ -23,6 +23,9 @@ public class Door : Interactable
     public bool isLocked;
     private Animator animator;
 
+    public int cantEnemigos;
+    public bool isInCombatRoom;
+    public bool doOnce;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -47,14 +50,42 @@ public class Door : Interactable
             pickupsColliders[i].SetActive(false);
         }
 
+        isInCombatRoom = false;
+        cantEnemigos = 2;
+        EnemyController.OnEnemyDeath += EnemyDied;
     }
 
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();
+
+        if (cantEnemigos>0 && isInCombatRoom)
+        {
+            if (!doOnce)
+            {
+                doorType = DoorType.defaultDoor;
+                animator.SetBool("Close", true);
+                animator.SetBool("Open", false);
+                doOnce = true;
+            }
+            
+        }
+        else
+        {
+            if (doOnce)
+            {
+                doorType = DoorType.automaticDoor;
+                isOpen = false;
+                doOnce=false;
+            }
+        }
     }
 
+    void EnemyDied()
+    {
+        cantEnemigos--;
+    }
     public void InteractDoor()
     {
         if(canInteract)
@@ -194,5 +225,6 @@ public class Door : Interactable
     private void OnDestroy()
     {
         OnInteract -= InteractDoor;
+        EnemyController.OnEnemyDeath -= EnemyDied;
     }
 }
