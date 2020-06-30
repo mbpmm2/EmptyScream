@@ -9,18 +9,30 @@ public class HologramNPC : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hologramNPC.SetActive(false);
+        if(hologramNPC)
+        {
+            hologramNPC.SetActive(false);
+        }
+        
     }
 
     public void Activate()
     {
-        hologramNPC.SetActive(true);
+        if (hologramNPC)
+        {
+            hologramNPC.SetActive(true);
+        }
+        
     }
 
 
     public void Deactivate()
     {
-        hologramNPC.SetActive(false);
+        if (hologramNPC)
+        {
+            hologramNPC.SetActive(false);
+        }
+        
     }
 
     private void OnTriggerEnter(Collider other)

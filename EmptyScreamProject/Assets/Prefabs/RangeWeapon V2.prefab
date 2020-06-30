@@ -9837,7 +9837,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 102
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 200
@@ -9947,13 +9947,18 @@ MonoBehaviour:
   bulletsDisplay: {fileID: 354778508383026039}
   clipBulletsDisplay: {fileID: 3702652989138851083}
   cam: {fileID: 0}
-  muzzleFlash: {fileID: 453220109202245152}
   impact: {fileID: 7615628913741262135, guid: 1653c27a01705ce468964935128b70ce, type: 3}
   impactTarget: {fileID: 0}
   weaponModel: {fileID: 0}
   mesh: {fileID: 457974235747884287}
   normalColor: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
+  normalIntensity: 60.016926
   noAmmoColor: {r: 0.7490196, g: 0.003921569, b: 0.003921569, a: 1}
+  noAmmoIntensity: 160.01692
+  lowAmmoColor: {r: 0, g: 0, b: 0, a: 0}
+  lowAmmoIntensity: 100.01692
+  lastBulletColor: {r: 0, g: 0, b: 0, a: 0}
+  lastBulletIntensity: 100.01692
 --- !u!114 &3181014284136972952
 MonoBehaviour:
   m_ObjectHideFlags: 0

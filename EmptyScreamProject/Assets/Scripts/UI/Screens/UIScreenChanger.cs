@@ -45,7 +45,10 @@ public class UIScreenChanger : MonoBehaviour
             }
 
             SceneManager.LoadScene(nameOfNewScene);
-            
+
+            AkSoundEngine.StopAll();
+            //AkSoundEngine.PostEvent("nail_gun_reload", gameObject);
+
             /**/
         }
         else

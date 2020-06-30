@@ -2381,11 +2381,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a10bab9907d71449f4788d2ffc181e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  setDelayBetweenPress: 0
   canInteract: 1
+  delayBetweenPress: 0
   doorType: 0
   door: {fileID: 0}
+  pickupsColliders: []
   isOpen: 0
   isLocked: 0
+  cantEnemigos: 0
+  isInCombatRoom: 0
+  doOnce: 0
 --- !u!65 &2045758004
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2430,11 +2436,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a10bab9907d71449f4788d2ffc181e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  setDelayBetweenPress: 0
   canInteract: 1
+  delayBetweenPress: 0
   doorType: 0
   door: {fileID: 0}
+  pickupsColliders: []
   isOpen: 0
   isLocked: 0
+  cantEnemigos: 0
+  isInCombatRoom: 0
+  doOnce: 0
 --- !u!1 &6896468524549814163
 GameObject:
   m_ObjectHideFlags: 0
@@ -5903,6 +5915,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Unity Chan Figure
+      objectReference: {fileID: 0}
+    - target: {fileID: 5215599033387436685, guid: a9b05d461307a07449549792059a85db,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9b05d461307a07449549792059a85db, type: 3}

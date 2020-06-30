@@ -45,34 +45,37 @@ public class HallucinationsManager : MonoBehaviour
     {
         for (int i = 0; i < events.Length; i++)
         {
-            if(i != lastIndex && (int)events[i].tier <= (currentPlayer.sanityCurrentTier-1))
+            if (i != lastIndex && (int)events[i].tier <= (currentPlayer.sanityCurrentTier-1))
             {
                 indexesToUse.Add(i);
-                
             }
         }
 
-        indexesToUse.Sort();
-
-        int newIndex = Random.Range(indexesToUse[0], indexesToUse[indexesToUse.Count-1]+1);
-
-        if (lastIndex >= 0)
+        if(indexesToUse.Count > 0)
         {
-            if (!events[lastIndex].isActive)
+            indexesToUse.Sort();
+
+            int newIndex = Random.Range(indexesToUse[0], indexesToUse[indexesToUse.Count - 1] + 1);
+
+            if (lastIndex >= 0)
             {
-                //canStartTimer = false;
+                if (!events[lastIndex].isActive)
+                {
+                    //canStartTimer = false;
+                    events[newIndex].ActivateEvent();
+                    lastIndex = newIndex;
+                }
+            }
+            else
+            {
                 events[newIndex].ActivateEvent();
                 lastIndex = newIndex;
             }
-        }
-        else
-        {
-            events[newIndex].ActivateEvent();
-            lastIndex = newIndex;
+
+            indexesToUse.Clear();
         }
 
-
-        indexesToUse.Clear();
+        
 
     }
 
