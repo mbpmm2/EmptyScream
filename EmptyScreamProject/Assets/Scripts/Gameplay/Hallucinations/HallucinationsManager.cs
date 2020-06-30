@@ -23,6 +23,8 @@ public class HallucinationsManager : MonoBehaviour
         {
             events[i].OnHallucinationEnd += ActivateTimer;
         }
+
+        Player.OnPlayerChangeSanityTier += ActivateTimer2;
     }
 
     // Update is called once per frame
@@ -45,17 +47,37 @@ public class HallucinationsManager : MonoBehaviour
     {
         for (int i = 0; i < events.Length; i++)
         {
-            if (i != lastIndex && (int)events[i].tier <= (currentPlayer.sanityCurrentTier-1))
+            if(events.Length != 1)
             {
-                indexesToUse.Add(i);
+                if (i != lastIndex && (int)events[i].tier <= (currentPlayer.sanityCurrentTier - 1))
+                {
+                    indexesToUse.Add(i);
+                }
             }
+            else
+            {
+                if ((int)events[i].tier <= (currentPlayer.sanityCurrentTier - 1))
+                {
+                    indexesToUse.Add(i);
+                }
+            }
+            
         }
 
         if(indexesToUse.Count > 0)
         {
             indexesToUse.Sort();
 
-            int newIndex = Random.Range(indexesToUse[0], indexesToUse[indexesToUse.Count - 1] + 1);
+            int newIndex = -1;
+
+            if(indexesToUse.Count != 1)
+            {
+                newIndex = Random.Range(indexesToUse[0], indexesToUse[indexesToUse.Count - 1] + 1);
+            }
+            else
+            {
+                newIndex = indexesToUse[0];
+            }
 
             if (lastIndex >= 0)
             {
@@ -85,11 +107,19 @@ public class HallucinationsManager : MonoBehaviour
         hallucinationPeriodTimer = 0;
     }
 
+    private void ActivateTimer2(float ignoreThisValue)
+    {
+        canStartTimer = true;
+        hallucinationPeriodTimer = 0;
+    }
+
     private void OnDestroy()
     {
         for (int i = 0; i < events.Length; i++)
         {
             events[i].OnHallucinationEnd -= ActivateTimer;
         }
+
+        Player.OnPlayerChangeSanityTier -= ActivateTimer2;
     }
 }

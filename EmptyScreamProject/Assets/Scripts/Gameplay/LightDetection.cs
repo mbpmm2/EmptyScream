@@ -54,4 +54,14 @@ public class LightDetection : MonoBehaviour
             }
         }
     }
+
+    private void OnDisable()
+    {
+        if (isLightOnPlayer)
+        {
+            isLightOnPlayer = false;
+            doOnce = false;
+            player.lightsOnPlayer.Remove(gameObject);
+        }
+    }
 }

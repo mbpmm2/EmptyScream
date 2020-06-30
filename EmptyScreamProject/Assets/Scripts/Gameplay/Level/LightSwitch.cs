@@ -18,12 +18,20 @@ public class LightSwitch : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lights = new GameObject[lightParent.transform.childCount];
-
-        for (int i = 0; i < lights.Length; i++)
+        if(lightParent)
         {
-            lights[i] = lightParent.transform.GetChild(i).gameObject;
+            if (lightParent.transform.childCount > 0)
+            {
+                lights = new GameObject[lightParent.transform.childCount];
+
+                for (int i = 0; i < lights.Length; i++)
+                {
+                    lights[i] = lightParent.transform.GetChild(i).gameObject;
+                }
+            }
         }
+        
+        
 
         TurnOff();
     }
@@ -50,27 +58,50 @@ public class LightSwitch : MonoBehaviour
     {
         if(isOn)
         {
-            for (int i = 0; i < lights.Length; i++)
+            if (lightParent)
             {
-                lights[i].SetActive(true);
+                if (lightParent.transform.childCount > 0)
+                {
+                    for (int i = 0; i < lights.Length; i++)
+                    {
+                        lights[i].SetActive(true);
+                    }
+                }
+            }
+                
+            
+            if(lightMaps.Length > 0)
+            {
+                for (int i = 0; i < lightMaps.Length; i++)
+                {
+                    lightMaps[i].material.SetColor("_EmissiveColor", onColor * onIntensity);
+                }
             }
 
-            for (int i = 0; i < lightMaps.Length; i++)
-            {
-                lightMaps[i].material.SetColor("_EmissiveColor", onColor * onIntensity);
-            }
+            
         }
         else
         {
-            for (int i = 0; i < lights.Length; i++)
+            if (lightParent)
             {
-                lights[i].SetActive(false);
+                if (lightParent.transform.childCount > 0)
+                {
+                    for (int i = 0; i < lights.Length; i++)
+                    {
+                        lights[i].SetActive(false);
+                    }
+                }
+            }
+                
+
+            if (lightMaps.Length > 0)
+            {
+                for (int i = 0; i < lightMaps.Length; i++)
+                {
+                    lightMaps[i].material.SetColor("_EmissiveColor", offColor);
+                }
             }
 
-            for (int i = 0; i < lightMaps.Length; i++)
-            {
-                lightMaps[i].material.SetColor("_EmissiveColor", offColor);
-            }
         }
     }
 }
