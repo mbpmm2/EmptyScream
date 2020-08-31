@@ -38,6 +38,8 @@ public class Player : MonoBehaviour
     public float walkSpeed;
     public float runSpeed;
     public float crouchMovSpeed;
+    [Range(0,100)]
+    public float damageAbsorbPercentage;
     public Vector2[] sanityTierRanges;
     public SanityTierChanges[] sanityTierChanges;
     public int sanityCurrentTier;
@@ -50,6 +52,7 @@ public class Player : MonoBehaviour
     public float damageMultiplier;
     public float speedMultiplier;
     public bool isImmune;
+    public bool isBlocking;
 
     [Header("Interact Settings")]
     public KeyCode interactKey;
@@ -247,7 +250,15 @@ public class Player : MonoBehaviour
 
     public void ReceiveDamage(float amount)
     {
-        health -= amount;
+        if(isBlocking)
+        {
+            health -= amount - ( amount * (damageAbsorbPercentage * 0.01f));
+        }
+        else
+        {
+            health -= amount;
+        }
+        
 
         if(health <= 0)
         {

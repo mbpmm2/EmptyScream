@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.0072501176, g: 0.0064326916, b: 0.0076025277, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -30813,6 +30813,7 @@ MonoBehaviour:
   walkSpeed: 4.5
   runSpeed: 6
   crouchMovSpeed: 2.02
+  damageAbsorbPercentage: 100
   sanityTierRanges:
   - {x: 50, y: 75}
   - {x: 25, y: 50}
@@ -30833,6 +30834,7 @@ MonoBehaviour:
   damageMultiplier: 0
   speedMultiplier: 0
   isImmune: 0
+  isBlocking: 0
   interactKey: 101
   cam: {fileID: 8951869842049208293}
   rayCastLayer:
@@ -73440,11 +73442,13 @@ MonoBehaviour:
   damage: 16.45
   impactForce: 1800.58
   range: 2
+  isBlocking: 0
   cam: {fileID: 8951869842049208293}
   impact: {fileID: 7615628913741262135, guid: a8e912c9b647c0f4099d475cd7b1c291, type: 3}
   impactTarget: {fileID: 7615628913741262135, guid: e5fdd944d8841214bb3e13f8e8e163ea,
     type: 3}
   model: {fileID: 3001406843053867972}
+  animationEnded: 0
 --- !u!4 &4360812409093171323
 Transform:
   m_ObjectHideFlags: 0

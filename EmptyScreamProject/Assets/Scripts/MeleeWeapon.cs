@@ -10,6 +10,7 @@ public class MeleeWeapon : ItemCore
     private float originalDamage;
     public float impactForce;
     public float range;
+    public bool isBlocking;
 
     public Camera cam;
     public GameObject impact;
@@ -17,7 +18,7 @@ public class MeleeWeapon : ItemCore
 
     public GameObject model;
     private Animator animator;
-    private bool animationEnded;
+    public bool animationEnded;
 
     Player player;
 
@@ -34,13 +35,25 @@ public class MeleeWeapon : ItemCore
     {
         if(canUse)
         {
-            if (Input.GetButtonDown("Fire1") && !animationEnded)
+            if (Input.GetButtonDown("Fire1") && !animationEnded && !isBlocking)
             {
                 animationEnded = true;
                 Hit();
             }
         }
-        
+
+        if (Input.GetMouseButtonDown(1) && !animationEnded)
+        {
+            animationEnded = false;
+            canUse = false;
+            animator.SetBool("Block", true);
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            canUse = true;
+            animator.SetBool("Block", false);
+        }
+
     }
 
     public void Hit()
@@ -48,6 +61,24 @@ public class MeleeWeapon : ItemCore
         //AkSoundEngine.PostEvent("hit", gameObject);
         animator.Play("Hit", -1, 0f);
 
+    }
+
+    public void Block()
+    {
+        //animationEnded = true;
+        isBlocking = true;
+        player.isBlocking = isBlocking;
+    }
+
+    public void DisableBlock()
+    {
+        isBlocking = false;
+        player.isBlocking = isBlocking;
+    }
+
+    public void CanUse()
+    {
+        canUse = true;
     }
 
     public void HitImpact()
