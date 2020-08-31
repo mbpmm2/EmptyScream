@@ -20,6 +20,8 @@ public class MeleeWeapon : ItemCore
     private Animator animator;
     public bool animationEnded;
 
+    public bool hitTarget;
+
     Player player;
 
     void Start()
@@ -38,6 +40,7 @@ public class MeleeWeapon : ItemCore
             if (Input.GetButtonDown("Fire1") && !animationEnded && !isBlocking)
             {
                 animationEnded = true;
+                CheckTarget();
                 Hit();
             }
         }
@@ -59,7 +62,14 @@ public class MeleeWeapon : ItemCore
     public void Hit()
     {
         //AkSoundEngine.PostEvent("hit", gameObject);
-        animator.Play("Hit", -1, 0f);
+        if (!hitTarget)
+        {
+            animator.Play("Hit", -1, 0f);
+        }
+        else
+        {
+            animator.Play("HitTarget", -1, 0f);
+        }
 
     }
 
@@ -124,5 +134,28 @@ public class MeleeWeapon : ItemCore
     public void UpdateDamage(float test)
     {
         damage = originalDamage * player.damageMultiplier;
+    }
+
+    public void CheckTarget()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(cam.transform.position + (cam.transform.forward * 0.2f), cam.transform.forward, out hit, range))
+        {
+            Target target = hit.transform.GetComponentInParent<Target>();
+
+            if (target != null)
+            {
+                hitTarget = true;
+            }
+            else
+            {
+                hitTarget = false;
+            }
+        }
+        else
+        {
+            hitTarget = false;
+        }
     }
 }
