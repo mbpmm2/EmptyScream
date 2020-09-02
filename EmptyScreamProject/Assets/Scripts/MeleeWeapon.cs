@@ -142,7 +142,7 @@ public class MeleeWeapon : ItemCore
 
         if (Physics.Raycast(cam.transform.position + (cam.transform.forward * 0.2f), cam.transform.forward, out hit, range))
         {
-            Target target = hit.transform.GetComponentInParent<Target>();
+            /*Target target = hit.transform.GetComponentInParent<Target>();
 
             if (target != null)
             {
@@ -151,7 +151,9 @@ public class MeleeWeapon : ItemCore
             else
             {
                 hitTarget = false;
-            }
+            }*/
+
+            hitTarget = true;
         }
         else
         {
