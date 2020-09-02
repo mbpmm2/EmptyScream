@@ -36,6 +36,7 @@ public class EnemyController : MonoBehaviour
     public float healthPoints;
     public float damage;
     public float distance;
+    public GameObject targetRig;
 
     private bool doOnce;
     private Player player;
@@ -135,7 +136,7 @@ public class EnemyController : MonoBehaviour
     private void MovementUpdate()
     {
         agent.SetDestination(target.position);
-        
+        targetRig.transform.position = target.transform.position;
     }
 
     public void ChangeState(States newState)

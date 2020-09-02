@@ -9,7 +9,7 @@ public class Target : MonoBehaviour
 
     private void Start()
     {
-        enemyController = GetComponent<EnemyController>();
+        enemyController = GetComponentInChildren<EnemyController>();
     }
     public void TakeDamage(float damage)
     {
