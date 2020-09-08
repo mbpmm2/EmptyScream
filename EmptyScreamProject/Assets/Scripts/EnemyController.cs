@@ -40,6 +40,7 @@ public class EnemyController : MonoBehaviour
 
     private bool doOnce;
     private Player player;
+    public GameObject parent;
     // Start is called before the first frame update
     void Start()
     {
@@ -204,9 +205,11 @@ public class EnemyController : MonoBehaviour
     public void Die()
     {
         AkSoundEngine.PostEvent("Death_E", this.gameObject);
+        GetComponent<CapsuleCollider>().enabled = false;
         SetRigidbodyState(false);
         SetColliderState(true);
         agent.isStopped = true;
+
         GetComponent<Animator>().enabled = false;
         
         ChangeState(States.Dead);
@@ -218,7 +221,7 @@ public class EnemyController : MonoBehaviour
 
         if (gameObject != null)
         {
-            Destroy(gameObject, deathTime);
+            Destroy(parent.gameObject, deathTime);
         }
 
         if (OnEnemyDeath != null)
