@@ -204,10 +204,11 @@ public class EnemyController : MonoBehaviour
     public void Die()
     {
         AkSoundEngine.PostEvent("Death_E", this.gameObject);
-        agent.isStopped = true;
-        GetComponent<Animator>().enabled = false;
         SetRigidbodyState(false);
         SetColliderState(true);
+        agent.isStopped = true;
+        GetComponent<Animator>().enabled = false;
+        
         ChangeState(States.Dead);
         player.ChangeSanityValue(sanityChangeValue);
         //agent.enabled = false;
