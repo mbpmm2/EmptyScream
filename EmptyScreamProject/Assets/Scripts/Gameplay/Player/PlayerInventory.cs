@@ -68,16 +68,21 @@ public class PlayerInventory : MonoBehaviour
             //hotkeyItems[i].SetActive(false);
         }
 
-        for (int i = 0; i < hotkeyItems[0].transform.childCount; i++)
+        for (int i = 0; i < hotkeyItems[1].transform.childCount; i++)
         {
-            hotkeyItems[0].transform.GetChild(i).gameObject.SetActive(true);
+            hotkeyItems[1].transform.GetChild(i).gameObject.SetActive(true);
         }
 
         //hotkeyItems[0].SetActive(true);
-        items[0].EnableCrosshair();
-        hotkeyItems[0].GetComponent<Animator>().SetTrigger("Draw");
+        items[1].EnableCrosshair();
+        //hotkeyItems[0].GetComponent<Animator>().SetTrigger("Draw");
+        items[1].animator.SetTrigger("Draw");
+        if(items[1].animator)
+        {
+            Debug.Log("NICE");
+        }
         AkSoundEngine.PostEvent("select_nail_gun", gameObject);
-        lastIndex = 0;
+        lastIndex = 1;
         //ActivateItem(0);
     }
 
@@ -149,7 +154,8 @@ public class PlayerInventory : MonoBehaviour
                 {
                     items[lastIndex].canUse = false;
 
-                    hotkeyItems[lastIndex].GetComponent<Animator>().SetTrigger("Hide");
+                    //hotkeyItems[lastIndex].GetComponent<Animator>().SetTrigger("Hide");
+                    items[lastIndex].animator.SetTrigger("Hide");
 
                     switch (items[lastIndex].itType)
                     {
@@ -243,7 +249,8 @@ public class PlayerInventory : MonoBehaviour
                 break;
         }
 
-        hotkeyItems[newIndex].GetComponent<Animator>().SetTrigger("Draw");
+        //hotkeyItems[newIndex].GetComponent<Animator>().SetTrigger("Draw");
+        items[newIndex].animator.SetTrigger("Draw");
         lastIndex = newIndex;
        // la  Debug.Log("Item Changed");
     }

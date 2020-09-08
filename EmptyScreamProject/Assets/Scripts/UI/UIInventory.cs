@@ -37,7 +37,7 @@ public class UIInventory : MonoBehaviour
         }
 
         GetHotkeyKeys();
-        ActivateSlot(0);
+        ActivateSlot(1);
     }
 
     /*// Update is called once per frame

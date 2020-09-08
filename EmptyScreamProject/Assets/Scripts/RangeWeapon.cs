@@ -46,7 +46,7 @@ public class RangeWeapon : ItemCore
     public Color lastBulletColor;
     public float lastBulletIntensity = 100.016924f;
 
-    private Animator animator;
+    //private Animator animator;
     private TraumaInducer shakeThing;
     private float nextFire;
     private bool doOnce;
@@ -55,7 +55,7 @@ public class RangeWeapon : ItemCore
     {
         clipBullets = clipMaxBullets;
         shakeThing = gameObject.GetComponent<TraumaInducer>();
-        animator = GetComponent<Animator>();
+        animator = transform.GetChild(0).GetComponent<Animator>();
         mesh.material.SetColor("_EmissiveColor", normalColor * normalIntensity);
        // mesh.material.SetColor("_EmissionColor", normalColor * 6.016924f);
 

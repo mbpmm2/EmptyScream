@@ -13,6 +13,7 @@ public class ItemAnimation : MonoBehaviour
     public static OnAnimationAction OnReloadEnd;
     public static OnAnimationAction OnHitStart;
     public static OnAnimationAction OnHitEnd;
+    public static OnAnimationAction OnHitImpact;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,14 @@ public class ItemAnimation : MonoBehaviour
     {
         
     }*/
+
+    public void HitImpact()
+    {
+        if (OnHitImpact != null)
+        {
+            OnHitImpact();
+        }
+    }
 
     public void ShootStartAnimationTrigger()
     {

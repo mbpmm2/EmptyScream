@@ -22,6 +22,7 @@ public class ItemCore : MonoBehaviour
     public ItemPickup.PickupType ammoType;
     public int amountLeft;
     public ItemCore.ItemType itType;
+    public Animator animator;
 
     [Header("Icons & Text")]
     public Image crosshair;

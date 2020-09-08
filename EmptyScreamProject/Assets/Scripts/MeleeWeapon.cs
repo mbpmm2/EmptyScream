@@ -17,7 +17,7 @@ public class MeleeWeapon : ItemCore
     public GameObject impactTarget;
 
     public GameObject model;
-    private Animator animator;
+    //private Animator animator;
     public bool animationEnded;
 
     public bool hitTarget;
@@ -27,9 +27,11 @@ public class MeleeWeapon : ItemCore
     void Start()
     {
         originalDamage = damage;
-        animator = GetComponent<Animator>();
+        animator = transform.GetChild(0).GetComponent<Animator>();
         player = GameManager.Get().playerGO.GetComponent<Player>();
         Player.OnPlayerChangeSanityTier += UpdateDamage;
+        ItemAnimation.OnHitImpact += HitImpact;
+        ItemAnimation.OnHitEnd += OnAnimationEnd;
     }
 
     // Update is called once per frame
@@ -64,11 +66,11 @@ public class MeleeWeapon : ItemCore
         //AkSoundEngine.PostEvent("hit", gameObject);
         if (!hitTarget)
         {
-            animator.Play("Hit", -1, 0f);
+            animator.Play("Wrench_Hit 0", -1, 0f);
         }
         else
         {
-            animator.Play("HitTarget", -1, 0f);
+            animator.Play("Wrench_HitTarget 0", -1, 0f);
         }
 
     }
@@ -159,5 +161,11 @@ public class MeleeWeapon : ItemCore
         {
             hitTarget = false;
         }
+    }
+
+    private void OnDestroy()
+    {
+        ItemAnimation.OnHitImpact -= HitImpact;
+        ItemAnimation.OnHitEnd -= OnAnimationEnd;
     }
 }
