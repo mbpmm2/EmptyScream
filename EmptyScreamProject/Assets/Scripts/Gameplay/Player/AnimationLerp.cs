@@ -6,6 +6,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class AnimationLerp : MonoBehaviour
 {
     public bool canChange;
+    public bool canLerp;
     public GameObject cameraRig;
     public GameObject currentCamera;
     public float speedDivisionRotation;
@@ -14,11 +15,18 @@ public class AnimationLerp : MonoBehaviour
 
     public Quaternion rotationOffset;
     private Quaternion newRotation;
+    private Quaternion finalRotation;
+    private Quaternion initialRotation;
+
+    public float timer;
+    public float animationMultiplier;
 
     // Start is called before the first frame update
     void Start()
     {
         //animationClip = objectAnimator.GetCurrentAnimatorClipInfo(0);
+        initialRotation = currentCamera.transform.rotation;
+        //initialRotation *= rotationOffset;
     }
 
     // Update is called once per frame
@@ -30,8 +38,9 @@ public class AnimationLerp : MonoBehaviour
     public void UpdateCamera()
     {
         animationClip = objectAnimator.GetCurrentAnimatorClipInfo(0);
+        initialRotation = currentCamera.transform.rotation;
 
-        if(canChange)
+        if (canChange)
         {
             if (animationClip[0].clip.name != "Idle") // check if any animation is playing
             {
@@ -39,7 +48,26 @@ public class AnimationLerp : MonoBehaviour
                 newRotation *= rotationOffset;
 
                 currentCamera.transform.rotation = Quaternion.Lerp(currentCamera.transform.rotation, newRotation, 1 / speedDivisionRotation);
+                finalRotation = currentCamera.transform.rotation;
             }
+
+            timer = 0;
+        }
+        else
+        {
+            if(canLerp)
+            {
+                timer += Time.deltaTime;
+
+                if (timer >= 1)
+                {
+                    timer = 1;
+                    canLerp = false;
+                }
+
+                currentCamera.transform.rotation = Quaternion.Lerp(finalRotation, initialRotation, timer * animationMultiplier);
+            }
+            
         }
 
     }

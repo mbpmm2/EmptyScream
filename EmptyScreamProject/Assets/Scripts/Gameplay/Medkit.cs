@@ -17,6 +17,7 @@ public class Medkit : ItemCore
     // Start is called before the first frame update
     void Start()
     {
+        lerp = GetComponent<AnimationLerp>();
         canHeal = true;
         //animator = GetComponent<Animator>();
         animator = transform.GetChild(0).GetComponent<Animator>();

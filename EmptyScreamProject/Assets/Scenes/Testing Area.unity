@@ -9786,6 +9786,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 350665100}
   m_Mesh: {fileID: 177176515}
+--- !u!1 &351408507 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7756470989770875687, guid: 7bc6296f8e8cedd499697212fade69c4,
+    type: 3}
+  m_PrefabInstance: {fileID: 6310685962736433053}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &351408508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351408507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ccaa16c2e7a850488d0308d85833e45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canChange: 0
+  canLerp: 0
+  cameraRig: {fileID: 104176632}
+  currentCamera: {fileID: 8951869842051239367}
+  speedDivisionRotation: 10
+  objectAnimator: {fileID: 352543584}
+  rotationOffset: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  timer: 0
+  animationMultiplier: 10
 --- !u!1 &352543582 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3996939002601881109, guid: 7bc6296f8e8cedd499697212fade69c4,
@@ -9810,6 +9837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d49393bb0c46e489d310b381d064f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lerp: {fileID: 0}
 --- !u!1001 &353486975
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29059,6 +29087,7 @@ MonoBehaviour:
   amountLeft: 5
   itType: 3
   animator: {fileID: 0}
+  lerp: {fileID: 0}
   crosshair: {fileID: 0}
   icon: {fileID: 21300000, guid: 2b3710f355ca6344890579bdf4669696, type: 3}
   amountText: 5
@@ -34174,11 +34203,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canChange: 0
+  canLerp: 0
   cameraRig: {fileID: 1044931387}
   currentCamera: {fileID: 514594135}
   speedDivisionRotation: 10
   objectAnimator: {fileID: 1044931391}
   rotationOffset: {x: -0.0594325, y: 0.7022195, z: -0.059151888, w: -0.7070053}
+  timer: 0
+  animationMultiplier: 0
 --- !u!114 &1044931390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34191,6 +34223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d49393bb0c46e489d310b381d064f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lerp: {fileID: 0}
 --- !u!95 &1044931391
 Animator:
   serializedVersion: 3
@@ -45341,6 +45374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d49393bb0c46e489d310b381d064f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lerp: {fileID: 0}
 --- !u!43 &1273720631
 Mesh:
   m_ObjectHideFlags: 0
@@ -50452,6 +50486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d49393bb0c46e489d310b381d064f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lerp: {fileID: 0}
 --- !u!1001 &1455249178
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75695,6 +75730,7 @@ MonoBehaviour:
   amountLeft: 3
   itType: 2
   animator: {fileID: 0}
+  lerp: {fileID: 0}
   crosshair: {fileID: 0}
   icon: {fileID: 21300000, guid: 41d609ffa3e67f84b8a89c850f9309f6, type: 3}
   amountText: 3
@@ -76534,6 +76570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d49393bb0c46e489d310b381d064f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lerp: {fileID: 0}
 --- !u!95 &2488775637941425318
 Animator:
   serializedVersion: 3
@@ -77298,6 +77335,7 @@ MonoBehaviour:
   amountLeft: 60
   itType: 0
   animator: {fileID: 0}
+  lerp: {fileID: 0}
   crosshair: {fileID: 916103384}
   icon: {fileID: 0}
   amountText: 
@@ -78944,6 +78982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2942800143674868428, guid: 7bc6296f8e8cedd499697212fade69c4, type: 3}
+    - {fileID: 407659341378917931, guid: 7bc6296f8e8cedd499697212fade69c4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7bc6296f8e8cedd499697212fade69c4, type: 3}
 --- !u!4 &6313828018799772503
 Transform:

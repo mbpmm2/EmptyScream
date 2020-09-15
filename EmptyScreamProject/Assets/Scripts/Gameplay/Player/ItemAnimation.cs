@@ -15,10 +15,12 @@ public class ItemAnimation : MonoBehaviour
     public static OnAnimationAction OnHitEnd;
     public static OnAnimationAction OnHitImpact;
 
+    public AnimationLerp lerp;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        lerp = GetComponent<AnimationLerp>();
     }
 
     // Update is called once per frame
@@ -70,6 +72,11 @@ public class ItemAnimation : MonoBehaviour
 
     public void HideAnimationTrigger()
     {
+        /*if(lerp)
+        {
+            lerp.canChange = true;
+        }*/
+
         if(OnHideEnd != null)
         {
             OnHideEnd();
@@ -78,6 +85,11 @@ public class ItemAnimation : MonoBehaviour
 
     public void DrawAnimationTrigger()
     {
+        /*if (lerp)
+        {
+            lerp.canChange = false;
+        }*/
+
         if (OnDrawEnd != null)
         {
             Debug.Log("nice2");
@@ -87,6 +99,11 @@ public class ItemAnimation : MonoBehaviour
 
     public void HitStartAnimationTrigger()
     {
+        /*if (lerp)
+        {
+            lerp.canChange = true;
+        }*/
+
         if (OnShootStart != null)
         {
             OnHitStart();
@@ -95,6 +112,12 @@ public class ItemAnimation : MonoBehaviour
 
     public void HitEndAnimationTrigger()
     {
+        /*if (lerp)
+        {
+            lerp.canChange = false;
+            lerp.canLerp = true;
+        }*/
+
         if (OnShootEnd != null)
         {
             OnHitEnd();

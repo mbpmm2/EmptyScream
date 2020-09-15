@@ -23,6 +23,7 @@ public class ItemCore : MonoBehaviour
     public int amountLeft;
     public ItemCore.ItemType itType;
     public Animator animator;
+    public AnimationLerp lerp;
 
     [Header("Icons & Text")]
     public Image crosshair;

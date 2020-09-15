@@ -26,6 +26,7 @@ public class MeleeWeapon : ItemCore
 
     void Start()
     {
+        lerp = GetComponent<AnimationLerp>();
         originalDamage = damage;
         animator = transform.GetChild(0).GetComponent<Animator>();
         player = GameManager.Get().playerGO.GetComponent<Player>();

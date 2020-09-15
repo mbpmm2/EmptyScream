@@ -53,6 +53,7 @@ public class RangeWeapon : ItemCore
 
     private void Start()
     {
+        lerp = GetComponent<AnimationLerp>();
         clipBullets = clipMaxBullets;
         shakeThing = gameObject.GetComponent<TraumaInducer>();
         animator = transform.GetChild(0).GetComponent<Animator>();

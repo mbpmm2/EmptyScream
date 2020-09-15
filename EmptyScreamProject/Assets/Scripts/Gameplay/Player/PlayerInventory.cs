@@ -238,20 +238,51 @@ public class PlayerInventory : MonoBehaviour
 
         //hotkeyItems[newIndex].GetComponent<Animator>().SetTrigger("Draw");
         items[newIndex].animator.SetTrigger("Draw");
+       /* if (items[lastIndex].lerp)
+        {
+            Debug.Log("TRUE");
+            items[lastIndex].lerp.canChange = true;
+        }*/
+        
         lastIndex = newIndex;
        // la  Debug.Log("Item Changed");
     }
 
     private void EnableItemChange()
     {
+        //Debug.Log("FALSE");
+
         itemChangeFinished = true;
        // hotkeyItems[lastIndex].GetComponent<ItemCore>().canUse = true;
         items[lastIndex].canUse = true;
+        if(items[lastIndex].lerp)
+        {
+            items[lastIndex].lerp.canChange = false;
+            items[lastIndex].lerp.canLerp = true;
+
+            /*if (items[lastIndex].itType == ItemCore.ItemType.NailGun)
+            {
+                items[lastIndex].lerp.canChange = false;
+                items[lastIndex].lerp.canLerp = true;
+            }*/
+        }
+
+        
+       /* if (lerp)
+        {
+            lerp.canChange = false;
+            lerp.canLerp = true;
+        }*/
     }
 
     private void DisableItemChange()
     {
         itemChangeFinished = false;
+        if(items[lastIndex].lerp)
+        {
+            items[lastIndex].lerp.canChange = true;
+        }
+        
     }
 
     private void CheckAmmoType(ItemPickup.ItemInfo itemInfo)

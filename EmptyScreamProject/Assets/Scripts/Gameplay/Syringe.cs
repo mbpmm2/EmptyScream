@@ -19,6 +19,7 @@ public class Syringe : ItemCore
     // Start is called before the first frame update
     void Start()
     {
+        lerp = GetComponent<AnimationLerp>();
         PlayerInventory.OnSyringePickedUp += SetLiquidFull;
         //animator = GetComponent<Animator>();
         animator = transform.GetChild(0).GetComponent<Animator>();
