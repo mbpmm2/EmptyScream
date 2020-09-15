@@ -12,7 +12,7 @@ public class Syringe : ItemCore
     public Color liquidColor;
     public Color emptyColor;
 
-    private Animator animator;
+   // private Animator animator;
     public MeshRenderer[] mesh;
     public Player player;
 
@@ -20,7 +20,8 @@ public class Syringe : ItemCore
     void Start()
     {
         PlayerInventory.OnSyringePickedUp += SetLiquidFull;
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
+        animator = transform.GetChild(0).GetComponent<Animator>();
         amountText = "" + amountLeft;
         SetLiquidFull(ItemType.AllItems);
     }

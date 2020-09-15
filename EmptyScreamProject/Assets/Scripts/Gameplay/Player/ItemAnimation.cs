@@ -80,6 +80,7 @@ public class ItemAnimation : MonoBehaviour
     {
         if (OnDrawEnd != null)
         {
+            Debug.Log("nice2");
             OnDrawEnd();
         }
     }
