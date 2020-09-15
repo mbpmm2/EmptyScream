@@ -1,37 +1,46 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class AnimationLerp : MonoBehaviour
 {
+    public bool canChange;
     public GameObject cameraRig;
     public GameObject currentCamera;
-    public float speedDivisionPosition;
     public float speedDivisionRotation;
     public Animator objectAnimator;
     public AnimatorClipInfo[] animationClip;
 
-    public Vector3 offset;
-    private Vector3 initialPosition;
-    private Vector3 newPosition;
-    public Quaternion initialRotation;
+    public Quaternion rotationOffset;
     private Quaternion newRotation;
 
     // Start is called before the first frame update
     void Start()
     {
-        animationClip = objectAnimator.GetCurrentAnimatorClipInfo(0);
-        initialPosition = currentCamera.transform.position + offset;
+        //animationClip = objectAnimator.GetCurrentAnimatorClipInfo(0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        newRotation = cameraRig.transform.rotation;
-        newRotation *= Quaternion.Euler(23, 180, 0);
-        newPosition = cameraRig.transform.position + offset;
+        UpdateCamera();
+    }
 
-        //currentCamera.transform.position = Vector3.Lerp(initialPosition, newPosition, animationClip[0].weight / speedDivisionPosition);
-        currentCamera.transform.rotation = Quaternion.Lerp(initialRotation, newRotation, animationClip[0].weight / speedDivisionRotation);
+    public void UpdateCamera()
+    {
+        animationClip = objectAnimator.GetCurrentAnimatorClipInfo(0);
+
+        if(canChange)
+        {
+            if (animationClip[0].clip.name != "Idle") // check if any animation is playing
+            {
+                newRotation = cameraRig.transform.rotation;
+                newRotation *= rotationOffset;
+
+                currentCamera.transform.rotation = Quaternion.Lerp(currentCamera.transform.rotation, newRotation, 1 / speedDivisionRotation);
+            }
+        }
+
     }
 }
