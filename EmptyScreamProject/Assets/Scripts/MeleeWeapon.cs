@@ -33,6 +33,11 @@ public class MeleeWeapon : ItemCore
         Player.OnPlayerChangeSanityTier += UpdateDamage;
         ItemAnimation.OnHitImpact += HitImpact;
         ItemAnimation.OnHitEnd += OnAnimationEnd;
+        MeleeAnimations.OnBlock += Block;
+        MeleeAnimations.OnCanUse += CanUse;
+        MeleeAnimations.OnDisableBlock += DisableBlock;
+        MeleeAnimations.OnAnimationEnd += OnAnimationEnd;
+        Player.OnPlayerBlockDamage += ExecuteAnimation;
     }
 
     // Update is called once per frame
@@ -53,11 +58,15 @@ public class MeleeWeapon : ItemCore
             animationEnded = false;
             canUse = false;
             animator.SetBool("Block", true);
+            lerp.canChange = true;
+            lerp.canLerp = false;
         }
         else if (Input.GetMouseButtonUp(1))
         {
             canUse = true;
             animator.SetBool("Block", false);
+            lerp.canChange = false;
+            lerp.canLerp = true;
         }
 
     }
@@ -145,18 +154,23 @@ public class MeleeWeapon : ItemCore
 
         if (Physics.Raycast(cam.transform.position + (cam.transform.forward * 0.2f), cam.transform.forward, out hit, range))
         {
-            /*Target target = hit.transform.GetComponentInParent<Target>();
+            Target target = hit.transform.GetComponentInParent<Target>();
 
             if (target != null)
             {
                 hitTarget = true;
             }
+
+            hitTarget = true;
+            /*
+
+            
             else
             {
                 hitTarget = false;
             }*/
 
-            hitTarget = true;
+
         }
         else
         {
@@ -164,9 +178,19 @@ public class MeleeWeapon : ItemCore
         }
     }
 
+    public void ExecuteAnimation()
+    {
+        animator.Play("BlockDamage", -1, 0f);
+    }
+
     private void OnDestroy()
     {
         ItemAnimation.OnHitImpact -= HitImpact;
         ItemAnimation.OnHitEnd -= OnAnimationEnd;
+        MeleeAnimations.OnBlock -= Block;
+        MeleeAnimations.OnCanUse -= CanUse;
+        MeleeAnimations.OnDisableBlock -= DisableBlock;
+        MeleeAnimations.OnAnimationEnd -= OnAnimationEnd;
+        Player.OnPlayerBlockDamage -= ExecuteAnimation;
     }
 }
