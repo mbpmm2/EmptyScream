@@ -67,11 +67,11 @@ public class MeleeWeapon : ItemCore
         //AkSoundEngine.PostEvent("hit", gameObject);
         if (!hitTarget)
         {
-            animator.Play("Wrench_Hit 0", -1, 0f);
+            animator.Play("Hit", -1, 0f);
         }
         else
         {
-            animator.Play("Wrench_HitTarget 0", -1, 0f);
+            animator.Play("HitTarget", -1, 0f);
         }
 
     }

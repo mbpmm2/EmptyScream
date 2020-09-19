@@ -42,14 +42,11 @@ public class AnimationLerp : MonoBehaviour
 
         if (canChange)
         {
-            if (animationClip[0].clip.name != "Idle") // check if any animation is playing
-            {
-                newRotation = cameraRig.transform.rotation;
-                newRotation *= rotationOffset;
+            newRotation = cameraRig.transform.rotation;
+            newRotation *= rotationOffset;
 
-                currentCamera.transform.rotation = Quaternion.Lerp(currentCamera.transform.rotation, newRotation, 1 / speedDivisionRotation);
-                finalRotation = currentCamera.transform.rotation;
-            }
+            currentCamera.transform.rotation = Quaternion.Lerp(currentCamera.transform.rotation, newRotation, 1 / speedDivisionRotation);
+            finalRotation = currentCamera.transform.rotation;
 
             timer = 0;
         }
