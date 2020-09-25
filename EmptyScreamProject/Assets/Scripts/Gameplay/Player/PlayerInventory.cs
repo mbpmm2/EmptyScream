@@ -259,6 +259,7 @@ public class PlayerInventory : MonoBehaviour
         {
             items[lastIndex].lerp.canChange = false;
             items[lastIndex].lerp.canLerp = true;
+            items[lastIndex].lerp.lerpOnce = false;
 
             /*if (items[lastIndex].itType == ItemCore.ItemType.NailGun)
             {
@@ -281,6 +282,8 @@ public class PlayerInventory : MonoBehaviour
         if(items[lastIndex].lerp)
         {
             items[lastIndex].lerp.canChange = true;
+            items[lastIndex].lerp.lerpOnce = true;
+            items[lastIndex].lerp.timer = 0;
         }
         
     }
