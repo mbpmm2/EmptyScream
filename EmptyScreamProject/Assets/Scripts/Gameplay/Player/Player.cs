@@ -6,6 +6,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class Player : MonoBehaviour
 {
+    public delegate void OnPlayerAction();
     public delegate void OnPlayerStatusAction(float amount);
     public delegate void OnPlayerStatusAction2();
     public delegate void OnPlayerStatusAction3(float amount, float maxAmount);
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
     public static OnInteractionAction OnInteractUnavailable;
     public static OnInteractionAction OnInteractNull;
     public static OnPlayerStatusAction3 OnImmunityTimerON;
+    public static OnPlayerAction OnPlayerBlockDamage;
     // public static OnPlayerStatusAction OnPlayerChangeSanityStatus;
 
     [System.Serializable]
@@ -253,6 +255,10 @@ public class Player : MonoBehaviour
         if(isBlocking)
         {
             health -= amount - ( amount * (damageAbsorbPercentage * 0.01f));
+            if(OnPlayerBlockDamage != null)
+            {
+                OnPlayerBlockDamage();
+            }
         }
         else
         {
