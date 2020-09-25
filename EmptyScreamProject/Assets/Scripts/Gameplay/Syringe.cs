@@ -12,15 +12,17 @@ public class Syringe : ItemCore
     public Color liquidColor;
     public Color emptyColor;
 
-    private Animator animator;
+   // private Animator animator;
     public MeshRenderer[] mesh;
     public Player player;
 
     // Start is called before the first frame update
     void Start()
     {
+        lerp = GetComponent<AnimationLerp>();
         PlayerInventory.OnSyringePickedUp += SetLiquidFull;
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
+        animator = transform.GetChild(0).GetComponent<Animator>();
         amountText = "" + amountLeft;
         SetLiquidFull(ItemType.AllItems);
     }

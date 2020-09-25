@@ -68,17 +68,9 @@ public class PlayerInventory : MonoBehaviour
             //hotkeyItems[i].SetActive(false);
         }
 
-        for (int i = 0; i < hotkeyItems[0].transform.childCount; i++)
-        {
-            hotkeyItems[0].transform.GetChild(i).gameObject.SetActive(true);
-        }
+        Invoke("test", 0.5f);
 
-        //hotkeyItems[0].SetActive(true);
-        items[0].EnableCrosshair();
-        hotkeyItems[0].GetComponent<Animator>().SetTrigger("Draw");
-        AkSoundEngine.PostEvent("select_nail_gun", gameObject);
-        lastIndex = 0;
-        //ActivateItem(0);
+        
     }
 
     // Update is called once per frame
@@ -149,7 +141,8 @@ public class PlayerInventory : MonoBehaviour
                 {
                     items[lastIndex].canUse = false;
 
-                    hotkeyItems[lastIndex].GetComponent<Animator>().SetTrigger("Hide");
+                    //hotkeyItems[lastIndex].GetComponent<Animator>().SetTrigger("Hide");
+                    items[lastIndex].animator.SetTrigger("Hide");
 
                     switch (items[lastIndex].itType)
                     {
@@ -243,21 +236,56 @@ public class PlayerInventory : MonoBehaviour
                 break;
         }
 
-        hotkeyItems[newIndex].GetComponent<Animator>().SetTrigger("Draw");
+        //hotkeyItems[newIndex].GetComponent<Animator>().SetTrigger("Draw");
+        items[newIndex].animator.SetTrigger("Draw");
+       /* if (items[lastIndex].lerp)
+        {
+            Debug.Log("TRUE");
+            items[lastIndex].lerp.canChange = true;
+        }*/
+        
         lastIndex = newIndex;
        // la  Debug.Log("Item Changed");
     }
 
     private void EnableItemChange()
     {
+        //Debug.Log("FALSE");
+
         itemChangeFinished = true;
        // hotkeyItems[lastIndex].GetComponent<ItemCore>().canUse = true;
         items[lastIndex].canUse = true;
+        if(items[lastIndex].lerp)
+        {
+            items[lastIndex].lerp.canChange = false;
+            items[lastIndex].lerp.canLerp = true;
+            items[lastIndex].lerp.lerpOnce = false;
+
+            /*if (items[lastIndex].itType == ItemCore.ItemType.NailGun)
+            {
+                items[lastIndex].lerp.canChange = false;
+                items[lastIndex].lerp.canLerp = true;
+            }*/
+        }
+
+        
+       /* if (lerp)
+        {
+            lerp.canChange = false;
+            lerp.canLerp = true;
+        }*/
     }
 
     private void DisableItemChange()
     {
         itemChangeFinished = false;
+        if(items[lastIndex].lerp)
+        {
+            items[lastIndex].lerp.canChange = true;
+            items[lastIndex].lerp.lerpOnce = true;
+            items[lastIndex].lerp.timer = 0;
+        }
+        
     }
 
     private void CheckAmmoType(ItemPickup.ItemInfo itemInfo)
@@ -320,6 +348,26 @@ public class PlayerInventory : MonoBehaviour
             }
             Destroy(itemInfo.owner);
         }
+    }
+
+    private void test()
+    {
+        for (int i = 0; i < hotkeyItems[0].transform.childCount; i++)
+        {
+            hotkeyItems[0].transform.GetChild(i).gameObject.SetActive(true);
+        }
+
+        //hotkeyItems[0].SetActive(true);
+        items[0].EnableCrosshair();
+        //hotkeyItems[0].GetComponent<Animator>().SetTrigger("Draw");
+        items[0].animator.SetTrigger("Draw");
+        if (items[0].animator)
+        {
+            Debug.Log("NICE");
+        }
+        AkSoundEngine.PostEvent("select_nail_gun", gameObject);
+        lastIndex = 0;
+        //ActivateItem(0);
     }
 
     private void OnDestroy()

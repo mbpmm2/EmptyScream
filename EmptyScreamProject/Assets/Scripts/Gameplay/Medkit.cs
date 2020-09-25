@@ -11,14 +11,16 @@ public class Medkit : ItemCore
     public int healthPointsToGive;
 
     public bool canHeal;
-    private Animator animator;
+   // private Animator animator;
     public Player player;
 
     // Start is called before the first frame update
     void Start()
     {
+        lerp = GetComponent<AnimationLerp>();
         canHeal = true;
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
+        animator = transform.GetChild(0).GetComponent<Animator>();
         amountText = "" + amountLeft;
     }
 
