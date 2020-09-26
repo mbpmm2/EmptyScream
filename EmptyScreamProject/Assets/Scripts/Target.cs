@@ -15,6 +15,10 @@ public class Target : MonoBehaviour
     {
         health -= damage;
 
+        if (health<=10 && health>0)
+        {
+            Stun();
+        }
         if (health<=0)
         {
             Die();
@@ -26,6 +30,14 @@ public class Target : MonoBehaviour
         if (enemyController.currentState != EnemyController.States.Dead)
         {
             enemyController.Die();
+        }
+    }
+
+    public void Stun()
+    {
+        if (enemyController.currentState != EnemyController.States.Stunned)
+        {
+            enemyController.Stun();
         }
     }
 }

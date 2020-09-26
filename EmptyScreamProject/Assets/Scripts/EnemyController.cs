@@ -33,7 +33,6 @@ public class EnemyController : MonoBehaviour
     public float deathTime;
 
     public float sanityChangeValue;
-    public float healthPoints;
     public float damage;
     public float distance;
     public GameObject targetRig;
@@ -41,6 +40,11 @@ public class EnemyController : MonoBehaviour
     private bool doOnce;
     private Player player;
     public GameObject parent;
+
+    public float stunMaxTime;
+    public float stunTimer;
+
+    public RagdollHelper ragdoll;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,10 +58,19 @@ public class EnemyController : MonoBehaviour
         player = GameManager.Get().playerGO.GetComponent<Player>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         distance = Vector3.Distance(transform.position, target.position);
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            ragdoll.ragdolled = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            ragdoll.ragdolled = false;
+        }
 
         switch (currentState)
         {
@@ -69,6 +82,12 @@ public class EnemyController : MonoBehaviour
             case States.Hit:
                 break;
             case States.Stunned:
+                stunTimer += Time.deltaTime;
+                if (stunTimer>stunMaxTime)
+                {
+                    stunTimer = 0;
+                    ChangeState(States.Idle);
+                }
                 break;
             case States.Dead:
                 break;
@@ -165,6 +184,7 @@ public class EnemyController : MonoBehaviour
                 animator.SetBool("Hit", true);
                 break;
             case States.Stunned:
+                ragdoll.ragdolled = false;
                 break;
             case States.Dead:
                 break;
@@ -228,6 +248,19 @@ public class EnemyController : MonoBehaviour
         {
             OnEnemyDeath();
         }
+    }
+
+    public void Stun()
+    {
+        AkSoundEngine.PostEvent("Death_E", this.gameObject);
+        GetComponent<CapsuleCollider>().enabled = false;
+        SetRigidbodyState(false);
+        SetColliderState(true);
+        agent.isStopped = true;
+
+        GetComponent<Animator>().enabled = false;
+
+        ChangeState(States.Stunned);
     }
 
     private void CreateBlood()
