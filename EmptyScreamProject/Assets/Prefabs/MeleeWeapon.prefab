@@ -65,6 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d49393bb0c46e489d310b381d064f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lerp: {fileID: 0}
 --- !u!114 &4337118413891920911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,15 +78,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7236a0ac3beee44ac9eceb9238a55a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canUse: 0
+  canStack: 0
+  ammoType: 0
+  amountLeft: 0
+  itType: 0
+  animator: {fileID: 0}
+  lerp: {fileID: 0}
+  crosshair: {fileID: 0}
+  icon: {fileID: 0}
+  amountText: 
   damage: 22
   impactForce: 788.18
   range: 1.5
+  isBlocking: 0
   cam: {fileID: 0}
   impact: {fileID: 7615628913741262135, guid: a8e912c9b647c0f4099d475cd7b1c291, type: 3}
-  impactTarget: {fileID: 7615628913741262135, guid: e5fdd944d8841214bb3e13f8e8e163ea,
-    type: 3}
+  impactTarget:
+  - {fileID: 7615628913741262135, guid: c888df204e9f59344954d01f3dcfb941, type: 3}
+  - {fileID: 7615628913741262135, guid: 987fe09ab508cad40aedbb45d7013c67, type: 3}
+  - {fileID: 7615628913741262135, guid: 293e99d6154c1dc4c84abc8cd3b66828, type: 3}
+  - {fileID: 7615628913741262135, guid: e5fdd944d8841214bb3e13f8e8e163ea, type: 3}
   model: {fileID: 3001406843888792432}
-  crosshair: {fileID: 0}
+  animationEnded: 0
+  hitTarget: 0
 --- !u!1001 &6523128199078324857
 PrefabInstance:
   m_ObjectHideFlags: 0
