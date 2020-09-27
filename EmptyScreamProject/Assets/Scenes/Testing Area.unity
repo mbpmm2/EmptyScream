@@ -74034,8 +74034,11 @@ MonoBehaviour:
   clipBulletsDisplay: {fileID: 3702652989297799180}
   cam: {fileID: 8951869842049208293}
   impact: {fileID: 7615628913741262135, guid: 1653c27a01705ce468964935128b70ce, type: 3}
-  impactTarget: {fileID: 7615628913741262135, guid: e5fdd944d8841214bb3e13f8e8e163ea,
-    type: 3}
+  impactTarget:
+  - {fileID: 7615628913741262135, guid: c888df204e9f59344954d01f3dcfb941, type: 3}
+  - {fileID: 7615628913741262135, guid: 987fe09ab508cad40aedbb45d7013c67, type: 3}
+  - {fileID: 7615628913741262135, guid: 293e99d6154c1dc4c84abc8cd3b66828, type: 3}
+  - {fileID: 7615628913741262135, guid: e5fdd944d8841214bb3e13f8e8e163ea, type: 3}
   weaponModel: {fileID: 688587599036935379}
   mesh: {fileID: 457974235906865656}
   normalColor: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
@@ -74105,8 +74108,11 @@ MonoBehaviour:
   isBlocking: 0
   cam: {fileID: 8951869842049208293}
   impact: {fileID: 7615628913741262135, guid: a8e912c9b647c0f4099d475cd7b1c291, type: 3}
-  impactTarget: {fileID: 7615628913741262135, guid: e5fdd944d8841214bb3e13f8e8e163ea,
-    type: 3}
+  impactTarget:
+  - {fileID: 7615628913741262135, guid: c888df204e9f59344954d01f3dcfb941, type: 3}
+  - {fileID: 7615628913741262135, guid: 987fe09ab508cad40aedbb45d7013c67, type: 3}
+  - {fileID: 7615628913741262135, guid: 293e99d6154c1dc4c84abc8cd3b66828, type: 3}
+  - {fileID: 7615628913741262135, guid: e5fdd944d8841214bb3e13f8e8e163ea, type: 3}
   model: {fileID: 3001406843053867972}
   animationEnded: 0
   hitTarget: 0

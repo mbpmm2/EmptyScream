@@ -105,14 +105,13 @@ public class EnemyController : MonoBehaviour
             FaceTarget();
             doOnce = true;
         }
-        else if (currentState != States.Dead && currentState != States.Stunned)
+        else if (currentState != States.Dead && currentState != States.Stunned && lastState!=States.Stunned)
         {
             if (doOnce)
             {
                 doOnce = false;
-                //ChangeState(States.Follow);
+                ChangeState(States.Follow);
             }
-            
         }
     }
 
@@ -127,6 +126,16 @@ public class EnemyController : MonoBehaviour
 
     public void DoDamage()
     {
+        //RaycastHit hit;
+
+        //if (Physics.Raycast(transform.position + (transform.up*1.5f), transform.forward, out hit, 18))
+        //{
+        //    if (hit.transform.tag=="Player")
+        //    {
+
+        //    }
+        //}
+        //Debug.DrawRay(transform.position + (transform.up * 1.5f), transform.forward, Color.cyan,Time.deltaTime);
         AkSoundEngine.PostEvent("Attack_E", this.gameObject);
         if (distance <= agent.stoppingDistance)
         {
@@ -156,7 +165,7 @@ public class EnemyController : MonoBehaviour
         if (timer > deathTime)
         {
             //gameObject.SetActive(false);
-            Destroy(this.gameObject);
+            Destroy(parent.gameObject);
             
         }
     }
@@ -248,8 +257,6 @@ public class EnemyController : MonoBehaviour
         
         ChangeState(States.Dead);
         player.ChangeSanityValue(sanityChangeValue);
-        //agent.enabled = false;
-        //agent.Stop();
 
         Invoke("CreateBlood", 3.0f);
 
