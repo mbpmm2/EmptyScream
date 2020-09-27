@@ -33,14 +33,20 @@ public class EnemyController : MonoBehaviour
     public float deathTime;
 
     public float sanityChangeValue;
-    public float healthPoints;
     public float damage;
     public float distance;
     public GameObject targetRig;
 
     private bool doOnce;
+    private bool doOnce2;
     private Player player;
     public GameObject parent;
+
+    public float stunMaxTime;
+    public float stunTimer;
+
+    public RagdollHelper ragdoll;
+    public SphereCollider detectionCollider;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,10 +60,19 @@ public class EnemyController : MonoBehaviour
         player = GameManager.Get().playerGO.GetComponent<Player>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         distance = Vector3.Distance(transform.position, target.position);
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            ragdoll.ragdolled = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            ragdoll.ragdolled = false;
+        }
 
         switch (currentState)
         {
@@ -69,6 +84,14 @@ public class EnemyController : MonoBehaviour
             case States.Hit:
                 break;
             case States.Stunned:
+                stunTimer += Time.deltaTime;
+                if (stunTimer>stunMaxTime)
+                {
+                    ragdoll.ragdolled = false;
+                    stunTimer = 0;
+                    GetComponent<CapsuleCollider>().enabled = true;
+                    //ChangeState(States.Idle);
+                }
                 break;
             case States.Dead:
                 break;
@@ -76,30 +99,43 @@ public class EnemyController : MonoBehaviour
                 break;
         }
 
-        if (distance <= agent.stoppingDistance && currentState!=States.Dead)
+        if (distance <= agent.stoppingDistance && (currentState!=States.Dead && currentState != States.Stunned))
         {
             Attack();
             FaceTarget();
             doOnce = true;
         }
-        else if (currentState != States.Dead)
+        else if (currentState != States.Dead && currentState != States.Stunned && lastState!=States.Stunned)
         {
             if (doOnce)
             {
                 doOnce = false;
                 ChangeState(States.Follow);
             }
-            
         }
     }
 
     private void Attack()
     {
-        ChangeState(States.Hit);
+        if (doOnce2)
+        {
+            ChangeState(States.Hit);
+            doOnce2 = false;
+        }
     }
 
     public void DoDamage()
     {
+        //RaycastHit hit;
+
+        //if (Physics.Raycast(transform.position + (transform.up*1.5f), transform.forward, out hit, 18))
+        //{
+        //    if (hit.transform.tag=="Player")
+        //    {
+
+        //    }
+        //}
+        //Debug.DrawRay(transform.position + (transform.up * 1.5f), transform.forward, Color.cyan,Time.deltaTime);
         AkSoundEngine.PostEvent("Attack_E", this.gameObject);
         if (distance <= agent.stoppingDistance)
         {
@@ -129,7 +165,7 @@ public class EnemyController : MonoBehaviour
         if (timer > deathTime)
         {
             //gameObject.SetActive(false);
-            Destroy(this.gameObject);
+            Destroy(parent.gameObject);
             
         }
     }
@@ -145,15 +181,19 @@ public class EnemyController : MonoBehaviour
         lastState = currentState;
         currentState = newState;
 
+        if (currentState!=lastState)
+        {
+            doOnce2 = true;
+        }
         //manage animation
         switch (currentState)
         {
             case States.Idle:
                 animator.SetBool("Idle", true);
                 animator.SetBool("Follow", false);
+                animator.SetBool("Hit", false);
                 break;
             case States.Follow:
-                
                 animator.SetBool("Idle", false);
                 animator.SetBool("Follow", true);
                 animator.SetBool("Hit", false);
@@ -165,6 +205,9 @@ public class EnemyController : MonoBehaviour
                 animator.SetBool("Hit", true);
                 break;
             case States.Stunned:
+                animator.SetBool("Idle", false);
+                animator.SetBool("Follow", false);
+                animator.SetBool("Hit", false);
                 break;
             case States.Dead:
                 break;
@@ -205,17 +248,15 @@ public class EnemyController : MonoBehaviour
     public void Die()
     {
         AkSoundEngine.PostEvent("Death_E", this.gameObject);
-        GetComponent<CapsuleCollider>().enabled = false;
+        
         SetRigidbodyState(false);
         SetColliderState(true);
         agent.isStopped = true;
-
+        GetComponent<CapsuleCollider>().enabled = false;
         GetComponent<Animator>().enabled = false;
         
         ChangeState(States.Dead);
         player.ChangeSanityValue(sanityChangeValue);
-        //agent.enabled = false;
-        //agent.Stop();
 
         Invoke("CreateBlood", 3.0f);
 
@@ -228,6 +269,34 @@ public class EnemyController : MonoBehaviour
         {
             OnEnemyDeath();
         }
+    }
+
+    public void Stun()
+    {
+        AkSoundEngine.PostEvent("Death_E", this.gameObject);
+        
+        SetRigidbodyState(false);
+        SetColliderState(true);
+        agent.isStopped = true;
+        GetComponent<CapsuleCollider>().enabled = false;
+        GetComponent<Animator>().enabled = false;
+        ragdoll.ragdolled = true;
+
+        ChangeState(States.Stunned);
+    }
+
+    public void WakeUp()
+    {
+        stunTimer = 0;
+        SetRigidbodyState(true);
+        SetColliderState(false);
+        agent.isStopped = false;
+        GetComponent<CapsuleCollider>().enabled = true;
+        //GetComponent<Animator>().enabled = true;
+        
+
+        ChangeState(States.Idle);
+        detectionCollider.enabled = true;
     }
 
     private void CreateBlood()

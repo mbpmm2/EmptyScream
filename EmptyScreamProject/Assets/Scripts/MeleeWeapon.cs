@@ -14,7 +14,7 @@ public class MeleeWeapon : ItemCore
 
     public Camera cam;
     public GameObject impact;
-    public GameObject impactTarget;
+    public GameObject[] impactTarget;
 
     public GameObject model;
     //private Animator animator;
@@ -126,10 +126,9 @@ public class MeleeWeapon : ItemCore
                 {
                     AkSoundEngine.PostEvent("Hit_E_Wrench", gameObject);
                 }
-                target.TakeDamage(damage);
-                impactGO = Instantiate(impactTarget, hit.point, Quaternion.LookRotation(hit.normal));
-                
-                
+                target.TakeMeleeDamage(damage);
+                int rand = Random.Range(0, impactTarget.Length);
+                impactGO = Instantiate(impactTarget[rand], hit.point, Quaternion.LookRotation(hit.normal));
             }
             else
             {

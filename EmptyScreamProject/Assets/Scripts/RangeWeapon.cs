@@ -32,7 +32,7 @@ public class RangeWeapon : ItemCore
     public Camera cam;
     //public ParticleSystem muzzleFlash;
     public GameObject impact;
-    public GameObject impactTarget;
+    public GameObject[] impactTarget;
     public GameObject weaponModel;
 
     [Header("Material Settings")]
@@ -178,9 +178,9 @@ public class RangeWeapon : ItemCore
                     AkSoundEngine.PostEvent("Hit_E_Nails", gameObject);
                 }
                 target.TakeDamage(damage);
-                impactGO = Instantiate(impactTarget, hit.point, Quaternion.LookRotation(hit.normal));
-               
-                
+                int rand = Random.Range(0, impactTarget.Length);
+                impactGO = Instantiate(impactTarget[rand], hit.point, Quaternion.LookRotation(hit.normal));
+
             }
             else
             {
