@@ -2458,6 +2458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 30
+  koHealth: 15
   enemyController: {fileID: 5390826358870642719}
 --- !u!114 &8147769965124689223
 MonoBehaviour:
@@ -2948,9 +2949,10 @@ MonoBehaviour:
   distance: 0
   targetRig: {fileID: 4175396594145592542}
   parent: {fileID: 4175396594907969640}
-  stunMaxTime: 2
+  stunMaxTime: 18
   stunTimer: 0
   ragdoll: {fileID: 7536772950964046157}
+  detectionCollider: {fileID: 4175396594523576176}
 --- !u!195 &5390826358870642718
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2965,7 +2967,7 @@ NavMeshAgent:
   m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 500
-  m_StoppingDistance: 2.7
+  m_StoppingDistance: 2.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

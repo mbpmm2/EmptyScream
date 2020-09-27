@@ -10,7 +10,7 @@ public class EnemyDetection : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            if(controller.currentState != EnemyController.States.Dead)
+            if(controller.currentState != EnemyController.States.Dead && controller.currentState != EnemyController.States.Stunned)
             {
                 controller.ChangeState(EnemyController.States.Follow);
                 controller.agent.isStopped = false;
@@ -24,11 +24,23 @@ public class EnemyDetection : MonoBehaviour
     {
         if (other.gameObject.name == "Player")
         {
-            if (controller.currentState != EnemyController.States.Dead)
+            if (controller.currentState != EnemyController.States.Dead && controller.currentState != EnemyController.States.Stunned)
             {
                 controller.ChangeState(EnemyController.States.Idle);
                 controller.agent.isStopped = true;
             }
         }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        //if (other.gameObject.name == "Player")
+        //{
+        //    if (controller.currentState != EnemyController.States.Dead && controller.currentState != EnemyController.States.Stunned)
+        //    {
+        //        controller.ChangeState(EnemyController.States.Follow);
+        //        controller.agent.isStopped = true;
+        //    }
+        //}
     }
 }

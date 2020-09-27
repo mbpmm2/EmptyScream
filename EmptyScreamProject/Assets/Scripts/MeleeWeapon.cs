@@ -111,7 +111,7 @@ public class MeleeWeapon : ItemCore
                 {
                     AkSoundEngine.PostEvent("Hit_E_Wrench", gameObject);
                 }
-                target.TakeDamage(damage);
+                target.TakeMeleeDamage(damage);
                 impactGO = Instantiate(impactTarget, hit.point, Quaternion.LookRotation(hit.normal));
                 
                 

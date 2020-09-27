@@ -38,6 +38,7 @@ public class EnemyController : MonoBehaviour
     public GameObject targetRig;
 
     private bool doOnce;
+    private bool doOnce2;
     private Player player;
     public GameObject parent;
 
@@ -45,6 +46,7 @@ public class EnemyController : MonoBehaviour
     public float stunTimer;
 
     public RagdollHelper ragdoll;
+    public SphereCollider detectionCollider;
     // Start is called before the first frame update
     void Start()
     {
@@ -85,8 +87,10 @@ public class EnemyController : MonoBehaviour
                 stunTimer += Time.deltaTime;
                 if (stunTimer>stunMaxTime)
                 {
+                    ragdoll.ragdolled = false;
                     stunTimer = 0;
-                    ChangeState(States.Idle);
+                    GetComponent<CapsuleCollider>().enabled = true;
+                    //ChangeState(States.Idle);
                 }
                 break;
             case States.Dead:
@@ -95,18 +99,18 @@ public class EnemyController : MonoBehaviour
                 break;
         }
 
-        if (distance <= agent.stoppingDistance && currentState!=States.Dead)
+        if (distance <= agent.stoppingDistance && (currentState!=States.Dead && currentState != States.Stunned))
         {
             Attack();
             FaceTarget();
             doOnce = true;
         }
-        else if (currentState != States.Dead)
+        else if (currentState != States.Dead && currentState != States.Stunned)
         {
             if (doOnce)
             {
                 doOnce = false;
-                ChangeState(States.Follow);
+                //ChangeState(States.Follow);
             }
             
         }
@@ -114,7 +118,11 @@ public class EnemyController : MonoBehaviour
 
     private void Attack()
     {
-        ChangeState(States.Hit);
+        if (doOnce2)
+        {
+            ChangeState(States.Hit);
+            doOnce2 = false;
+        }
     }
 
     public void DoDamage()
@@ -164,15 +172,19 @@ public class EnemyController : MonoBehaviour
         lastState = currentState;
         currentState = newState;
 
+        if (currentState!=lastState)
+        {
+            doOnce2 = true;
+        }
         //manage animation
         switch (currentState)
         {
             case States.Idle:
                 animator.SetBool("Idle", true);
                 animator.SetBool("Follow", false);
+                animator.SetBool("Hit", false);
                 break;
             case States.Follow:
-                
                 animator.SetBool("Idle", false);
                 animator.SetBool("Follow", true);
                 animator.SetBool("Hit", false);
@@ -184,7 +196,9 @@ public class EnemyController : MonoBehaviour
                 animator.SetBool("Hit", true);
                 break;
             case States.Stunned:
-                ragdoll.ragdolled = false;
+                animator.SetBool("Idle", false);
+                animator.SetBool("Follow", false);
+                animator.SetBool("Hit", false);
                 break;
             case States.Dead:
                 break;
@@ -225,11 +239,11 @@ public class EnemyController : MonoBehaviour
     public void Die()
     {
         AkSoundEngine.PostEvent("Death_E", this.gameObject);
-        GetComponent<CapsuleCollider>().enabled = false;
+        
         SetRigidbodyState(false);
         SetColliderState(true);
         agent.isStopped = true;
-
+        GetComponent<CapsuleCollider>().enabled = false;
         GetComponent<Animator>().enabled = false;
         
         ChangeState(States.Dead);
@@ -253,14 +267,29 @@ public class EnemyController : MonoBehaviour
     public void Stun()
     {
         AkSoundEngine.PostEvent("Death_E", this.gameObject);
-        GetComponent<CapsuleCollider>().enabled = false;
+        
         SetRigidbodyState(false);
         SetColliderState(true);
         agent.isStopped = true;
-
+        GetComponent<CapsuleCollider>().enabled = false;
         GetComponent<Animator>().enabled = false;
+        ragdoll.ragdolled = true;
 
         ChangeState(States.Stunned);
+    }
+
+    public void WakeUp()
+    {
+        stunTimer = 0;
+        SetRigidbodyState(true);
+        SetColliderState(false);
+        agent.isStopped = false;
+        GetComponent<CapsuleCollider>().enabled = true;
+        //GetComponent<Animator>().enabled = true;
+        
+
+        ChangeState(States.Idle);
+        detectionCollider.enabled = true;
     }
 
     private void CreateBlood()

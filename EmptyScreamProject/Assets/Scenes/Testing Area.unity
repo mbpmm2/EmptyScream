@@ -9396,6 +9396,7 @@ MonoBehaviour:
   m_Script: {fileID: 402867504}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Entries: []
 --- !u!4 &345251739
 Transform:
   m_ObjectHideFlags: 19
@@ -46863,12 +46864,7 @@ PrefabInstance:
     - target: {fileID: 4175396594444880149, guid: 917c0398946edfc4584e20dd1bf35311,
         type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'mixamorig:Head'\n\tTransform 'mixamorig:Hips'\n\tTransform
-        'mixamorig:Neck'\n\tTransform 'mixamorig:Spine'\n\tTransform 'mixamorig:Head'\n\tTransform
-        'mixamorig:Hips'\n\tTransform 'mixamorig:Neck'\n\tTransform 'mixamorig:Spine'\n\tTransform
-        'mixamorig:Head'\n\tTransform 'mixamorig:Hips'\n\tand more ..."
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4175396594907969640, guid: 917c0398946edfc4584e20dd1bf35311,
         type: 3}
