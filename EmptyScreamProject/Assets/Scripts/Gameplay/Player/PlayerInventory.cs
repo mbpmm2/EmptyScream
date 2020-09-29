@@ -57,7 +57,15 @@ public class PlayerInventory : MonoBehaviour
         for (int i = 0; i < hotkeyItems.Length; i++)
         {
             hotkeyItems[i] = itemsParent.transform.GetChild(i).gameObject;
-            items[i] = hotkeyItems[i].GetComponent<ItemCore>();
+            
+            if (hotkeyItems[i].GetComponent<ItemCore>())
+            {
+                items[i] = hotkeyItems[i].GetComponent<ItemCore>();
+            }
+            else
+            {
+                items[i] = hotkeyItems[i].GetComponentInChildren<ItemCore>();
+            }
 
             for (int c = 0; c < hotkeyItems[i].transform.childCount; c++)
             {

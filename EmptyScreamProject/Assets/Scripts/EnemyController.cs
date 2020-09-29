@@ -64,15 +64,16 @@ public class EnemyController : MonoBehaviour
     {
         distance = Vector3.Distance(transform.position, target.position);
 
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            ragdoll.ragdolled = true;
-        }
+        //test ragdoll
+        //if (Input.GetKeyDown(KeyCode.L))
+        //{
+        //    ragdoll.ragdolled = true;
+        //}
 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            ragdoll.ragdolled = false;
-        }
+        //if (Input.GetKeyDown(KeyCode.K))
+        //{
+        //    ragdoll.ragdolled = false;
+        //}
 
         switch (currentState)
         {

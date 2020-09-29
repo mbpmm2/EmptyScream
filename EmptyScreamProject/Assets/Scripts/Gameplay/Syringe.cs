@@ -21,8 +21,8 @@ public class Syringe : ItemCore
     {
         lerp = GetComponent<AnimationLerp>();
         PlayerInventory.OnSyringePickedUp += SetLiquidFull;
-        //animator = GetComponent<Animator>();
-        animator = transform.GetChild(0).GetComponent<Animator>();
+        animator = GetComponent<Animator>();
+        //animator = transform.GetChild(0).GetComponent<Animator>();
         amountText = "" + amountLeft;
         SetLiquidFull(ItemType.AllItems);
     }

@@ -19,8 +19,8 @@ public class Medkit : ItemCore
     {
         lerp = GetComponent<AnimationLerp>();
         canHeal = true;
-        //animator = GetComponent<Animator>();
-        animator = transform.GetChild(0).GetComponent<Animator>();
+        animator = GetComponent<Animator>();
+        //animator = transform.GetChild(0).GetComponent<Animator>();
         amountText = "" + amountLeft;
     }
 

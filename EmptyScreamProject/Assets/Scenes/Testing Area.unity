@@ -9233,7 +9233,6 @@ MonoBehaviour:
   m_Script: {fileID: 402867504}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Entries: []
 --- !u!4 &345251739
 Transform:
   m_ObjectHideFlags: 19
@@ -27743,7 +27742,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 895120316}
-  - component: {fileID: 895120317}
   m_Layer: 11
   m_Name: Item (3)
   m_TagString: Untagged
@@ -27766,35 +27764,6 @@ Transform:
   m_Father: {fileID: 7505719210106142188}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
---- !u!114 &895120317
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 895120315}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a0c6c56fa215cb478c6e9cad3730246, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canUse: 0
-  canStack: 1
-  ammoType: 1
-  amountLeft: 5
-  itType: 3
-  animator: {fileID: 0}
-  lerp: {fileID: 0}
-  crosshair: {fileID: 0}
-  icon: {fileID: 21300000, guid: 2b3710f355ca6344890579bdf4669696, type: 3}
-  amountText: 5
-  immunityTime: 5
-  liquidColor: {r: 0.8666667, g: 0.7647059, b: 0.13333334, a: 0.9372549}
-  emptyColor: {r: 0.7647059, g: 0.7647059, b: 0.7647059, a: 0.12941177}
-  mesh:
-  - {fileID: 1190231815}
-  - {fileID: 187145747}
-  player: {fileID: 1033466651}
 --- !u!1 &901632105
 GameObject:
   m_ObjectHideFlags: 0
@@ -29474,12 +29443,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1158594100207949768, guid: 2c753ad3aaf90a04684b874ef2f124e4,
     type: 3}
   m_PrefabInstance: {fileID: 182103883}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &965086576 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7371703000383961565, guid: 0d49215f056fb0144aeafe8272c73310,
-    type: 3}
-  m_PrefabInstance: {fileID: 2042332438}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &983229536
 GameObject:
@@ -42537,6 +42500,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lerp: {fileID: 0}
+--- !u!114 &1271617000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1271616997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a0c6c56fa215cb478c6e9cad3730246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canUse: 0
+  canStack: 1
+  ammoType: 1
+  amountLeft: 5
+  itType: 3
+  animator: {fileID: 1271616998}
+  lerp: {fileID: 0}
+  crosshair: {fileID: 0}
+  icon: {fileID: 21300000, guid: 2b3710f355ca6344890579bdf4669696, type: 3}
+  amountText: 5
+  immunityTime: 5
+  liquidColor: {r: 0.8666667, g: 0.7647059, b: 0.13333334, a: 0.9372549}
+  emptyColor: {r: 0.7647059, g: 0.7647059, b: 0.7647059, a: 0.12941177}
+  mesh:
+  - {fileID: 1190231815}
+  - {fileID: 187145747}
+  player: {fileID: 1033466651}
 --- !u!43 &1273720631
 Mesh:
   m_ObjectHideFlags: 0
@@ -68263,6 +68255,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Figure
       objectReference: {fileID: 0}
+    - target: {fileID: 1083961361131462546, guid: 0d49215f056fb0144aeafe8272c73310,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1083961361138724338, guid: 0d49215f056fb0144aeafe8272c73310,
         type: 3}
       propertyPath: m_WarningMessage
@@ -69232,7 +69229,7 @@ PrefabInstance:
         type: 3}
       propertyPath: figure
       value: 
-      objectReference: {fileID: 965086576}
+      objectReference: {fileID: 0}
     - target: {fileID: 8346643761378474801, guid: 0d49215f056fb0144aeafe8272c73310,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -73071,7 +73068,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 655170964933755328}
-  - component: {fileID: 202137457558579092}
   m_Layer: 11
   m_Name: Item (2)
   m_TagString: Untagged
@@ -73079,31 +73075,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &202137457558579092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 202137457558579091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5e12bec90da1543a4a7e011e27842d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canUse: 0
-  canStack: 1
-  ammoType: 2
-  amountLeft: 3
-  itType: 2
-  animator: {fileID: 0}
-  lerp: {fileID: 0}
-  crosshair: {fileID: 0}
-  icon: {fileID: 21300000, guid: 41d609ffa3e67f84b8a89c850f9309f6, type: 3}
-  amountText: 3
-  healthPointsToGive: 25
-  canHeal: 0
-  player: {fileID: 1033466651}
 --- !u!144 &297121808276319585
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -73918,6 +73889,7 @@ GameObject:
   - component: {fileID: 1500456898144757431}
   - component: {fileID: 2488775637941425318}
   - component: {fileID: 2488775637941425317}
+  - component: {fileID: 2488775637941425319}
   m_Layer: 0
   m_Name: vendas 1
   m_TagString: Untagged
@@ -73957,6 +73929,31 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2488775637941425319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2488775637941425316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5e12bec90da1543a4a7e011e27842d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canUse: 0
+  canStack: 1
+  ammoType: 2
+  amountLeft: 3
+  itType: 2
+  animator: {fileID: 2488775637941425318}
+  lerp: {fileID: 0}
+  crosshair: {fileID: 0}
+  icon: {fileID: 21300000, guid: 41d609ffa3e67f84b8a89c850f9309f6, type: 3}
+  amountText: 3
+  healthPointsToGive: 25
+  canHeal: 0
+  player: {fileID: 1033466651}
 --- !u!136 &2522120570120417275
 CapsuleCollider:
   m_ObjectHideFlags: 0
