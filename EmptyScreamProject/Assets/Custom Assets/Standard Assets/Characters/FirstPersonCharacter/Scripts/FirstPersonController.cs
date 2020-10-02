@@ -10,6 +10,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [RequireComponent(typeof (AudioSource))]
     public class FirstPersonController : MonoBehaviour
     {
+        // public Animator animator;
+        public bool isStanding;
         public bool m_IsWalking;
         public float m_WalkSpeed;
         public float m_RunSpeed;
@@ -59,6 +61,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Use this for initialization
         private void Start()
         {
+            //animator = transform.GetChild(0).GetComponent<Animator>();
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
@@ -263,6 +266,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
             float horizontal = CrossPlatformInputManager.GetAxisRaw("Horizontal");
             float vertical = CrossPlatformInputManager.GetAxisRaw("Vertical");
 
+            if(horizontal == 0 && vertical == 0)
+            {
+                isStanding = true;
+            }
+            else
+            {
+                isStanding = false;
+            }
             bool waswalking = m_IsWalking;
 
 #if !MOBILE_INPUT
@@ -271,6 +282,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (!m_IsCrouching)
             {
                 m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+                //animator.SetBool("isWalking", m_IsWalking);
             }
             
             if(m_IsCrouching && !m_IsWalking)

@@ -17,6 +17,7 @@ public class ItemCore : MonoBehaviour
     public delegate void OnItemAction(string amount);
     public static OnItemAction OnStackableItemUse;
 
+    public bool isInAnimation;
     public bool canUse;
     public bool canStack;
     public ItemPickup.PickupType ammoType;

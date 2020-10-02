@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
 
     [Header("Private Variables")]
     public bool isBeingDamaged;
-    private FirstPersonController fpsController;
+    public FirstPersonController fpsController;
     private int lastSanityIndex;
     private float immunityTimer;
     private float immunityTime;

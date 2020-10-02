@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class MeleeWeapon : ItemCore
 {
@@ -18,11 +19,14 @@ public class MeleeWeapon : ItemCore
 
     public GameObject model;
     //private Animator animator;
-    public bool animationEnded;
+   // public bool animationEnded;
 
     public bool hitTarget;
 
     Player player;
+    public FirstPersonController playerController;
+    public bool lastWalkingState = false;
+    public bool doOnce;
 
     void Start()
     {
@@ -30,6 +34,7 @@ public class MeleeWeapon : ItemCore
         originalDamage = damage;
         animator = transform.GetChild(0).GetComponent<Animator>();
         player = GameManager.Get().playerGO.GetComponent<Player>();
+        playerController = GameManager.Get().playerGO.GetComponent<Player>().fpsController;
         Player.OnPlayerChangeSanityTier += UpdateDamage;
         ItemAnimation.OnHitImpact += HitImpact;
         ItemAnimation.OnHitEnd += OnAnimationEnd;
@@ -45,33 +50,87 @@ public class MeleeWeapon : ItemCore
     {
         if(canUse)
         {
-            if (Input.GetButtonDown("Fire1") && !animationEnded && !isBlocking)
+            if (Input.GetButtonDown("Fire1") && !isInAnimation && !isBlocking)
             {
-                animationEnded = true;
+                isInAnimation = true;
                 CheckTarget();
                 Hit();
             }
+
+            if (playerController.m_IsWalking != lastWalkingState && !playerController.isStanding)
+            {
+                lastWalkingState = playerController.m_IsWalking;
+
+                if(lastWalkingState)
+                {
+                    animator.SetBool("isWalking", lastWalkingState);
+                    animator.SetBool("isRunning", false);
+                    animator.SetBool("isStanding", false);
+                    isInAnimation = false;
+                    doOnce = false;
+                }
+                else
+                {
+                    animator.SetBool("isWalking", lastWalkingState);
+                    animator.SetBool("isRunning", true);
+                    animator.SetBool("isStanding", false);
+                    isInAnimation = true;
+                    doOnce = false;
+                }
+            }
+
+            if (Input.GetMouseButtonDown(1) && !isInAnimation && !isBlocking)
+            {
+                isInAnimation = true;
+                canUse = false;
+                animator.SetBool("Block", true);
+                lerp.canChange = true;
+                lerp.timer = 0;
+                lerp.lerpOnce = true;
+                lerp.canLerp = false;
+            }
         }
 
-        if (Input.GetMouseButtonDown(1) && !animationEnded)
+        if(playerController.m_IsWalking != lastWalkingState) // STOPPED RUNNING
         {
-            animationEnded = false;
-            canUse = false;
-            animator.SetBool("Block", true);
-            lerp.canChange = true;
-            lerp.timer = 0;
-            lerp.lerpOnce = true;
-            lerp.canLerp = false;
+            if (isInAnimation && !canUse)
+            {
+                lastWalkingState = playerController.m_IsWalking;
+                if (lastWalkingState)
+                {
+                    animator.SetBool("isWalking", lastWalkingState);
+                    animator.SetBool("isRunning", false);
+                    animator.SetBool("isStanding", false);
+                    isInAnimation = false;
+                    doOnce = false;
+                }
+            }
         }
-        else if (Input.GetMouseButtonUp(1))
+        else if(playerController.isStanding) // STOPPED MOVING
         {
-            canUse = true;
-            animator.SetBool("Block", false);
-            lerp.canChange = false;
-            lerp.lerpOnce = false;
-            lerp.canLerp = true;
+            if (!doOnce)
+            {
+                doOnce = true;
+                isInAnimation = false;
+                lastWalkingState = false;
+                animator.SetBool("isWalking", false);
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isStanding", true);
+            }
         }
 
+        if (Input.GetMouseButtonUp(1))
+        {
+            if (isBlocking && !canUse)
+            {
+                canUse = true;
+                animator.SetBool("Block", false);
+                lerp.canChange = false;
+                lerp.lerpOnce = false;
+                lerp.canLerp = true;
+            }
+                
+        }
     }
 
     public void Hit()
@@ -142,7 +201,7 @@ public class MeleeWeapon : ItemCore
     }
     public void OnAnimationEnd()
     {
-        animationEnded = false;
+        isInAnimation = false;
     }
 
     public void UpdateDamage(float test)
