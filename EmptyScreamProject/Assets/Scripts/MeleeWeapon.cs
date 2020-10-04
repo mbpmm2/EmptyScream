@@ -132,6 +132,7 @@ public class MeleeWeapon : ItemCore
             }
             else
             {
+                AkSoundEngine.PostEvent("Wrench_attack", gameObject);
                 impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
             }
 

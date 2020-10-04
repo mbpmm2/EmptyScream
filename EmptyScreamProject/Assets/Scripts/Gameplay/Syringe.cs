@@ -34,6 +34,7 @@ public class Syringe : ItemCore
         {
             if (Input.GetButtonDown("Fire1") && amountLeft > 0)
             {
+                AkSoundEngine.PostEvent("Needle_use", gameObject);
                 UseSyringe();
             }
         }

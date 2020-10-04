@@ -222,6 +222,22 @@ public class Door : Interactable
         }
     }
 
+    public void PlayMechanicDoorSound()
+    {
+        AkSoundEngine.PostEvent("Door_action", this.gameObject);
+    }
+
+    public void PlayOpenDoorSound()
+    {
+        AkSoundEngine.PostEvent("Lockers_open", this.gameObject);
+    }
+
+    public void PlayCloseDoorSound()
+    {
+        AkSoundEngine.PostEvent("Lockers_close", this.gameObject);
+    }
+
+
     private void OnDestroy()
     {
         OnInteract -= InteractDoor;
