@@ -58,6 +58,7 @@ public class LightSwitch : MonoBehaviour
     {
         if(isOn)
         {
+            AkSoundEngine.PostEvent("Lights_on", this.gameObject);
             if (lightParent)
             {
                 if (lightParent.transform.childCount > 0)
@@ -82,6 +83,7 @@ public class LightSwitch : MonoBehaviour
         }
         else
         {
+            AkSoundEngine.PostEvent("Lights_off", this.gameObject);
             if (lightParent)
             {
                 if (lightParent.transform.childCount > 0)

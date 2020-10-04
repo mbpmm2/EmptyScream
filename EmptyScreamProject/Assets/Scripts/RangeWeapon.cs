@@ -184,6 +184,7 @@ public class RangeWeapon : ItemCore
             }
             else
             {
+                AkSoundEngine.PostEvent("Nail_hit_wall", gameObject);
                 impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
             }
 
