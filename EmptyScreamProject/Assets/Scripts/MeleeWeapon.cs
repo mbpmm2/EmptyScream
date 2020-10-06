@@ -25,8 +25,7 @@ public class MeleeWeapon : ItemCore
 
     Player player;
     public FirstPersonController playerController;
-    public bool lastWalkingState = false;
-    public bool doOnce;
+    
 
     void Start()
     {
@@ -43,6 +42,10 @@ public class MeleeWeapon : ItemCore
         MeleeAnimations.OnDisableBlock += DisableBlock;
         MeleeAnimations.OnAnimationEnd += OnAnimationEnd;
         Player.OnPlayerBlockDamage += ExecuteAnimation;
+        FirstPersonController.OnFPSJumpStart += JumpAnimationStart;
+        FirstPersonController.OnFPSJumpEnd += JumpAnimationEnd;
+        FirstPersonController.OnFPSCrouchStart += CrouchAnimationStart;
+        FirstPersonController.OnFPSCrouchEnd += CrouchAnimationEnd;
     }
 
     // Update is called once per frame
@@ -56,6 +59,11 @@ public class MeleeWeapon : ItemCore
                 CheckTarget();
                 Hit();
             }
+
+            /*if (playerController.m_IsWalking != lastWalkingState)
+            {
+                lastWalkingState = playerController.m_IsWalking;
+            }*/
 
             if (playerController.m_IsWalking != lastWalkingState && !playerController.isStanding)
             {
@@ -90,8 +98,18 @@ public class MeleeWeapon : ItemCore
                 lerp.canLerp = false;
             }
         }
+        else
+        {
+            if(!canUse && !isInAnimation)
+            {
+                if (playerController.m_IsWalking != lastWalkingState)
+                {
+                    lastWalkingState = !playerController.m_IsWalking;
+                }
+            }
+        }
 
-        if(playerController.m_IsWalking != lastWalkingState) // STOPPED RUNNING
+        if(playerController.m_IsWalking != lastWalkingState && !playerController.isStanding) // STOPPED RUNNING
         {
             if (isInAnimation && !canUse)
             {
@@ -106,22 +124,22 @@ public class MeleeWeapon : ItemCore
                 }
             }
         }
-        else if(playerController.isStanding) // STOPPED MOVING
+        else if(playerController.isStanding && canUse) // STOPPED MOVING
         {
             if (!doOnce)
             {
                 doOnce = true;
                 isInAnimation = false;
-                lastWalkingState = false;
+                //lastWalkingState = !playerController.m_IsWalking;
                 animator.SetBool("isWalking", false);
                 animator.SetBool("isRunning", false);
                 animator.SetBool("isStanding", true);
             }
         }
 
-        if (Input.GetMouseButtonUp(1))
+        if (Input.GetMouseButtonUp(1) || !Input.GetMouseButton(1))
         {
-            if (isBlocking && !canUse)
+            if (isBlocking)
             {
                 canUse = true;
                 animator.SetBool("Block", false);
@@ -145,6 +163,44 @@ public class MeleeWeapon : ItemCore
             animator.Play("HitTarget", -1, 0f);
         }
 
+    }
+
+    public void JumpAnimationStart()
+    {
+        if(canUse)
+        {
+            isInAnimation = true;
+            animator.Play("Jump", -1, 0f);
+        }
+    }
+
+    public void JumpAnimationEnd()
+    {
+        if (isInAnimation && canUse)
+        {
+            if(canUse)
+            {
+                isInAnimation = false;
+            }
+            
+            animator.Play("JumpEnd", -1, 0f);
+        }
+    }
+
+    public void CrouchAnimationStart()
+    {
+        if (canUse)
+        {
+            animator.Play("CrouchStart", -1, 0f);
+        }
+    }
+
+    public void CrouchAnimationEnd()
+    {
+        if (canUse)
+        {
+            animator.Play("CrouchEnd", -1, 0.5f);
+        }
     }
 
     public void Block()
@@ -253,5 +309,9 @@ public class MeleeWeapon : ItemCore
         MeleeAnimations.OnDisableBlock -= DisableBlock;
         MeleeAnimations.OnAnimationEnd -= OnAnimationEnd;
         Player.OnPlayerBlockDamage -= ExecuteAnimation;
+        FirstPersonController.OnFPSJumpStart -= JumpAnimationStart;
+        FirstPersonController.OnFPSJumpEnd -= JumpAnimationEnd;
+        FirstPersonController.OnFPSCrouchStart -= CrouchAnimationStart;
+        FirstPersonController.OnFPSCrouchEnd -= CrouchAnimationEnd;
     }
 }

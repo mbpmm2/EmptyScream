@@ -10,6 +10,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [RequireComponent(typeof (AudioSource))]
     public class FirstPersonController : MonoBehaviour
     {
+        public delegate void OnFPSAction();
+        static public OnFPSAction OnFPSJumpStart;
+        static public OnFPSAction OnFPSJumpEnd;
+        static public OnFPSAction OnFPSCrouchStart;
+        static public OnFPSAction OnFPSCrouchEnd;
+
         // public Animator animator;
         public bool isStanding;
         public bool m_IsWalking;
@@ -105,6 +111,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 if (CanStandUp())
                 {
                     m_IsCrouching = !m_IsCrouching;
+
+                    if(m_IsCrouching)
+                    {
+                        if (OnFPSCrouchStart != null)
+                        {
+                            OnFPSCrouchStart();
+                        }
+                    }
+                    else
+                    {
+                        if (OnFPSCrouchEnd != null)
+                        {
+                            OnFPSCrouchEnd();
+                        }
+                    }
                     t = 0;
                 }
                 
@@ -143,6 +164,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void PlayLandingSound()
         {
+            //Jump delegate
+            if (OnFPSJumpEnd != null)
+            {
+                OnFPSJumpEnd();
+            }
             m_AudioSource.clip = m_LandSound;
             m_AudioSource.Play();
             m_NextStep = m_StepCycle + .5f;
@@ -172,6 +198,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
                 if (m_Jump)
                 {
+                    //Jump delegate
+                    if(OnFPSJumpStart != null)
+                    {
+                        OnFPSJumpStart();
+                    }
                     m_MoveDir.y = m_JumpSpeed;
                     PlayJumpSound();
                     m_Jump = false;
@@ -281,17 +312,29 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // keep track of whether or not the character is walking or running
             if (!m_IsCrouching)
             {
-                m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+                if (m_CharacterController.isGrounded)
+                {
+                    m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+                }
+                    
                 //animator.SetBool("isWalking", m_IsWalking);
             }
             
             if(m_IsCrouching && !m_IsWalking)
             {
-                m_RunSpeed = crouchMovSpeed;
+                if (m_CharacterController.isGrounded)
+                {
+                    m_RunSpeed = crouchMovSpeed;
+                }
+                
             }
             else
             {
-                m_RunSpeed = originalRunSpeed;
+                if (m_CharacterController.isGrounded)
+                {
+                    m_RunSpeed = originalRunSpeed;
+                }
+                
             }
 #endif
             // set the desired speed to be walking or running

@@ -148,7 +148,8 @@ public class PlayerInventory : MonoBehaviour
                 if (items[lastIndex].canUse)
                 {
                     items[lastIndex].canUse = false;
-
+                    items[lastIndex].doOnce = false;
+                    items[lastIndex].lastWalkingState = !items[lastIndex].lastWalkingState; //DESPUES BORRAR
                     //hotkeyItems[lastIndex].GetComponent<Animator>().SetTrigger("Hide");
                     items[lastIndex].animator.SetTrigger("Hide");
 
