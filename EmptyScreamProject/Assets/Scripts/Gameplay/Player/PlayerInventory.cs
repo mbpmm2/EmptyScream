@@ -113,7 +113,7 @@ public class PlayerInventory : MonoBehaviour
 
                     if (Input.GetKeyDown(pickupKey))
                     {
-                        
+                        AkSoundEngine.PostEvent("Grab_item", gameObject);
                         CheckAmmoType(hit.transform.gameObject.GetComponent<ItemPickup>().itemInfo);
                         //Debug.Log("getting ammo");
                         //PickUpItem(hit.transform.gameObject);

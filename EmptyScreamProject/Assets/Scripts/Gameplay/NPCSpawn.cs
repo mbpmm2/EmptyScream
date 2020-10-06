@@ -27,4 +27,9 @@ public class NPCSpawn : MonoBehaviour
     {
         Instantiate(npcToSpawn, spawnPosition.position, spawnPosition.rotation);
     }
+
+    public void PlayButtonSound()
+    {
+        AkSoundEngine.PostEvent("Terminal", gameObject);
+    }
 }

@@ -43,6 +43,7 @@ public class Medkit : ItemCore
     {
         if(player.CanHeal())
         {
+            AkSoundEngine.PostEvent("Bandages_use", gameObject);
             canHeal = false;
             amountLeft--;
             animator.SetTrigger("Use");
