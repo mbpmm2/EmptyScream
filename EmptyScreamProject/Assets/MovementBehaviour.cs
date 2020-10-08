@@ -73,10 +73,14 @@ public class MovementBehaviour : StateMachineBehaviour
         {
             // De-Animate Camera
             //item.isInAnimation = false;
-            item.lerp.canChange = false;
-            item.lerp.lerpOnce = false;
-            item.lerp.canLerp = true;
-            item.doOnce = false;
+            if(!item.isInAnimation)
+            {
+                item.lerp.canChange = false;
+                item.lerp.lerpOnce = false;
+                item.lerp.canLerp = true;
+                item.doOnce = false;
+            }
+            
         }
     }
 

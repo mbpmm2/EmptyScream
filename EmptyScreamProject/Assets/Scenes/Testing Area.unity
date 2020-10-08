@@ -60083,20 +60083,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1935521640254600581, guid: 917c0398946edfc4584e20dd1bf35311,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4175396594907969640, guid: 917c0398946edfc4584e20dd1bf35311,
         type: 3}
       propertyPath: m_Name
       value: NewEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 4175396594907969640, guid: 917c0398946edfc4584e20dd1bf35311,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4175396594907969647, guid: 917c0398946edfc4584e20dd1bf35311,
         type: 3}
@@ -60153,16 +60143,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8052268855867040029, guid: 917c0398946edfc4584e20dd1bf35311,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8052268855867040029, guid: 917c0398946edfc4584e20dd1bf35311,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: a48afa6f2e2f8334db7efdc01b203c4c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 917c0398946edfc4584e20dd1bf35311, type: 3}
 --- !u!1 &1835691958
