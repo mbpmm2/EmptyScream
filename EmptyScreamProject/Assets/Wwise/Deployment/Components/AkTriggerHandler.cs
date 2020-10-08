@@ -84,10 +84,10 @@ public abstract class AkTriggerHandler : UnityEngine.MonoBehaviour
 			}
 		}
 
-		if (triggerList.Contains(AWAKE_TRIGGER_ID))
+		if (in_triggerList.Contains(AWAKE_TRIGGER_ID))
 			in_delegate(null);
 
-		if (triggerList.Contains(ON_ENABLE_TRIGGER_ID))
+		if (in_triggerList.Contains(ON_ENABLE_TRIGGER_ID))
 			in_delegate(null);
 	}
 

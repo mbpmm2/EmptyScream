@@ -1671,6 +1671,7 @@ public partial class AkSoundEngine {
   public const int AKCODECID_OPUSNX = (17);
   public const int AKCODECID_CAF = (18);
   public const int AKCODECID_AKOPUS = (19);
+  public const int AKCODECID_AKOPUS_WEM = (20);
   public const int AKPLUGINID_METER = (129);
   public const int AKPLUGINID_RECORDER = (132);
   public const int AKEXTENSIONID_SPATIALAUDIO = (800);
@@ -1682,6 +1683,7 @@ public partial class AkSoundEngine {
   public const int AK_WAVE_FORMAT_AAC = 0xAAC0;
   public const int AK_WAVE_FORMAT_OPUSNX = 0x3039;
   public const int AK_WAVE_FORMAT_OPUS = 0x3040;
+  public const int AK_WAVE_FORMAT_OPUS_WEM = 0x3041;
   public const int WAVE_FORMAT_XMA2 = 0x166;
   public const int AK_PANNER_NUM_STORAGE_BITS = 3;
   public const int AK_POSSOURCE_NUM_STORAGE_BITS = 3;
@@ -1935,6 +1937,7 @@ public partial class AkSoundEngine {
   public const int AK_DEFAULT_REFLECTIONS_ORDER = (1);
   public const double AK_SA_EPSILON = (0.001);
   public const double AK_SA_DIFFRACTION_EPSILON = (0.002);
+  public const double AK_SA_DIFFRACTION_DOT_EPSILON = (0.000002);
   public const double AK_SA_PLANE_THICKNESS_RATIO = (0.005);
 }
 #endif // #if (UNITY_STANDALONE_WIN && !UNITY_EDITOR) || UNITY_EDITOR_WIN

@@ -7,6 +7,7 @@
 
 [UnityEngine.AddComponentMenu("Wwise/AkBank")]
 [UnityEngine.ExecuteInEditMode]
+[UnityEngine.DefaultExecutionOrder(-75)]
 /// @brief Loads and unloads a SoundBank at a specified moment. Vorbis sounds can be decompressed at a specified moment using the decode compressed data option. In that case, the SoundBank will be prepared.
 public class AkBank : AkTriggerHandler
 #if UNITY_EDITOR
