@@ -17,7 +17,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         static public OnFPSAction OnFPSCrouchEnd;
 
         // public Animator animator;
-        public bool isStanding;
+        public float axisSpeedMultiplier;
+        public float finalAxisValueX;
+        public float finalAxisValueY;
+        public bool isIdle;
+        public bool isRunning;
         public bool m_IsWalking;
         public float m_WalkSpeed;
         public float m_RunSpeed;
@@ -202,6 +206,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     if(OnFPSJumpStart != null)
                     {
                         OnFPSJumpStart();
+                        Debug.Log("JUMPING");
                     }
                     m_MoveDir.y = m_JumpSpeed;
                     PlayJumpSound();
@@ -293,34 +298,51 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void GetInput(out float speed)
         {
+            speed = 0;
             // Read input
-            float horizontal = CrossPlatformInputManager.GetAxisRaw("Horizontal");
-            float vertical = CrossPlatformInputManager.GetAxisRaw("Vertical");
+            float horizontal = CrossPlatformInputManager.GetAxis("Horizontal") * axisSpeedMultiplier;
+            float vertical = CrossPlatformInputManager.GetAxis("Vertical") * axisSpeedMultiplier;
+            float pureHorizontal = CrossPlatformInputManager.GetAxis("Horizontal");
+            float pureVertical = CrossPlatformInputManager.GetAxis("Vertical");
+            finalAxisValueX = pureHorizontal;
+            finalAxisValueY = pureVertical;
 
             if(horizontal == 0 && vertical == 0)
             {
-                isStanding = true;
+                isIdle = true;
             }
             else
             {
-                isStanding = false;
+                isIdle = false;
             }
-            bool waswalking = m_IsWalking;
 
 #if !MOBILE_INPUT
             // On standalone builds, walk/run speed is modified by a key press.
             // keep track of whether or not the character is walking or running
-            if (!m_IsCrouching)
+
+            if (m_CharacterController.isGrounded)
             {
-                if (m_CharacterController.isGrounded)
+                if (!isIdle)
                 {
-                    m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+                    if(!m_IsCrouching)
+                    {
+                        m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+                        isRunning = Input.GetKey(KeyCode.LeftShift);
+                    }
+                    else
+                    {
+                        m_IsWalking = true;
+                        isRunning = false;
+                    }
                 }
-                    
-                //animator.SetBool("isWalking", m_IsWalking);
+                else
+                {
+                    m_IsWalking = false;
+                    isRunning = false;
+                }
             }
             
-            if(m_IsCrouching && !m_IsWalking)
+            if(m_IsCrouching && m_IsWalking)
             {
                 if (m_CharacterController.isGrounded)
                 {
@@ -338,7 +360,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 #endif
             // set the desired speed to be walking or running
-            speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;
+            if(m_IsWalking)
+            {
+                speed = m_WalkSpeed;
+            }
+            else if(isRunning)
+            {
+                speed = m_RunSpeed;
+            }
+            //speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;
             m_Input = new Vector2(horizontal, vertical);
 
             // normalize input if it exceeds 1 in combined length:

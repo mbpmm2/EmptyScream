@@ -7,38 +7,66 @@ public class RunBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        MeleeWeapon melee = animator.gameObject.transform.parent.GetComponent<MeleeWeapon>();
+        ItemCore item = animator.gameObject.transform.parent.GetComponent<ItemCore>();
 
-        // melee.animationEnded = false;
-        Debug.Log("lol");
-        melee.canUse = false;
-        melee.lerp.canChange = true;
-        melee.lerp.timer = 0;
-        melee.lerp.lerpOnce = true;
-        melee.lerp.canLerp = false;
+        // item.animationEnded = false;
+        item.isInAnimation = true;
+        item.canUse = false;
+        item.lerp.canChange = true;
+        item.lerp.timer = 0;
+        item.lerp.lerpOnce = true;
+        item.lerp.canLerp = false;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        ItemCore item = animator.gameObject.transform.parent.GetComponent<ItemCore>();
 
+        if (item.canUse || item.isInAnimation)
+        {
+            animator.SetFloat("WalkInputX", item.playerController.finalAxisValueX);
+            animator.SetFloat("WalkInputY", item.playerController.finalAxisValueY);
+            animator.SetBool("isCrouching", item.playerController.m_IsCrouching);
+
+
+            if (item.lastRunState != item.playerController.isRunning)
+            {
+                if (item.playerController.isRunning)
+                {
+                    animator.SetBool("stopMovementAnimation", true);
+                }
+                else
+                {
+                    animator.SetBool("stopMovementAnimation", false);
+                    item.doOnce = true;
+                }
+
+                animator.SetBool("isRunning", item.playerController.isRunning);
+                item.lastRunState = item.playerController.isRunning;
+
+            }
+        }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        MeleeWeapon melee = animator.gameObject.transform.parent.GetComponent<MeleeWeapon>();
+        ItemCore item = animator.gameObject.transform.parent.GetComponent<ItemCore>();
 
-        melee.canUse = true;
+        item.canUse = true;
 
-        if (melee.doOnce)
+       /* if (item.doOnce)
         {
-            melee.lerp.canChange = false;
-            melee.lerp.lerpOnce = false;
-            melee.lerp.canLerp = true;
+            
             Debug.Log("lol exit");
-        }
-        
+        }*/
+
+        item.isInAnimation = false;
+        item.lerp.canChange = false;
+        item.lerp.lerpOnce = false;
+        item.lerp.canLerp = true;
+
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

@@ -6837,12 +6837,6 @@ Transform:
   m_Father: {fileID: 1680296234}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &686891037 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7371703000383961565, guid: 0d49215f056fb0144aeafe8272c73310,
-    type: 3}
-  m_PrefabInstance: {fileID: 1302868106}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &700633326
 GameObject:
   m_ObjectHideFlags: 0
@@ -11323,6 +11317,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.34077048
       objectReference: {fileID: 0}
+    - target: {fileID: 8203909265406228212, guid: 7bc6296f8e8cedd499697212fade69c4,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: f4dd91c04ed9a4545bbccba9c8f6f14b, type: 2}
     - target: {fileID: 8207239684737148428, guid: 7bc6296f8e8cedd499697212fade69c4,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -14511,7 +14510,7 @@ PrefabInstance:
         type: 3}
       propertyPath: figure
       value: 
-      objectReference: {fileID: 686891037}
+      objectReference: {fileID: 0}
     - target: {fileID: 8346643761378474801, guid: 0d49215f056fb0144aeafe8272c73310,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -15189,6 +15188,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5e12bec90da1543a4a7e011e27842d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastWalkingState: 0
+  doOnce: 0
+  isInAnimation: 0
   canUse: 0
   canStack: 1
   ammoType: 2
@@ -15981,6 +15983,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a0c6c56fa215cb478c6e9cad3730246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastWalkingState: 0
+  doOnce: 0
+  isInAnimation: 0
   canUse: 0
   canStack: 1
   ammoType: 1
@@ -17263,6 +17268,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad2657a8835aacd4ba5a50493a952541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastWalkingState: 0
+  doOnce: 0
+  isInAnimation: 0
   canUse: 0
   canStack: 0
   ammoType: 0
@@ -17286,8 +17294,10 @@ MonoBehaviour:
   clipBulletsDisplay: {fileID: 914682455}
   cam: {fileID: 677487928}
   impact: {fileID: 7615628913741262135, guid: 1653c27a01705ce468964935128b70ce, type: 3}
-  impactTarget: {fileID: 7615628913741262135, guid: e5fdd944d8841214bb3e13f8e8e163ea,
-    type: 3}
+  impactTarget:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   weaponModel: {fileID: 228833918}
   mesh: {fileID: 895872529}
   normalColor: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
@@ -17407,6 +17417,7 @@ MonoBehaviour:
     m_Bits: 1
   rayDistance: 3
   isBeingDamaged: 0
+  fpsController: {fileID: 0}
   restartTime: 5
   ragdoll: {fileID: 1444864749}
   headParent: {fileID: 1044263061}
@@ -17425,6 +17436,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ec5cf00ca181d45a42ba1870e148c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  axisSpeedMultiplier: 3
+  finalAxisValue: 0
+  isIdle: 0
+  isRunning: 0
   m_IsWalking: 0
   m_WalkSpeed: 4.5
   m_RunSpeed: 6

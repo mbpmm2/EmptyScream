@@ -18,14 +18,8 @@ public class MeleeWeapon : ItemCore
     public GameObject[] impactTarget;
 
     public GameObject model;
-    //private Animator animator;
-   // public bool animationEnded;
-
     public bool hitTarget;
-
-    Player player;
-    public FirstPersonController playerController;
-    
+    private Player player;
 
     void Start()
     {
@@ -44,8 +38,6 @@ public class MeleeWeapon : ItemCore
         Player.OnPlayerBlockDamage += ExecuteAnimation;
         FirstPersonController.OnFPSJumpStart += JumpAnimationStart;
         FirstPersonController.OnFPSJumpEnd += JumpAnimationEnd;
-        FirstPersonController.OnFPSCrouchStart += CrouchAnimationStart;
-        FirstPersonController.OnFPSCrouchEnd += CrouchAnimationEnd;
     }
 
     // Update is called once per frame
@@ -56,35 +48,9 @@ public class MeleeWeapon : ItemCore
             if (Input.GetButtonDown("Fire1") && !isInAnimation && !isBlocking)
             {
                 isInAnimation = true;
+                canUse = false;
                 CheckTarget();
                 Hit();
-            }
-
-            /*if (playerController.m_IsWalking != lastWalkingState)
-            {
-                lastWalkingState = playerController.m_IsWalking;
-            }*/
-
-            if (playerController.m_IsWalking != lastWalkingState && !playerController.isStanding)
-            {
-                lastWalkingState = playerController.m_IsWalking;
-
-                if(lastWalkingState)
-                {
-                    animator.SetBool("isWalking", lastWalkingState);
-                    animator.SetBool("isRunning", false);
-                    animator.SetBool("isStanding", false);
-                    isInAnimation = false;
-                    doOnce = false;
-                }
-                else
-                {
-                    animator.SetBool("isWalking", lastWalkingState);
-                    animator.SetBool("isRunning", true);
-                    animator.SetBool("isStanding", false);
-                    isInAnimation = true;
-                    doOnce = false;
-                }
             }
 
             if (Input.GetMouseButtonDown(1) && !isInAnimation && !isBlocking)
@@ -92,48 +58,11 @@ public class MeleeWeapon : ItemCore
                 isInAnimation = true;
                 canUse = false;
                 animator.SetBool("Block", true);
+                animator.SetBool("stopMovementAnimation", true);
                 lerp.canChange = true;
                 lerp.timer = 0;
                 lerp.lerpOnce = true;
                 lerp.canLerp = false;
-            }
-        }
-        else
-        {
-            if(!canUse && !isInAnimation)
-            {
-                if (playerController.m_IsWalking != lastWalkingState)
-                {
-                    lastWalkingState = !playerController.m_IsWalking;
-                }
-            }
-        }
-
-        if(playerController.m_IsWalking != lastWalkingState && !playerController.isStanding) // STOPPED RUNNING
-        {
-            if (isInAnimation && !canUse)
-            {
-                lastWalkingState = playerController.m_IsWalking;
-                if (lastWalkingState)
-                {
-                    animator.SetBool("isWalking", lastWalkingState);
-                    animator.SetBool("isRunning", false);
-                    animator.SetBool("isStanding", false);
-                    isInAnimation = false;
-                    doOnce = false;
-                }
-            }
-        }
-        else if(playerController.isStanding && canUse) // STOPPED MOVING
-        {
-            if (!doOnce)
-            {
-                doOnce = true;
-                isInAnimation = false;
-                //lastWalkingState = !playerController.m_IsWalking;
-                animator.SetBool("isWalking", false);
-                animator.SetBool("isRunning", false);
-                animator.SetBool("isStanding", true);
             }
         }
 
@@ -143,6 +72,7 @@ public class MeleeWeapon : ItemCore
             {
                 canUse = true;
                 animator.SetBool("Block", false);
+                animator.SetBool("stopMovementAnimation", false);
                 lerp.canChange = false;
                 lerp.lerpOnce = false;
                 lerp.canLerp = true;
@@ -150,57 +80,24 @@ public class MeleeWeapon : ItemCore
                 
         }
     }
-
     public void Hit()
     {
         //AkSoundEngine.PostEvent("hit", gameObject);
         if (!hitTarget)
         {
+            animator.SetBool("stopMovementAnimation", true);
+           // animator.SetBool("isHit", true);
+            //animator.SetTrigger("HitTarget");
             animator.Play("Hit", -1, 0f);
         }
         else
         {
+            animator.SetBool("stopMovementAnimation", true);
+            //animator.SetBool("isHit", true);
+            //animator.SetTrigger("Hit");
             animator.Play("HitTarget", -1, 0f);
         }
 
-    }
-
-    public void JumpAnimationStart()
-    {
-        if(canUse)
-        {
-            isInAnimation = true;
-            animator.Play("Jump", -1, 0f);
-        }
-    }
-
-    public void JumpAnimationEnd()
-    {
-        if (isInAnimation && canUse)
-        {
-            if(canUse)
-            {
-                isInAnimation = false;
-            }
-            
-            animator.Play("JumpEnd", -1, 0f);
-        }
-    }
-
-    public void CrouchAnimationStart()
-    {
-        if (canUse)
-        {
-            animator.Play("CrouchStart", -1, 0f);
-        }
-    }
-
-    public void CrouchAnimationEnd()
-    {
-        if (canUse)
-        {
-            animator.Play("CrouchEnd", -1, 0.5f);
-        }
     }
 
     public void Block()
@@ -312,7 +209,5 @@ public class MeleeWeapon : ItemCore
         Player.OnPlayerBlockDamage -= ExecuteAnimation;
         FirstPersonController.OnFPSJumpStart -= JumpAnimationStart;
         FirstPersonController.OnFPSJumpEnd -= JumpAnimationEnd;
-        FirstPersonController.OnFPSCrouchStart -= CrouchAnimationStart;
-        FirstPersonController.OnFPSCrouchEnd -= CrouchAnimationEnd;
     }
 }
