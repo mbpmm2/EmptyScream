@@ -19,9 +19,11 @@ public class Door : Interactable
     public GameObject door;
     public GameObject[] pickupsColliders;
 
+    public OcclusionPortal occlusionPortal;
     public bool isOpen;
     public bool isLocked;
     private Animator animator;
+    public Trigger doorTrigger;
 
     public int cantEnemigos;
     public bool isInCombatRoom;
@@ -30,6 +32,18 @@ public class Door : Interactable
     protected override void Start()
     {
         base.Start();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if(transform.GetChild(i).GetComponent<Trigger>())
+            {
+                doorTrigger = transform.GetChild(i).GetComponent<Trigger>();
+            }
+        }
+        if(doorTrigger)
+        {
+            doorTrigger.OnEnter += CheckOnTriggerEnter;
+            doorTrigger.OnExit += CheckOnTriggerExit;
+        }
         if(doorType != DoorType.automaticDoor)
         {
             isOpen = true;
@@ -136,24 +150,25 @@ public class Door : Interactable
     public void EnableInteract()
     {
         canInteract = true;
+        //ClosePortal();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void CheckOnTriggerEnter(GameObject GO)
     {
-        if(doorType == DoorType.automaticDoor)
+        if (doorType == DoorType.automaticDoor)
         {
-            switch (other.tag)
+            switch (GO.tag)
             {
                 case "Player":
                     {
-                        if(!isOpen)
+                        if (!isOpen)
                         {
                             animator.SetBool("Open", true);
                             animator.SetBool("Close", false);
                             canInteract = false;
                             isOpen = true;
                         }
-                        
+
                     }
                     break;
                 case "enemy":
@@ -165,14 +180,54 @@ public class Door : Interactable
                             canInteract = false;
                             isOpen = true;
                         }
-                        
+
                     }
                     break;
                 default:
                     break;
             }
         }
-        
+    }
+
+    private void CheckOnTriggerExit(GameObject GO)
+    {
+        if (doorType == DoorType.automaticDoor)
+        {
+            switch (GO.tag)
+            {
+                case "Player":
+                    {
+                        if (isOpen)
+                        {
+                            animator.SetBool("Close", true);
+                            animator.SetBool("Open", false);
+                            canInteract = false;
+                            isOpen = false;
+                        }
+
+                    }
+                    break;
+                case "enemy":
+                    {
+                        if (isOpen)
+                        {
+                            animator.SetBool("Close", true);
+                            animator.SetBool("Open", false);
+                            canInteract = false;
+                            isOpen = false;
+                        }
+
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        CheckOnTriggerEnter(other.gameObject);
     }
 
     public bool CheckInteract()
@@ -188,43 +243,30 @@ public class Door : Interactable
 
     private void OnTriggerExit(Collider other)
     {
-        if (doorType == DoorType.automaticDoor)
+        CheckOnTriggerExit(other.gameObject);
+    }
+
+    public void OpenPortal()
+    {
+        if(occlusionPortal)
         {
-            switch (other.tag)
-            {
-                case "Player":
-                    {
-                        if(isOpen)
-                        {
-                            animator.SetBool("Close", true);
-                            animator.SetBool("Open", false);
-                            canInteract = false;
-                            isOpen = false;
-                        }
-                        
-                    }
-                    break;
-                case "enemy":
-                    {
-                        if (isOpen)
-                        {
-                            animator.SetBool("Close", true);
-                            animator.SetBool("Open", false);
-                            canInteract = false;
-                            isOpen = false;
-                        }
-                            
-                    }
-                    break;
-                default:
-                    break;
-            }
+            occlusionPortal.open = true;
+        }
+        
+    }
+
+    public void ClosePortal()
+    {
+        if (occlusionPortal)
+        {
+            occlusionPortal.open = false;
         }
     }
 
     public void PlayMechanicDoorSound()
     {
         AkSoundEngine.PostEvent("Door_action", this.gameObject);
+        //OpenPortal();
     }
 
     public void PlayOpenDoorSound()
@@ -242,5 +284,10 @@ public class Door : Interactable
     {
         OnInteract -= InteractDoor;
         EnemyController.OnEnemyDeath -= EnemyDied;
+        if (doorTrigger)
+        {
+            doorTrigger.OnEnter -= CheckOnTriggerEnter;
+            doorTrigger.OnExit -= CheckOnTriggerExit;
+        }
     }
 }

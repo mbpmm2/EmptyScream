@@ -64,4 +64,16 @@ public class LightDetection : MonoBehaviour
             player.lightsOnPlayer.Remove(gameObject);
         }
     }
+
+    private void OnBecameVisible()
+    {
+        //gameObject.GetComponent<Light>.enabled = true;
+        Debug.Log("VISIBLE");
+    }
+
+    private void OnBecameInvisible()
+    {
+        //gameObject.GetComponent<Light>.enabled = false;
+        Debug.Log("NOT VISIBLE");
+    }
 }

@@ -14,6 +14,8 @@ public class ItemAnimation : MonoBehaviour
     public static OnAnimationAction OnHitStart;
     public static OnAnimationAction OnHitEnd;
     public static OnAnimationAction OnHitImpact;
+    public static OnAnimationAction OnHeal;
+    public static OnAnimationAction OnImmune;
 
     public AnimationLerp lerp;
 
@@ -121,6 +123,22 @@ public class ItemAnimation : MonoBehaviour
         if (OnShootEnd != null)
         {
             OnHitEnd();
+        }
+    }
+
+    public void StartHeal()
+    {
+        if(OnHeal != null)
+        {
+            OnHeal();
+        }
+    }
+
+    public void StartImmunity()
+    {
+        if (OnImmune != null)
+        {
+            OnImmune();
         }
     }
 }

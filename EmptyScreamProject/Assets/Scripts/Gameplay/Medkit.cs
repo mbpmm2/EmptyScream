@@ -19,8 +19,11 @@ public class Medkit : ItemCore
     {
         lerp = GetComponent<AnimationLerp>();
         canHeal = true;
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
+        animator = transform.GetChild(0).GetComponent<Animator>();
         //animator = transform.GetChild(0).GetComponent<Animator>();
+        player = GameManager.Get().playerGO.GetComponent<Player>();
+        ItemAnimation.OnHeal += StartHeal;
         amountText = "" + amountLeft;
     }
 
@@ -79,5 +82,6 @@ public class Medkit : ItemCore
 
     private void OnDestroy()
     {
+        ItemAnimation.OnHeal -= StartHeal;
     }
 }

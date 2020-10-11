@@ -21,8 +21,11 @@ public class Syringe : ItemCore
     {
         lerp = GetComponent<AnimationLerp>();
         PlayerInventory.OnSyringePickedUp += SetLiquidFull;
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
+        animator = transform.GetChild(0).GetComponent<Animator>();
         //animator = transform.GetChild(0).GetComponent<Animator>();
+        player = GameManager.Get().playerGO.GetComponent<Player>();
+        ItemAnimation.OnImmune += StartImmunity;
         amountText = "" + amountLeft;
         SetLiquidFull(ItemType.AllItems);
     }
@@ -75,7 +78,7 @@ public class Syringe : ItemCore
 
     }
 
-    private void StartImmunity()
+    public void StartImmunity()
     {
         player.SetImmunityTimer(immunityTime);
     }
@@ -99,5 +102,6 @@ public class Syringe : ItemCore
     private void OnDestroy()
     {
         PlayerInventory.OnSyringePickedUp -= SetLiquidFull;
+        ItemAnimation.OnImmune -= StartImmunity;
     }
 }

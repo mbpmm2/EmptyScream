@@ -8,6 +8,8 @@ public class DummyEnemyTest : MonoBehaviour
     public float damageRate;
     public float damageRateTimer;
     public bool canDamage;
+    public bool damageOnce;
+    private bool doOnce;
 
     private Player currentPlayer;
     // Start is called before the first frame update
@@ -19,7 +21,7 @@ public class DummyEnemyTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(canDamage)
+        if(canDamage && !damageOnce)
         {
             damageRateTimer += Time.deltaTime;
 
@@ -40,8 +42,24 @@ public class DummyEnemyTest : MonoBehaviour
         if(other.tag == "Player")
         {
             currentPlayer = other.GetComponent<Player>();
-            canDamage = true;
-            damageRateTimer = 0;
+            if(damageOnce)
+            {
+                if(!doOnce)
+                {
+                    if (currentPlayer != null)
+                    {
+                        currentPlayer.ReceiveDamage(damage);
+                    }
+                    doOnce = true;
+                }
+                
+            }
+            else
+            {
+                canDamage = true;
+                damageRateTimer = 0;
+            }
+            
         }
     }
 
