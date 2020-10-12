@@ -15,7 +15,11 @@ public class MeleeWeapon : ItemCore
 
     public Camera cam;
     public GameObject impact;
-    public GameObject[] impactTarget;
+    public GameObject impactTarget;
+    public Texture2D[] decals;
+    public Color color;
+    [Range(0f, 5f)]
+    public float size;
 
     public GameObject model;
     public bool hitTarget;
@@ -139,14 +143,20 @@ public class MeleeWeapon : ItemCore
                     AkSoundEngine.PostEvent("Hit_E_Wrench", gameObject);
                 }
                 target.TakeMeleeDamage(damage);
-                int rand = Random.Range(0, impactTarget.Length);
-                impactGO = Instantiate(impactTarget[rand], hit.point, Quaternion.LookRotation(hit.normal));
+                int rand = Random.Range(0, decals.Length);
+                impactGO = Instantiate(impactTarget, hit.point, Quaternion.LookRotation(hit.normal));
+                SkinnedMeshRenderer r = hit.collider.transform.root.GetComponentInChildren<SkinnedMeshRenderer>();
+                if (r != null)
+                {
+                    PaintDecal.instance.RenderDecal(r, decals[rand], hit.point, Quaternion.LookRotation(hit.normal,Vector3.up), color, size);
+                }
             }
             else
             {
                 AkSoundEngine.PostEvent("Wrench_attack", gameObject);
                 impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
             }
+
 
             impactGO.transform.SetParent(hit.transform);
             impactGO.transform.position += (impactGO.transform.forward * -0.0001f);
