@@ -32,7 +32,11 @@ public class RangeWeapon : ItemCore
     public Camera cam;
     //public ParticleSystem muzzleFlash;
     public GameObject impact;
-    public GameObject[] impactTarget;
+    public GameObject impactTarget;
+    public Texture2D[] decals;
+    public Color color;
+    [Range(0f, 5f)]
+    public float size;
     public GameObject weaponModel;
 
     [Header("Material Settings")]
@@ -178,9 +182,13 @@ public class RangeWeapon : ItemCore
                     AkSoundEngine.PostEvent("Hit_E_Nails", gameObject);
                 }
                 target.TakeDamage(damage);
-                int rand = Random.Range(0, impactTarget.Length);
-                impactGO = Instantiate(impactTarget[rand], hit.point, Quaternion.LookRotation(hit.normal));
-
+                int rand = Random.Range(0, decals.Length);
+                impactGO = Instantiate(impactTarget, hit.point, Quaternion.LookRotation(hit.normal));
+                SkinnedMeshRenderer r = hit.collider.transform.root.GetComponentInChildren<SkinnedMeshRenderer>();
+                if (r != null)
+                {
+                    PaintDecal.instance.RenderDecal(r, decals[rand], hit.point, Quaternion.LookRotation(hit.normal, Vector3.up), color, size);
+                }
             }
             else
             {
