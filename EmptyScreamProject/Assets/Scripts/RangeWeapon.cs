@@ -53,7 +53,7 @@ public class RangeWeapon : ItemCore
     //private Animator animator;
     private TraumaInducer shakeThing;
     private float nextFire;
-    private bool doOnce;
+    private bool doOnce2;
 
     private void Start()
     {
@@ -97,10 +97,10 @@ public class RangeWeapon : ItemCore
             {
                 if (amountLeft > 0)
                 {
-                    if (!doOnce)
+                    if (!doOnce2)
                     {
                         animator.Play("Reload", -1, 0f);
-                        doOnce = true;
+                        doOnce2 = true;
                     }
                     StartCoroutine(Reload());
                 }
@@ -227,7 +227,7 @@ public class RangeWeapon : ItemCore
                     clipBullets += amountLeft;
                     amountLeft = 0;
                 }
-                doOnce = false;
+                doOnce2 = false;
             }
             else
             {
@@ -236,13 +236,13 @@ public class RangeWeapon : ItemCore
                     int aux = clipMaxBullets - clipBullets;
                     amountLeft -= aux;
                     clipBullets = clipMaxBullets;
-                    doOnce = false;
+                    doOnce2 = false;
                 }
                 else
                 {
                     amountLeft -= clipMaxBullets;
                     clipBullets = clipMaxBullets;
-                    doOnce = false;
+                    doOnce2 = false;
                 }
             }
         }

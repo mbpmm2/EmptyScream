@@ -11,7 +11,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: 01fbbcdc080ae1f408f4d363f8bcc20d, type: 3}
   m_ShaderKeywords: _DISABLE_SSR _DOUBLESIDED_ON _NORMALMAP_TANGENT_SPACE
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 1
+  m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
   m_CustomRenderQueue: 2000
   stringTagMap:
@@ -46,7 +46,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Decal:
-        m_Texture: {fileID: 2800000, guid: f49c7f0d8d3c0a74495900bcd696e5a8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5bab7c004c71b1547a5f53180321b5c6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailMap:
