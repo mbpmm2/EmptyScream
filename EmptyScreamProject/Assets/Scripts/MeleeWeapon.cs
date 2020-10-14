@@ -17,6 +17,7 @@ public class MeleeWeapon : ItemCore
     public GameObject impact;
     public GameObject impactTarget;
     public Texture2D[] decals;
+    public LayerMask mask;
     public Color color;
     [Range(0f, 5f)]
     public float size;
@@ -126,7 +127,7 @@ public class MeleeWeapon : ItemCore
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(cam.transform.position + (cam.transform.forward * 0.2f), cam.transform.forward, out hit, range))
+        if (Physics.Raycast(cam.transform.position + (cam.transform.forward * 0.2f), cam.transform.forward, out hit, range,mask,QueryTriggerInteraction.Ignore))
         {
             GameObject impactGO;
             Target target = hit.transform.GetComponentInParent<Target>();
@@ -145,10 +146,16 @@ public class MeleeWeapon : ItemCore
                 target.TakeMeleeDamage(damage);
                 int rand = Random.Range(0, decals.Length);
                 impactGO = Instantiate(impactTarget, hit.point, Quaternion.LookRotation(hit.normal));
-                SkinnedMeshRenderer r = hit.collider.transform.root.GetComponentInChildren<SkinnedMeshRenderer>();
-                if (r != null)
+
+                // SKINNED DECALS
+                SkinnedMeshRenderer[] r = hit.collider.transform.root.GetComponentsInChildren<SkinnedMeshRenderer>();
+                for (int i = 0; i < r.Length; i++)
                 {
-                    PaintDecal.instance.RenderDecal(r, decals[rand], hit.point, Quaternion.LookRotation(hit.normal,Vector3.up), color, size);
+                    if (r[i] != null)
+                    {
+                        Debug.Log(r[i].name);
+                        PaintDecal.instance.RenderDecal(r[i], decals[rand], hit.point + hit.normal * 0.25f, Quaternion.FromToRotation(Vector3.forward, -hit.normal), color, size);
+                    }
                 }
             }
             else
