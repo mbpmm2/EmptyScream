@@ -33,7 +33,7 @@ public class PlayerInventory : MonoBehaviour
     public Camera cam;
     public LayerMask rayCastLayer;
     public float rayDistance;
-    private bool itemChangeFinished = true;
+    public bool itemChangeFinished = true;
 
     private void Awake()
     {
@@ -143,16 +143,19 @@ public class PlayerInventory : MonoBehaviour
     {
         if(index != lastIndex)
         {
+            //Debug.Log("messi");
             if (itemChangeFinished)
             {
                 if (items[lastIndex].canUse)
                 {
+                    
                     items[lastIndex].canUse = false;
                     //items[lastIndex].doOnce = false;
                     items[lastIndex].lastRunState = !items[lastIndex].lastRunState;
+                    items[lastIndex].animator.SetTrigger("Hide");
                     items[lastIndex].animator.SetBool("stopMovementAnimation", true);
                     //hotkeyItems[lastIndex].GetComponent<Animator>().SetTrigger("Hide");
-                    items[lastIndex].animator.SetTrigger("Hide");
+                    
 
                     switch (items[lastIndex].itType)
                     {

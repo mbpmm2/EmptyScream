@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class Medkit : ItemCore
 {
@@ -18,6 +19,8 @@ public class Medkit : ItemCore
     void Start()
     {
         lerp = GetComponent<AnimationLerp>();
+        animator = transform.GetChild(0).GetComponent<Animator>();
+        playerController = GameManager.Get().playerGO.GetComponent<Player>().fpsController;
         canHeal = true;
         //animator = GetComponent<Animator>();
         animator = transform.GetChild(0).GetComponent<Animator>();
@@ -25,6 +28,8 @@ public class Medkit : ItemCore
         player = GameManager.Get().playerGO.GetComponent<Player>();
         ItemAnimation.OnHeal += StartHeal;
         amountText = "" + amountLeft;
+        FirstPersonController.OnFPSJumpStart += JumpAnimationStart;
+        FirstPersonController.OnFPSJumpEnd += JumpAnimationEnd;
     }
 
     // Update is called once per frame
@@ -49,6 +54,7 @@ public class Medkit : ItemCore
             AkSoundEngine.PostEvent("Bandages_use", gameObject);
             canHeal = false;
             amountLeft--;
+            animator.SetBool("stopMovementAnimation", true);
             animator.SetTrigger("Use");
             amountText = "" + amountLeft;
 
@@ -76,6 +82,7 @@ public class Medkit : ItemCore
 
     private void StartHeal()
     {
+        animator.SetBool("stopMovementAnimation", false);
         player.HealPlayer(healthPointsToGive);
         canHeal = true;
     }
@@ -83,5 +90,7 @@ public class Medkit : ItemCore
     private void OnDestroy()
     {
         ItemAnimation.OnHeal -= StartHeal;
+        FirstPersonController.OnFPSJumpStart -= JumpAnimationStart;
+        FirstPersonController.OnFPSJumpEnd -= JumpAnimationEnd;
     }
 }
