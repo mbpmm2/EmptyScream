@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class Syringe : ItemCore
 {
@@ -20,6 +21,8 @@ public class Syringe : ItemCore
     void Start()
     {
         lerp = GetComponent<AnimationLerp>();
+        animator = transform.GetChild(0).GetComponent<Animator>();
+        playerController = GameManager.Get().playerGO.GetComponent<Player>().fpsController;
         PlayerInventory.OnSyringePickedUp += SetLiquidFull;
         //animator = GetComponent<Animator>();
         animator = transform.GetChild(0).GetComponent<Animator>();
@@ -28,6 +31,8 @@ public class Syringe : ItemCore
         ItemAnimation.OnImmune += StartImmunity;
         amountText = "" + amountLeft;
         SetLiquidFull(ItemType.AllItems);
+        FirstPersonController.OnFPSJumpStart += JumpAnimationStart;
+        FirstPersonController.OnFPSJumpEnd += JumpAnimationEnd;
     }
 
     // Update is called once per frame
@@ -37,7 +42,6 @@ public class Syringe : ItemCore
         {
             if (Input.GetButtonDown("Fire1") && amountLeft > 0)
             {
-                AkSoundEngine.PostEvent("Needle_use", gameObject);
                 UseSyringe();
             }
         }
@@ -48,9 +52,11 @@ public class Syringe : ItemCore
     {
         if (!player.isImmune)
         {
+            AkSoundEngine.PostEvent("Needle_use", gameObject);
             //canInject = false;
             canUse = false;
             amountLeft--;
+            animator.SetBool("stopMovementAnimation", true);
             animator.SetTrigger("Use");
             amountText = "" + amountLeft;
 
@@ -80,6 +86,7 @@ public class Syringe : ItemCore
 
     public void StartImmunity()
     {
+        animator.SetBool("stopMovementAnimation", false);
         player.SetImmunityTimer(immunityTime);
     }
 
@@ -103,5 +110,7 @@ public class Syringe : ItemCore
     {
         PlayerInventory.OnSyringePickedUp -= SetLiquidFull;
         ItemAnimation.OnImmune -= StartImmunity;
+        FirstPersonController.OnFPSJumpStart -= JumpAnimationStart;
+        FirstPersonController.OnFPSJumpEnd -= JumpAnimationEnd;
     }
 }
