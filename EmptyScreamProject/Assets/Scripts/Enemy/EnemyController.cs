@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour
         Hit,
         Stunned,
         Dead,
+        Wander,
         allStates
     }
 
@@ -47,6 +48,7 @@ public class EnemyController : MonoBehaviour
 
     public RagdollHelper ragdoll;
     public SphereCollider detectionCollider;
+    public EnemySight sight;
     // Start is called before the first frame update
     void Start()
     {
@@ -94,13 +96,15 @@ public class EnemyController : MonoBehaviour
                     //ChangeState(States.Idle);
                 }
                 break;
+            case States.Wander:
+                break;
             case States.Dead:
                 break;
             default:
                 break;
         }
 
-        if (distance <= agent.stoppingDistance && (currentState!=States.Dead && currentState != States.Stunned))
+        if (distance <= agent.stoppingDistance && (currentState!=States.Dead && currentState != States.Stunned) && sight.playerInSight)
         {
             Attack();
             FaceTarget();
@@ -209,6 +213,8 @@ public class EnemyController : MonoBehaviour
                 animator.SetBool("Idle", false);
                 animator.SetBool("Follow", false);
                 animator.SetBool("Hit", false);
+                break;
+            case States.Wander:
                 break;
             case States.Dead:
                 break;
