@@ -48,6 +48,8 @@ public class EnemyController : MonoBehaviour
 
     public RagdollHelper ragdoll;
     public SphereCollider detectionCollider;
+    public SphereCollider instantKOCol;
+    public Rigidbody instantKORB;
     public EnemySight sight;
     // Start is called before the first frame update
     void Start()
@@ -104,7 +106,7 @@ public class EnemyController : MonoBehaviour
                 break;
         }
 
-        if (distance <= agent.stoppingDistance && (currentState!=States.Dead && currentState != States.Stunned) && sight.playerInSight)
+        if (distance <= agent.stoppingDistance+0.5f && (currentState!=States.Dead && currentState != States.Stunned) && (sight.playerInSight || sight.playerHeard))
         {
             Attack();
             FaceTarget();
@@ -234,7 +236,7 @@ public class EnemyController : MonoBehaviour
         }
 
         //GetComponent<Rigidbody>().isKinematic = !state;
-
+        instantKORB.isKinematic = true;
     }
 
 
@@ -290,20 +292,24 @@ public class EnemyController : MonoBehaviour
         ragdoll.ragdolled = true;
 
         ChangeState(States.Stunned);
+        instantKORB.isKinematic = true;
     }
 
     public void WakeUp()
     {
         stunTimer = 0;
         SetRigidbodyState(true);
-        SetColliderState(false);
+        //SetColliderState(false);
         agent.isStopped = false;
         GetComponent<CapsuleCollider>().enabled = true;
+
         //GetComponent<Animator>().enabled = true;
-        
+        ragdoll.ragdolled = false;
 
         ChangeState(States.Idle);
         detectionCollider.enabled = true;
+        instantKOCol.enabled = true;
+        //instantKORB.isKinematic = false;
     }
 
     private void CreateBlood()

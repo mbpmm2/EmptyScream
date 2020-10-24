@@ -143,7 +143,16 @@ public class MeleeWeapon : ItemCore
                 {
                     AkSoundEngine.PostEvent("Hit_E_Wrench", gameObject);
                 }
-                target.TakeMeleeDamage(damage);
+
+                if (hit.transform.tag == "KO")
+                {
+                    Debug.Log("Le pego en la nuca");
+                    target.InstantStun();
+                }
+                else
+                {
+                    target.TakeMeleeDamage(damage);
+                }
                 int rand = Random.Range(0, decals.Length);
                 impactGO = Instantiate(impactTarget, hit.point, Quaternion.LookRotation(hit.normal));
 
@@ -153,7 +162,6 @@ public class MeleeWeapon : ItemCore
                 {
                     if (r[i] != null)
                     {
-                        Debug.Log(r[i].name);
                         PaintDecal.instance.RenderDecal(r[i], decals[rand], hit.point + hit.normal * 0.25f, Quaternion.FromToRotation(Vector3.forward, -hit.normal), color, size);
                     }
                 }

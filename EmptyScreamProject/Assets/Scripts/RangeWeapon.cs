@@ -192,7 +192,6 @@ public class RangeWeapon : ItemCore
                 {
                     if (r[i] != null)
                     {
-                        Debug.Log(r[i].name);
                         PaintDecal.instance.RenderDecal(r[i], decals[rand], hit.point + hit.normal * 0.25f, Quaternion.FromToRotation(Vector3.forward, -hit.normal), color, size);
                     }
                 }
@@ -204,6 +203,7 @@ public class RangeWeapon : ItemCore
                 impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
             }
 
+            
             impactGO.transform.SetParent(hit.transform);
             impactGO.transform.position += (impactGO.transform.forward * -0.0001f);
             Destroy(impactGO, 15f);

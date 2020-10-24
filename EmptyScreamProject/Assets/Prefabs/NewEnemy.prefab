@@ -327,6 +327,7 @@ Transform:
   m_Children:
   - {fileID: 8265224632611506809}
   - {fileID: 9031371569447306828}
+  - {fileID: 482819729816107333}
   m_Father: {fileID: 7925068600152142748}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 19.753832, y: -2.8365684, z: -10.8572035}
@@ -2343,7 +2344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 581fb8d99b025bb4ca1a9e017faf7ac0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fovAngle: 110
+  fovAngle: 130
   playerInSight: 0
   playerHeard: 0
   lastPlayerPos: {x: 0, y: 0, z: 0}
@@ -2485,6 +2486,8 @@ MonoBehaviour:
   health: 30
   koHealth: 15
   enemyController: {fileID: 5390826358870642719}
+  maxStuns: 3
+  stuns: 0
 --- !u!114 &8147769965124689223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2852,6 +2855,67 @@ Transform:
   m_Father: {fileID: 2996066509206420172}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 2.124193, y: -1.9814643, z: 7.9503675}
+--- !u!1 &4982856517169052549
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 482819729816107333}
+  - component: {fileID: 5554128949057632994}
+  - component: {fileID: 6547387027903541294}
+  m_Layer: 14
+  m_Name: KOTrigger
+  m_TagString: KO
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &482819729816107333
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4982856517169052549}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1192451929856460028}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &5554128949057632994
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4982856517169052549}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.17
+  m_Center: {x: 0, y: 0, z: -0.19}
+--- !u!54 &6547387027903541294
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4982856517169052549}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5299318264088473729
 GameObject:
   m_ObjectHideFlags: 0
@@ -2978,6 +3042,8 @@ MonoBehaviour:
   stunTimer: 0
   ragdoll: {fileID: 7536772950964046157}
   detectionCollider: {fileID: 4175396594523576176}
+  instantKOCol: {fileID: 5554128949057632994}
+  instantKORB: {fileID: 6547387027903541294}
   sight: {fileID: 2904742879069834976}
 --- !u!195 &5390826358870642718
 NavMeshAgent:

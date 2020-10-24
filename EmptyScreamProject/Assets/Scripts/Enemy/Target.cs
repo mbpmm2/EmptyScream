@@ -9,6 +9,9 @@ public class Target : MonoBehaviour
     public float koHealth;
     public EnemyController enemyController;
 
+    public int maxStuns = 3;
+    public int stuns;
+
     private void Start()
     {
         enemyController = GetComponentInChildren<EnemyController>();
@@ -50,8 +53,32 @@ public class Target : MonoBehaviour
     {
         if (enemyController.currentState != EnemyController.States.Stunned)
         {
-            enemyController.Stun();
-            health = maxHealth * 0.7f;
+            stuns++;
+            if (stuns<maxStuns)
+            {
+                enemyController.Stun();
+                health = maxHealth * 0.7f;
+            }
+            else
+            {
+                Die();
+            }
+        }
+    }
+
+    public void InstantStun()
+    {
+        if (enemyController.currentState != EnemyController.States.Stunned && !enemyController.sight.playerInSight)
+        {
+            stuns++;
+            if (stuns < maxStuns)
+            {
+                enemyController.Stun();
+            }
+            else
+            {
+                Die();
+            }
         }
     }
 }
