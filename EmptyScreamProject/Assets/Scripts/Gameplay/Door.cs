@@ -157,35 +157,43 @@ public class Door : Interactable
     {
         if (doorType == DoorType.automaticDoor)
         {
-            switch (GO.tag)
+            if(!isLocked)
             {
-                case "Player":
-                    {
-                        if (!isOpen)
+                switch (GO.tag)
+                {
+                    case "Player":
                         {
-                            animator.SetBool("Open", true);
-                            animator.SetBool("Close", false);
-                            canInteract = false;
-                            isOpen = true;
-                        }
+                            if (!isOpen)
+                            {
+                                animator.SetBool("Open", true);
+                                animator.SetBool("Close", false);
+                                canInteract = false;
+                                isOpen = true;
+                            }
 
-                    }
-                    break;
-                case "enemy":
-                    {
-                        if (!isOpen)
+                        }
+                        break;
+                    case "enemy":
                         {
-                            animator.SetBool("Open", true);
-                            animator.SetBool("Close", false);
-                            canInteract = false;
-                            isOpen = true;
-                        }
+                            if (!isOpen)
+                            {
+                                animator.SetBool("Open", true);
+                                animator.SetBool("Close", false);
+                                canInteract = false;
+                                isOpen = true;
+                            }
 
-                    }
-                    break;
-                default:
-                    break;
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
+            else
+            {
+                //Play Locked Sound
+            }
+            
         }
     }
 
@@ -193,35 +201,43 @@ public class Door : Interactable
     {
         if (doorType == DoorType.automaticDoor)
         {
-            switch (GO.tag)
+            if (!isLocked)
             {
-                case "Player":
-                    {
-                        if (isOpen)
+                switch (GO.tag)
+                {
+                    case "Player":
                         {
-                            animator.SetBool("Close", true);
-                            animator.SetBool("Open", false);
-                            canInteract = false;
-                            isOpen = false;
-                        }
+                            if (isOpen)
+                            {
+                                animator.SetBool("Close", true);
+                                animator.SetBool("Open", false);
+                                canInteract = false;
+                                isOpen = false;
+                            }
 
-                    }
-                    break;
-                case "enemy":
-                    {
-                        if (isOpen)
+                        }
+                        break;
+                    case "enemy":
                         {
-                            animator.SetBool("Close", true);
-                            animator.SetBool("Open", false);
-                            canInteract = false;
-                            isOpen = false;
-                        }
+                            if (isOpen)
+                            {
+                                animator.SetBool("Close", true);
+                                animator.SetBool("Open", false);
+                                canInteract = false;
+                                isOpen = false;
+                            }
 
-                    }
-                    break;
-                default:
-                    break;
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
+            else
+            {
+                // Play Locked Sound
+            }
+            
         }
     }
 
@@ -277,6 +293,11 @@ public class Door : Interactable
     public void PlayCloseDoorSound()
     {
         AkSoundEngine.PostEvent("Lockers_close", this.gameObject);
+    }
+
+    public void LockState(bool lockState)
+    {
+        isLocked = lockState;
     }
 
 

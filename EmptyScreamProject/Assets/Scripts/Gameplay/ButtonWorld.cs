@@ -31,6 +31,11 @@ public class ButtonWorld : Interactable
         }
     }
 
+    public void PlayInteractSound(string eventName)
+    {
+        AkSoundEngine.PostEvent(eventName, gameObject);
+    }
+
     private void OnDestroy()
     {
         OnInteract -= ExecuteAction;
