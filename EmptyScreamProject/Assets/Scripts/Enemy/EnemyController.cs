@@ -160,7 +160,7 @@ public class EnemyController : MonoBehaviour
         AkSoundEngine.PostEvent("Enemy_Idle", this.gameObject);
     }
 
-    private void FaceTarget()
+    public void FaceTarget()
     {
         Vector3 direction = (target.position - transform.position).normalized;
         Quaternion lookRot = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));

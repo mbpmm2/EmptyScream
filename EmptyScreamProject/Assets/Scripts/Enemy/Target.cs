@@ -20,7 +20,7 @@ public class Target : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
-
+        enemyController.ChangeState(EnemyController.States.Follow);
         if (health<=0)
         {
             Die();
@@ -30,7 +30,8 @@ public class Target : MonoBehaviour
     public void TakeMeleeDamage(float damage)
     {
         health -= damage;
-
+        enemyController.ChangeState(EnemyController.States.Follow);
+        enemyController.FaceTarget();
         if (health <= koHealth && health > 0)
         {
             Stun();
