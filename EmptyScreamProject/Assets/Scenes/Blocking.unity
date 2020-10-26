@@ -15511,7 +15511,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: 0527b9d9cb21bc54485819956efff79c, type: 2}
   m_StaticLightingSkyUniqueID: 2
-  m_SkySettings: {fileID: 824750148}
+  m_SkySettings: {fileID: 1448912328}
   m_SkySettingsFromProfile: {fileID: -2324898884894375904, guid: 0527b9d9cb21bc54485819956efff79c,
     type: 2}
 --- !u!4 &711293950
@@ -18029,85 +18029,6 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &824750148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3df29e7cc05fbec4aa43e06ea875565d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  rotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  skyIntensityMode:
-    m_OverrideState: 0
-    m_Value: 2
-  exposure:
-    m_OverrideState: 0
-    m_Value: 0
-  multiplier:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxValue:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxColor:
-    m_OverrideState: 0
-    m_Value: {x: 0, y: 0, z: 0}
-  desiredLuxValue:
-    m_OverrideState: 0
-    m_Value: 20000
-  updateMode:
-    m_OverrideState: 0
-    m_Value: 0
-  updatePeriod:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-  includeSunInBaking:
-    m_OverrideState: 0
-    m_Value: 0
-  sunSize:
-    m_OverrideState: 0
-    m_Value: 0.04
-    min: 0
-    max: 1
-  sunSizeConvergence:
-    m_OverrideState: 0
-    m_Value: 5
-    min: 1
-    max: 10
-  atmosphereThickness:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-    max: 5
-  skyTint:
-    m_OverrideState: 0
-    m_Value: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 1}
-    hdr: 0
-    showAlpha: 1
-    showEyeDropper: 1
-  groundColor:
-    m_OverrideState: 0
-    m_Value: {r: 0.01886791, g: 0.01886791, b: 0.01886791, a: 1}
-    hdr: 0
-    showAlpha: 1
-    showEyeDropper: 1
-  enableSunDisk:
-    m_OverrideState: 0
-    m_Value: 1
 --- !u!1001 &830260590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19752,6 +19673,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 418109fe7484a5948b8b04ce11736adc, type: 2}
+    - target: {fileID: -5764005476971129463, guid: d8aed845ea9e623438e12927c5eaf9fc,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -5632417075901884513, guid: d8aed845ea9e623438e12927c5eaf9fc,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -28916,9 +28842,9 @@ MonoBehaviour:
   crosshair: {fileID: 0}
   icon: {fileID: 21300000, guid: 41d609ffa3e67f84b8a89c850f9309f6, type: 3}
   amountText: 0
+  player: {fileID: 0}
   healthPointsToGive: 25
   canHeal: 0
-  player: {fileID: 0}
 --- !u!114 &1061693406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30268,6 +30194,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 418109fe7484a5948b8b04ce11736adc, type: 2}
+    - target: {fileID: -5764005476971129463, guid: d8aed845ea9e623438e12927c5eaf9fc,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -5632417075901884513, guid: d8aed845ea9e623438e12927c5eaf9fc,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -30701,6 +30632,11 @@ PrefabInstance:
     - target: {fileID: 1141177848832757925, guid: d8aed845ea9e623438e12927c5eaf9fc,
         type: 3}
       propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141177848832757925, guid: d8aed845ea9e623438e12927c5eaf9fc,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1305601810704445455, guid: d8aed845ea9e623438e12927c5eaf9fc,
@@ -31200,13 +31136,13 @@ MonoBehaviour:
   crosshair: {fileID: 0}
   icon: {fileID: 21300000, guid: 2b3710f355ca6344890579bdf4669696, type: 3}
   amountText: 0
+  player: {fileID: 0}
   canInject: 0
   immunityTime: 15
   liquidColor: {r: 0.8666667, g: 0.7647059, b: 0.13333334, a: 0.9372549}
   emptyColor: {r: 0.7647059, g: 0.7647059, b: 0.7647059, a: 0.12941177}
   mesh:
   - {fileID: 927748121}
-  player: {fileID: 0}
 --- !u!114 &1128485988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39078,6 +39014,85 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 86919776}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1448912328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df29e7cc05fbec4aa43e06ea875565d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  rotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  skyIntensityMode:
+    m_OverrideState: 0
+    m_Value: 2
+  exposure:
+    m_OverrideState: 0
+    m_Value: 0
+  multiplier:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxValue:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxColor:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0, z: 0}
+  desiredLuxValue:
+    m_OverrideState: 0
+    m_Value: 20000
+  updateMode:
+    m_OverrideState: 0
+    m_Value: 0
+  updatePeriod:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+  includeSunInBaking:
+    m_OverrideState: 0
+    m_Value: 0
+  sunSize:
+    m_OverrideState: 0
+    m_Value: 0.04
+    min: 0
+    max: 1
+  sunSizeConvergence:
+    m_OverrideState: 0
+    m_Value: 5
+    min: 1
+    max: 10
+  atmosphereThickness:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+    max: 5
+  skyTint:
+    m_OverrideState: 0
+    m_Value: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 1}
+    hdr: 0
+    showAlpha: 1
+    showEyeDropper: 1
+  groundColor:
+    m_OverrideState: 0
+    m_Value: {r: 0.01886791, g: 0.01886791, b: 0.01886791, a: 1}
+    hdr: 0
+    showAlpha: 1
+    showEyeDropper: 1
+  enableSunDisk:
+    m_OverrideState: 0
+    m_Value: 1
 --- !u!1 &1456197722
 GameObject:
   m_ObjectHideFlags: 0
@@ -45113,6 +45128,7 @@ MonoBehaviour:
   crosshair: {fileID: 1719442974}
   icon: {fileID: 0}
   amountText: 
+  player: {fileID: 0}
   type: 1
   damage: 10
   range: 50
@@ -45478,6 +45494,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   rayDistance: 3
+  isDoingAction: 0
   isBeingDamaged: 0
   fpsController: {fileID: 0}
   restartTime: 5
@@ -45616,6 +45633,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
   m_JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
+  m_Jumping: 0
   m_IsCrouching: 0
   originalHeight: 0
   crouchHeight: 0.5
