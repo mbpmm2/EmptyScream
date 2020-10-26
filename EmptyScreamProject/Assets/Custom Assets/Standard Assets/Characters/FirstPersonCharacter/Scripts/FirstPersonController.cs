@@ -52,7 +52,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private Vector3 m_OriginalCameraPosition;
         private float m_StepCycle;
         private float m_NextStep;
-        private bool m_Jumping;
+        public bool m_Jumping;
         private AudioSource m_AudioSource;
 
         //Crouch

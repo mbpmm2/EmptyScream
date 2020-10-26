@@ -7,15 +7,14 @@ public class Syringe : ItemCore
 {
     public delegate void OnSyringeAction(ItemType type);
     public static OnSyringeAction OnSyringeEmpty;
-    //public static OnSyringeAction OnSyringeFilled;
 
+    [Header("Syringe Config"),Space]
+    public bool canInject = true;
     public float immunityTime;
     public Color liquidColor;
     public Color emptyColor;
-
-   // private Animator animator;
+    
     public MeshRenderer[] mesh;
-    public Player player;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +32,7 @@ public class Syringe : ItemCore
         SetLiquidFull(ItemType.AllItems);
         FirstPersonController.OnFPSJumpStart += JumpAnimationStart;
         FirstPersonController.OnFPSJumpEnd += JumpAnimationEnd;
+        canInject = true;
     }
 
     // Update is called once per frame
@@ -40,10 +40,14 @@ public class Syringe : ItemCore
     {
         if (canUse)
         {
-            if (Input.GetButtonDown("Fire1") && amountLeft > 0)
+            if(canInject)
             {
-                UseSyringe();
+                if (Input.GetButtonDown("Fire1") && amountLeft > 0)
+                {
+                    UseSyringe();
+                }
             }
+            
         }
 
     }
@@ -53,28 +57,11 @@ public class Syringe : ItemCore
         if (!player.isImmune)
         {
             AkSoundEngine.PostEvent("Needle_use", gameObject);
-            //canInject = false;
-            canUse = false;
-            amountLeft--;
+            canInject = false;
+            player.isDoingAction = true;
+
             animator.SetBool("stopMovementAnimation", true);
             animator.SetTrigger("Use");
-            amountText = "" + amountLeft;
-
-            if(amountLeft <= 0)
-            {
-                Invoke("SetLiquidEmpty", 1f);
-
-                if(OnSyringeEmpty != null)
-                {
-                    OnSyringeEmpty(ItemType.Syringe);
-                }
-            }
-
-            if(OnStackableItemUse != null)
-            {
-                OnStackableItemUse(amountText);
-            }
-
             Debug.Log("using syringe");
         }
         else
@@ -86,8 +73,28 @@ public class Syringe : ItemCore
 
     public void StartImmunity()
     {
+        amountLeft--;
+        amountText = "" + amountLeft;
+
+        if (amountLeft <= 0)
+        {
+            Invoke("SetLiquidEmpty", 1f);
+
+            if (OnSyringeEmpty != null)
+            {
+                OnSyringeEmpty(ItemType.Syringe);
+            }
+        }
+
+        if (OnStackableItemUse != null)
+        {
+            OnStackableItemUse(amountText);
+        }
+
         animator.SetBool("stopMovementAnimation", false);
         player.SetImmunityTimer(immunityTime);
+        canInject = true;
+        player.isDoingAction = false;
     }
 
     public void SetLiquidFull(ItemType type)

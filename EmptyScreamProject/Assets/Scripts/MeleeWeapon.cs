@@ -24,7 +24,6 @@ public class MeleeWeapon : ItemCore
 
     public GameObject model;
     public bool hitTarget;
-    private Player player;
 
     void Start()
     {
@@ -53,14 +52,16 @@ public class MeleeWeapon : ItemCore
             if (Input.GetButtonDown("Fire1") && !isInAnimation && !isBlocking)
             {
                 isInAnimation = true;
+                player.isDoingAction = true;
                 canUse = false;
                 CheckTarget();
                 Hit();
             }
 
-            if (Input.GetMouseButtonDown(1) && !isInAnimation && !isBlocking)
+            if (Input.GetMouseButton(1) || Input.GetMouseButtonDown(1) && !isInAnimation && !isBlocking)
             {
                 isInAnimation = true;
+                player.isDoingAction = true;
                 canUse = false;
                 animator.SetBool("Block", true);
                 animator.SetBool("stopMovementAnimation", true);
@@ -75,6 +76,7 @@ public class MeleeWeapon : ItemCore
         {
             if (isBlocking)
             {
+                player.isDoingAction = false;
                 canUse = true;
                 animator.SetBool("Block", false);
                 animator.SetBool("stopMovementAnimation", false);
@@ -121,6 +123,8 @@ public class MeleeWeapon : ItemCore
     public void CanUse()
     {
         canUse = true;
+        isInAnimation = false;
+        player.isDoingAction = false;
     }
 
     public void HitImpact()
@@ -180,7 +184,8 @@ public class MeleeWeapon : ItemCore
     }
     public void OnAnimationEnd()
     {
-        isInAnimation = false;
+        //isInAnimation = false;
+        //canUse = true;
     }
 
     public void UpdateDamage(float test)

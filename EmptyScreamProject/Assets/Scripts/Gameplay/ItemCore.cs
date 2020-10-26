@@ -37,6 +37,8 @@ public class ItemCore : MonoBehaviour
     public Sprite icon;
     public string amountText;
 
+    public Player player;
+
     public void JumpAnimationStart()
     {
         if (canUse || isInAnimation)

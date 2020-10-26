@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -27,6 +28,8 @@ public class PlayerInventory : MonoBehaviour
 
     //[Header("Inventory Config")]
     private int newIndex = 0;
+    private FirstPersonController playerController;
+    private Player player;
     public int lastIndex=0;
     public GameObject[] hotkeyItems;
     public ItemCore[] items;
@@ -77,8 +80,8 @@ public class PlayerInventory : MonoBehaviour
         }
 
         Invoke("test", 0.5f);
-
-        
+        playerController = GameManager.Get().playerGO.GetComponent<FirstPersonController>();
+        player = GameManager.Get().playerGO.GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -144,63 +147,68 @@ public class PlayerInventory : MonoBehaviour
         if(index != lastIndex)
         {
             //Debug.Log("messi");
-            if (itemChangeFinished)
+
+            if(!playerController.isRunning && !playerController.m_Jumping && !player.isDoingAction)
             {
-                if (items[lastIndex].canUse)
+                if (itemChangeFinished)
                 {
-                    
-                    items[lastIndex].canUse = false;
-                    //items[lastIndex].doOnce = false;
-                    items[lastIndex].lastRunState = !items[lastIndex].lastRunState;
-                    items[lastIndex].animator.SetTrigger("Hide");
-                    items[lastIndex].animator.SetBool("stopMovementAnimation", true);
-                    //hotkeyItems[lastIndex].GetComponent<Animator>().SetTrigger("Hide");
-                    
-
-                    switch (items[lastIndex].itType)
+                    if (items[lastIndex].canUse)
                     {
-                        case ItemCore.ItemType.NailGun:
-                            AkSoundEngine.PostEvent("baja_nail_gun", gameObject);
-                            break;
-                        case ItemCore.ItemType.Wrench:
-                            AkSoundEngine.PostEvent("baja_wrench", gameObject);
-                            break;
-                        case ItemCore.ItemType.Bandages:
-                            AkSoundEngine.PostEvent("baja_bandages", gameObject);
-                            break;
-                        case ItemCore.ItemType.Syringe:
-                            AkSoundEngine.PostEvent("baja_jeringa", gameObject);
-                            break;
-                        case ItemCore.ItemType.AllItems:
-                            break;
-                    }
 
-                    if (OnInventoryChange != null)
-                    {
-                        OnInventoryChange(index);
-                    }
+                        items[lastIndex].canUse = false;
+                        //items[lastIndex].doOnce = false;
+                        items[lastIndex].lastRunState = !items[lastIndex].lastRunState;
+                        items[lastIndex].animator.SetTrigger("Hide");
+                        items[lastIndex].animator.SetBool("stopMovementAnimation", true);
+                        //hotkeyItems[lastIndex].GetComponent<Animator>().SetTrigger("Hide");
 
-                    if (items[index].canStack)
-                    {
-                        if(OnNewStackableItem != null)
+
+                        switch (items[lastIndex].itType)
                         {
-                            OnNewStackableItem(items[index].icon, items[index].amountText);
+                            case ItemCore.ItemType.NailGun:
+                                AkSoundEngine.PostEvent("baja_nail_gun", gameObject);
+                                break;
+                            case ItemCore.ItemType.Wrench:
+                                AkSoundEngine.PostEvent("baja_wrench", gameObject);
+                                break;
+                            case ItemCore.ItemType.Bandages:
+                                AkSoundEngine.PostEvent("baja_bandages", gameObject);
+                                break;
+                            case ItemCore.ItemType.Syringe:
+                                AkSoundEngine.PostEvent("baja_jeringa", gameObject);
+                                break;
+                            case ItemCore.ItemType.AllItems:
+                                break;
                         }
-                    }
-                    else
-                    {
-                        if (OnNoNewStackableItem != null)
+
+                        if (OnInventoryChange != null)
                         {
-                            OnNoNewStackableItem(-1);
+                            OnInventoryChange(index);
                         }
+
+                        if (items[index].canStack)
+                        {
+                            if (OnNewStackableItem != null)
+                            {
+                                OnNewStackableItem(items[index].icon, items[index].amountText);
+                            }
+                        }
+                        else
+                        {
+                            if (OnNoNewStackableItem != null)
+                            {
+                                OnNoNewStackableItem(-1);
+                            }
+                        }
+
+                        newIndex = index;
+
+                        itemChangeFinished = false;
                     }
 
-                    newIndex = index;
-
-                    itemChangeFinished = false;
                 }
-
             }
+            
         }
     }
 

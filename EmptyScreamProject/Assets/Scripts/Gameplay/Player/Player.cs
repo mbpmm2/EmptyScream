@@ -63,6 +63,7 @@ public class Player : MonoBehaviour
     public float rayDistance;
 
     [Header("Private Variables")]
+    public bool isDoingAction;
     public bool isBeingDamaged;
     public FirstPersonController fpsController;
     private int lastSanityIndex;

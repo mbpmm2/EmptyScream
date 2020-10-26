@@ -8,12 +8,9 @@ public class Medkit : ItemCore
     public delegate void OnMedkitAction(ItemType type);
     public static OnMedkitAction OnMedkitEmpty;
 
-    //public int amountLeft;
     public int healthPointsToGive;
 
     public bool canHeal;
-   // private Animator animator;
-    public Player player;
 
     // Start is called before the first frame update
     void Start()
@@ -53,24 +50,9 @@ public class Medkit : ItemCore
         {
             AkSoundEngine.PostEvent("Bandages_use", gameObject);
             canHeal = false;
-            amountLeft--;
+            player.isDoingAction = true;
             animator.SetBool("stopMovementAnimation", true);
             animator.SetTrigger("Use");
-            amountText = "" + amountLeft;
-
-            if(amountLeft <= 0)
-            {
-                if(OnMedkitEmpty != null)
-                {
-                    OnMedkitEmpty(ItemType.Bandages);
-                }
-            }
-
-            if (OnStackableItemUse != null)
-            {
-                OnStackableItemUse(amountText);
-            }
-
             Debug.Log("using medkit");
         }
         else
@@ -82,9 +64,26 @@ public class Medkit : ItemCore
 
     private void StartHeal()
     {
+        amountLeft--;
+        amountText = "" + amountLeft;
+
+        if (amountLeft <= 0)
+        {
+            if (OnMedkitEmpty != null)
+            {
+                OnMedkitEmpty(ItemType.Bandages);
+            }
+        }
+
+        if (OnStackableItemUse != null)
+        {
+            OnStackableItemUse(amountText);
+        }
+
         animator.SetBool("stopMovementAnimation", false);
         player.HealPlayer(healthPointsToGive);
         canHeal = true;
+        player.isDoingAction = false;
     }
 
     private void OnDestroy()
