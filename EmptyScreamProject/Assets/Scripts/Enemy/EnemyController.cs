@@ -51,6 +51,10 @@ public class EnemyController : MonoBehaviour
     public SphereCollider instantKOCol;
     public Rigidbody instantKORB;
     public EnemySight sight;
+
+    [Header("Surprise Settings")]
+    public bool isSurpriseEnemy;
+    public GameObject activator;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +66,11 @@ public class EnemyController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         player = GameManager.Get().playerGO.GetComponent<Player>();
+
+        if (isSurpriseEnemy)
+        {
+            Stun();
+        }
     }
 
     void Update()
@@ -89,13 +98,27 @@ public class EnemyController : MonoBehaviour
             case States.Hit:
                 break;
             case States.Stunned:
-                stunTimer += Time.deltaTime;
-                if (stunTimer>stunMaxTime)
+                if (!isSurpriseEnemy)
                 {
-                    ragdoll.ragdolled = false;
-                    stunTimer = 0;
-                    GetComponent<CapsuleCollider>().enabled = true;
-                    //ChangeState(States.Idle);
+                    stunTimer += Time.deltaTime;
+                    if (stunTimer > stunMaxTime)
+                    {
+                        ragdoll.ragdolled = false;
+                        stunTimer = 0;
+                        GetComponent<CapsuleCollider>().enabled = true;
+                        //ChangeState(States.Idle);
+                    }
+                }
+                else
+                {
+                    if (!activator || activator.GetComponent<Door>() && !activator.GetComponent<Door>().isOpen)
+                    {
+                        ragdoll.ragdolled = false;
+                        isSurpriseEnemy = false;
+                        //transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+                        stunTimer = 0;
+                        GetComponent<CapsuleCollider>().enabled = true;
+                    }
                 }
                 break;
             case States.Wander:
@@ -290,7 +313,10 @@ public class EnemyController : MonoBehaviour
 
     public void Stun()
     {
-        AkSoundEngine.PostEvent("Hit_E_Wrench", this.gameObject);
+        if (!isSurpriseEnemy)
+        {
+            AkSoundEngine.PostEvent("Hit_E_Wrench", this.gameObject);
+        }
         
         SetRigidbodyState(false);
         SetColliderState(true);
