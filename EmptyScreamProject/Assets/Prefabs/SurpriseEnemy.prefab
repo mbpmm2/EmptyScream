@@ -2450,7 +2450,7 @@ GameObject:
   - component: {fileID: 4175396594907969646}
   - component: {fileID: 8147769965124689223}
   m_Layer: 0
-  m_Name: NewEnemy
+  m_Name: SurpriseEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3045,6 +3045,8 @@ MonoBehaviour:
   instantKOCol: {fileID: 5554128949057632994}
   instantKORB: {fileID: 6547387027903541294}
   sight: {fileID: 2904742879069834976}
+  isSurpriseEnemy: 1
+  activator: {fileID: 0}
 --- !u!195 &5390826358870642718
 NavMeshAgent:
   m_ObjectHideFlags: 0

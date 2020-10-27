@@ -3,6 +3,8 @@ using UnityEngine;
 using System.Collections;
 using UnityEditor;
 
+#if UNITY_EDITOR
+
 [CustomEditor(typeof(EnemySight))]
 public class FieldOfViewEditor : Editor
 {
@@ -27,3 +29,5 @@ public class FieldOfViewEditor : Editor
     }
 
 }
+
+#endif
