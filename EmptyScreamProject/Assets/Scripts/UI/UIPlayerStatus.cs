@@ -8,45 +8,23 @@ using UnityEngine.Rendering.HighDefinition;
 
 public class UIPlayerStatus : MonoBehaviour
 {
-    public delegate void OnPlayerStatusAction(int tier);
-    public static OnPlayerStatusAction OnPlayerChangeStatus;
-
-    [System.Serializable]
-    public struct HealthValue
-    {
-        public Vector2[] healthValue;
-    }
-
-    [Header("General Config")]
-    public float[] readingSpeed;
 
     [Header("Player Health Status Config")]
-    public HealthValue[] healthValues;
-    public Color[] colorHealthStatus;
-    public GameObject[] healthStatusImages;
-
-    [Header("Player Sanity Status Config")]
-    public GameObject immunityIcon;
-    public Color[] colorSanityStatus;
-    public GameObject[] sanityStatusImages;
+    public Gradient healthBarGradient;
+    public GameObject defenseIcon;
+    public float finePercentage;
+    public float cautionPercentage;
+    public float dangerPercentage;
 
     [Header("Components Assign Health")]
+    public Slider healthBar;
+    public Image fillBar;
     public UIBloodEffect blood;
-    public UIScrollingTexture scroll;
-    public TextMeshProUGUI healthText;
-    public TextMeshProUGUI bpmText;
-    public TextMeshProUGUI hpText;
     public Volume postProcess;
     private ColorAdjustments color;
 
-    [Header("Components Assign Sanity")]
-    public UIScrollingTexture scroll2;
-    public TextMeshProUGUI sanityText;
-    public TextMeshProUGUI tierText;
-
-    public int lastIndex;
-    public int lastIndexSanity;
-    private Image immunityImage;
+    private Player player;
+    private Image defenseImage;
     private bool canUpdateImmunityIcon;
 
     // Start is called before the first frame update
@@ -54,20 +32,10 @@ public class UIPlayerStatus : MonoBehaviour
     {
         Player.OnDefenseTimerON += UpdateFillAmount;
         Player.OnPlayerChangeHP += CheckStatus;
-        Player.OnPlayerChangeSanity += UpdateSanityText;
-        Player.OnPlayerChangeSanityTier += ApplyNewSanityStatus;
         Player.OnDefenseStart += ActivateDefenseIcon;
         Player.OnDefenseStop += DeactivateDefenseIcon;
-        lastIndex = -1;
-        lastIndexSanity = -1;
-        for (int i = 0; i < healthStatusImages.Length; i++)
-        {
-            healthStatusImages[i].SetActive(false);
-            sanityStatusImages[i].SetActive(false);
-        }
-        
-        ApplyNewStatus(0);
-        ApplyNewSanityStatus(0);
+        player = GameManager.Get().playerGO.GetComponent<Player>();
+
         DeactivateDefenseIcon();
 
         ColorAdjustments colorAdjust;
@@ -76,116 +44,55 @@ public class UIPlayerStatus : MonoBehaviour
             color = colorAdjust;
         }
 
-        immunityImage = immunityIcon.GetComponent<Image>();
+        defenseImage = defenseIcon.GetComponent<Image>();
+
+        healthBar.maxValue = player.health;
+        healthBar.value = player.health;
+
+        fillBar.color = healthBarGradient.Evaluate(1f);
     }
 
     private void UpdateFillAmount(float amount, float maxAmount)
     {
-        immunityImage.fillAmount = 1 - (amount /maxAmount);
+        defenseImage.fillAmount = 1 - (amount /maxAmount);
     }
 
     public void CheckStatus(float hp)
     {
-        healthText.text = "" + (int)hp;
+        healthBar.value = hp;
+        fillBar.color = healthBarGradient.Evaluate(healthBar.normalizedValue);
 
-        if(hp <= healthValues[lastIndexSanity].healthValue[0].y && hp >= healthValues[lastIndexSanity].healthValue[0].x)
+        if (hp / player.maxHealth <= (finePercentage * 0.01f) && hp / player.maxHealth > (cautionPercentage * 0.01f))
         {
-            ApplyNewStatus(0);
             blood.DeactivateMask();
             color.saturation.value = 0.0f;
         }
-        if(hp <= healthValues[lastIndexSanity].healthValue[1].y && hp >= healthValues[lastIndexSanity].healthValue[1].x)
+        if (hp / player.maxHealth <= (cautionPercentage * 0.01f) && hp / player.maxHealth > (dangerPercentage * 0.01f))
         {
-            ApplyNewStatus(1);
             blood.DeactivateMask();
             color.saturation.value = -20.0f;
         }
-        if(hp <= healthValues[lastIndexSanity].healthValue[2].y && hp >= healthValues[lastIndexSanity].healthValue[2].x)
+        if (hp / player.maxHealth <= (dangerPercentage * 0.01f))
         {
-            ApplyNewStatus(2);
             blood.ActivateMask();
             color.saturation.value = -60.0f;
         }
     }
 
-    private void UpdateSanityText(float sanity)
-    {
-        sanityText.text = sanity.ToString("F0");
-    }
-
-    public void ApplyNewStatus(int index)
-    {
-        if(lastIndex != index)
-        {
-            if(lastIndex >= 0)
-            {
-                healthStatusImages[lastIndex].SetActive(false);
-            }
-            
-            healthStatusImages[index].SetActive(true);
-
-            for (int i = 0; i < healthStatusImages[index].transform.childCount; i++)
-            {
-                healthStatusImages[index].transform.GetChild(i).GetComponent<Image>().color = colorHealthStatus[index];
-            }
-
-            healthText.color = colorHealthStatus[index];
-            bpmText.color = colorHealthStatus[index];
-            hpText.color = colorHealthStatus[index];
-            scroll.speed = readingSpeed[index];
-            scroll.currentImage = healthStatusImages[index].GetComponent<RectTransform>();
-            lastIndex = index;
-
-        }
-    }
-
-    public void ApplyNewSanityStatus(float index)
-    {
-        if (lastIndexSanity != (int)index)
-        {
-            if (lastIndexSanity >= 0)
-            {
-                sanityStatusImages[lastIndexSanity].SetActive(false);
-            }
-
-            sanityStatusImages[(int)index].SetActive(true);
-
-            for (int i = 0; i < sanityStatusImages[(int)index].transform.childCount; i++)
-            {
-                sanityStatusImages[(int)index].transform.GetChild(i).GetComponent<Image>().color = colorSanityStatus[(int)index];
-            }
-
-            sanityText.color = colorSanityStatus[(int)index];
-            tierText.color = colorSanityStatus[(int)index];
-            scroll2.speed = readingSpeed[(int)index];
-            scroll2.currentImage = sanityStatusImages[(int)index].GetComponent<RectTransform>();
-            tierText.text = "Tier " + ((int)index+1);
-
-            lastIndexSanity = (int)index;
-
-            if (OnPlayerChangeStatus != null)
-            {
-                OnPlayerChangeStatus(lastIndexSanity);
-            }
-        }
-    }
-
     private void ActivateDefenseIcon()
     {
-        immunityIcon.SetActive(true);
+        defenseIcon.SetActive(true);
     }
 
     private void DeactivateDefenseIcon()
     {
-        immunityIcon.SetActive(false);
+        defenseIcon.SetActive(false);
     }
 
     private void OnDestroy()
     {
         Player.OnDefenseTimerON -= UpdateFillAmount;
         Player.OnPlayerChangeHP -= CheckStatus;
-        Player.OnPlayerChangeSanity -= UpdateSanityText;
-        Player.OnPlayerChangeSanityTier -= ApplyNewSanityStatus;
         Player.OnDefenseStart -= ActivateDefenseIcon;
         Player.OnDefenseStop -= DeactivateDefenseIcon;
     }

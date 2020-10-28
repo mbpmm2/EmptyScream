@@ -380,17 +380,10 @@ public class PlayerInventory : MonoBehaviour
             hotkeyItems[0].transform.GetChild(i).gameObject.SetActive(true);
         }
 
-        //hotkeyItems[0].SetActive(true);
         items[0].EnableCrosshair();
-        //hotkeyItems[0].GetComponent<Animator>().SetTrigger("Draw");
         items[0].animator.SetTrigger("Draw");
-        if (items[0].animator)
-        {
-            Debug.Log("NICE");
-        }
         AkSoundEngine.PostEvent("select_nail_gun", gameObject);
         lastIndex = 0;
-        //ActivateItem(0);
     }
 
     private void OnDestroy()

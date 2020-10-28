@@ -32,7 +32,6 @@ public class MeleeWeapon : ItemCore
         animator = transform.GetChild(0).GetComponent<Animator>();
         player = GameManager.Get().playerGO.GetComponent<Player>();
         playerController = GameManager.Get().playerGO.GetComponent<Player>().fpsController;
-        Player.OnPlayerChangeSanityTier += UpdateDamage;
         ItemAnimation.OnHitImpact += HitImpact;
         ItemAnimation.OnHitEnd += OnAnimationEnd;
         MeleeAnimations.OnBlock += Block;

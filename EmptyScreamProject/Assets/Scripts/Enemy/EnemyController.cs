@@ -310,7 +310,6 @@ public class EnemyController : MonoBehaviour
         GetComponent<Animator>().enabled = false;
         
         ChangeState(States.Dead);
-        player.ChangeSanityValue(sanityChangeValue);
 
         Invoke("CreateBlood", 3.0f);
 
@@ -354,17 +353,14 @@ public class EnemyController : MonoBehaviour
     {
         stunTimer = 0;
         SetRigidbodyState(true);
-        //SetColliderState(false);
         agent.isStopped = false;
         GetComponent<CapsuleCollider>().enabled = true;
 
-        //GetComponent<Animator>().enabled = true;
         ragdoll.ragdolled = false;
 
         ChangeState(States.Idle);
         detectionCollider.enabled = true;
         instantKOCol.enabled = true;
-        //instantKORB.isKinematic = false;
     }
 
     private void CreateBlood()

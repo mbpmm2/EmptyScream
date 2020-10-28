@@ -17,29 +17,21 @@ public class UIInfectedScreen : MonoBehaviour
     public bool setFadeOut;
     public bool startWaitingTimer;
 
-    public Image[] infectedScreens;
+    public Image infectedScreen;
     public int currentIndex;
     public TraumaInducer screenShake;
-    //public int lastIndex;
 
     // Start is called before the first frame update
     void Start()
     {
-        //screenShake = GetComponent<TraumaInducer>();
-        UIPlayerStatus.OnPlayerChangeStatus += ActivateMask;
-        //isVignetteActivated = false;
-        //lastIndex = -1;
+        Syringe.OnSyringeUse += StartVeinsScreen;
         currentIndex = -1;
 
-        for (int i = 0; i < infectedScreens.Length; i++)
-        {
-            infectedScreens[i].color = new Vector4(infectedScreens[i].color.r, infectedScreens[i].color.g, infectedScreens[i].color.b, 0);
-        }
-
+        infectedScreen.color = new Vector4(infectedScreen.color.r, infectedScreen.color.g, infectedScreen.color.b, 0);
         DeactivateMask();
         ActivateMask(0);
-        isVignetteActivated = true;
-        setFadeIn = true;
+        isVignetteActivated = false;
+        setFadeIn = false;
         setFadeOut = false;
     }
 
@@ -51,7 +43,7 @@ public class UIInfectedScreen : MonoBehaviour
             if (setFadeIn)
             {
                 vignetteValue += vignetteFadeSpeed * Time.deltaTime;
-                infectedScreens[currentIndex].color = new Vector4(infectedScreens[currentIndex].color.r, infectedScreens[currentIndex].color.g, infectedScreens[currentIndex].color.b, vignetteValue);
+                infectedScreen.color = new Vector4(infectedScreen.color.r, infectedScreen.color.g, infectedScreen.color.b, vignetteValue);
                 if (vignetteValue >= maxFadeValue)
                 {
                     vignetteValue = maxFadeValue;
@@ -63,12 +55,13 @@ public class UIInfectedScreen : MonoBehaviour
             if (setFadeOut)
             {
                 vignetteValue -= vignetteFadeSpeed * Time.deltaTime;
-                infectedScreens[currentIndex].color = new Vector4(infectedScreens[currentIndex].color.r, infectedScreens[currentIndex].color.g, infectedScreens[currentIndex].color.b, vignetteValue);
+                infectedScreen.color = new Vector4(infectedScreen.color.r, infectedScreen.color.g, infectedScreen.color.b, vignetteValue);
                 if (vignetteValue <= minFadeValue)
                 {
                     vignetteValue = minFadeValue;
                     setFadeOut = false;
                     startWaitingTimer = true;
+                    isVignetteActivated = false;
                 }
             }
 
@@ -78,7 +71,7 @@ public class UIInfectedScreen : MonoBehaviour
 
                 if (waitingTimer >= waitingTime)
                 {
-                    setFadeIn = true;
+                    //setFadeIn = true;
                     waitingTimer = 0;
                     startWaitingTimer = false;
                     
@@ -88,36 +81,34 @@ public class UIInfectedScreen : MonoBehaviour
         }
     }
 
+    public void StartVeinsScreen(ItemCore.ItemType type)
+    {
+        isVignetteActivated = true;
+        setFadeIn = true;
+        setFadeOut = false;
+        StartCoroutine(screenShake.Shake());
+    }
+
     public void ActivateMask(int index)
     {
-        Debug.Log("Infected Index : " + index);
-        Debug.Log("Infected Current Index : " + currentIndex);
         if (index != currentIndex)
         {
             DeactivateMask();
             currentIndex = index;
             StartCoroutine(screenShake.Shake());
         }
-
-       // isVignetteActivated = true;
-        /*setFadeIn = true;
-        setFadeOut = false;*/
     }
 
     public void DeactivateMask()
     {
-        //isVignetteActivated = false;
-        /*setFadeIn = false;
-        setFadeOut = false;*/
         if(currentIndex >= 0)
         {
-            infectedScreens[currentIndex].color = new Vector4(infectedScreens[currentIndex].color.r, infectedScreens[currentIndex].color.g, infectedScreens[currentIndex].color.b, 0);
+            infectedScreen.color = new Vector4(infectedScreen.color.r, infectedScreen.color.g, infectedScreen.color.b, 0);
         }
-        
     }
 
     private void OnDestroy()
     {
-        UIPlayerStatus.OnPlayerChangeStatus -= ActivateMask;
+        Syringe.OnSyringeUse -= StartVeinsScreen;
     }
 }

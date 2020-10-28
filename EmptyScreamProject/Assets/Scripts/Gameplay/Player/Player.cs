@@ -12,10 +12,7 @@ public class Player : MonoBehaviour
     public delegate void OnPlayerStatusAction3(float amount, float maxAmount);
     public delegate void OnInteractionAction(UIInteract.UIPickupType type);
     public static OnPlayerStatusAction OnPlayerChangeHP;
-    public static OnPlayerStatusAction OnPlayerChangeSanity;
-    public static OnPlayerStatusAction OnPlayerChangeSanityTier;
     public static OnPlayerStatusAction2 OnPlayerHurt;
-    public static OnPlayerStatusAction2 OnPlayerAffectedBySanity;
     public static OnPlayerStatusAction2 OnPlayerChangeHP2;
     public static OnPlayerStatusAction2 OnDefenseStart;
     public static OnPlayerStatusAction2 OnDefenseStop;
@@ -24,34 +21,21 @@ public class Player : MonoBehaviour
     public static OnInteractionAction OnInteractNull;
     public static OnPlayerStatusAction3 OnDefenseTimerON;
     public static OnPlayerAction OnPlayerBlockDamage;
-    // public static OnPlayerStatusAction OnPlayerChangeSanityStatus;
-
-    [System.Serializable]
-    public struct SanityTierChanges
-    {
-        public float maxHealth;
-        public float damageMultiplier;
-        public float speedMultiplier;
-    }
 
     [Header("Player Config")]
     public float maxHealth;
-    public float maxSanity;
     public float walkSpeed;
     public float runSpeed;
     public float crouchMovSpeed;
     [Range(0,100)]
     public float damageAbsorbPercentage;
     private float bonusDamageAbsorbPercentage;
-    public Vector2[] sanityTierRanges;
-    public SanityTierChanges[] sanityTierChanges;
-    public int sanityCurrentTier;
     private TraumaInducer screenShake;
     
 
     [Header("Player Current State")]
     public float health;
-    public float sanity;
+    //public float sanity;
     public float damageMultiplier;
     public float speedMultiplier;
     public bool isDefenseActive;
@@ -67,7 +51,6 @@ public class Player : MonoBehaviour
     public bool isDoingAction;
     public bool isBeingDamaged;
     public FirstPersonController fpsController;
-    private int lastSanityIndex;
     private float defenseTimer;
     private float defenseTime;
     private bool checkOnce;
@@ -97,45 +80,20 @@ public class Player : MonoBehaviour
         fpsController.m_WalkSpeed = walkSpeed;
         fpsController.m_RunSpeed = runSpeed;
         fpsController.crouchMovSpeed = crouchMovSpeed;
-        lastSanityIndex = -1;
         lastGO = gameObject;
 
         isDefenseActive = false;
 
         health = maxHealth;
-        sanity = maxSanity;
         if (OnPlayerChangeHP != null)
         {
             OnPlayerChangeHP(health);
         }
-
-        if (OnPlayerChangeSanity != null)
-        {
-            OnPlayerChangeSanity(sanity);
-        }
-
-        ApplyNewSanityStatus(0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            ForceSanityValue(sanityTierRanges[0].y-1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            ForceSanityValue(sanityTierRanges[1].y - 1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            ForceSanityValue(sanityTierRanges[2].y - 1);
-        }
-
-
         if (isDefenseActive)
         {
             defenseTimer += Time.deltaTime;
@@ -151,27 +109,12 @@ public class Player : MonoBehaviour
                 defenseTimer = 0;
             }
         }
-        if (lightsOnPlayer.Count != 0)
-        {
-            isInLight = true;
-        }
-        else
-        {
-            isInLight = false;
-        }
-
-        if (!isInLight)
-        {
-            ChangeSanityValue(Time.deltaTime * -1f * decreaseSanitySpeed);
-        }
 
         RaycastHit hit;
 
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, rayDistance, rayCastLayer))
         {
             Debug.DrawRay(cam.transform.position, cam.transform.forward * hit.distance, Color.yellow);
-
-            //string layerHitted = LayerMask.LayerToName(hit.transform.gameObject.layer);
 
             switch (hit.transform.tag)
             {
@@ -181,7 +124,6 @@ public class Player : MonoBehaviour
                         lastGO = hit.transform.gameObject;
                         checkOnce = false;
                     }
-                    //Debug.Log("hitting door");
                     Debug.DrawRay(cam.transform.position, cam.transform.forward * hit.distance, Color.green);
 
                     if(!checkOnce)
@@ -317,112 +259,14 @@ public class Player : MonoBehaviour
         return true;
     }
 
-    public void ForceSanityValue(float amount)
-    {
-        sanity = amount;
-
-        for (int i = 0; i < sanityTierRanges.Length; i++)
-        {
-            if (sanity <= sanityTierRanges[i].y && sanity >= sanityTierRanges[i].x)
-            {
-                ApplyNewSanityStatus(i);
-                i = sanityTierRanges.Length;
-            }
-        }
-
-        if (sanity <= 0)
-        {
-            sanity = 0;
-        }
-
-        if (OnPlayerChangeSanity != null)
-        {
-            OnPlayerChangeSanity(sanity);
-        }
-
-        if (OnPlayerAffectedBySanity != null)
-        {
-            OnPlayerAffectedBySanity();
-        }
-    }
-
-    public void ChangeSanityValue(float amount)
-    {
-        sanity += amount;
-
-        for (int i = 0; i < sanityTierRanges.Length; i++)
-        {
-            if (sanity <= sanityTierRanges[i].y && sanity >= sanityTierRanges[i].x)
-            {
-                ApplyNewSanityStatus(i);
-                i = sanityTierRanges.Length;
-            }
-        }
-
-        if (sanity <= 0)
-        {
-            sanity = 0;
-        }
-
-        if (OnPlayerChangeSanity != null)
-        {
-            OnPlayerChangeSanity(sanity);
-        }
-
-        if (OnPlayerAffectedBySanity != null)
-        {
-            OnPlayerAffectedBySanity();
-        }
-    }
-
-    private void ApplyNewSanityStatus(int index)
-    {
-        //sanityTierChanges[0];
-        if(index != lastSanityIndex)
-        {
-            maxHealth = sanityTierChanges[index].maxHealth;
-            health = maxHealth;
-            damageMultiplier = sanityTierChanges[index].damageMultiplier;
-            speedMultiplier = sanityTierChanges[index].speedMultiplier;
-            fpsController.originalSpeed = walkSpeed * sanityTierChanges[index].speedMultiplier;
-            fpsController.originalRunSpeed = runSpeed * sanityTierChanges[index].speedMultiplier;
-            fpsController.crouchMovSpeed = crouchMovSpeed * sanityTierChanges[index].speedMultiplier;
-            lastSanityIndex = index;
-
-            if (OnPlayerChangeSanityTier != null)
-            {
-                OnPlayerChangeSanityTier(index);
-            }
-
-            if (OnPlayerChangeHP != null)
-            {
-                OnPlayerChangeHP(health);
-            }
-
-            Debug.Log("Applied Sanity Tier : " + (index));
-            sanityCurrentTier = index + 1;
-        }
-        
-    }
-
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "enemy")
         {
             DummyEnemyTest enemy = other.gameObject.GetComponent<DummyEnemyTest>();
-
-            //damage = enemy.damage;
             isBeingDamaged = true;
-
-           // Debug.Log("gg ameo");
         }
-
-        /*if (other.gameObject.tag == "Hologram")
-        {
-            other.gameObject.GetComponent<HologramNPC>().Activate();
-            Debug.Log("entering");
-        }*/
     }
 
 
@@ -432,12 +276,6 @@ public class Player : MonoBehaviour
         {
             isBeingDamaged = false;
         }
-
-        /*if (other.gameObject.tag == "Hologram")
-        {
-            Debug.Log("exitt");
-            other.gameObject.GetComponent<HologramNPC>().Deactivate();
-        }*/
     }
 
     public void SetDefenseTimer(float time, float bonusPercentage)

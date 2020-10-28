@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 6313906522148864496}
   - component: {fileID: 6313906522148864498}
   - component: {fileID: 6313906522148864499}
-  - component: {fileID: 6313906522148864493}
   m_Layer: 0
-  m_Name: Point Light (3)
+  m_Name: Point Light Detection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -204,15 +203,3 @@ MonoBehaviour:
   showAdditionalSettings: 8
   m_AreaLightEmissiveMeshShadowCastingMode: 0
   m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0
---- !u!114 &6313906522148864493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6313906522148864497}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 631729fe9e84e5240b0edf596d6a8f86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

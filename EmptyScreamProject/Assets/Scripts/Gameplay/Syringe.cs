@@ -7,6 +7,7 @@ public class Syringe : ItemCore
 {
     public delegate void OnSyringeAction(ItemType type);
     public static OnSyringeAction OnSyringeEmpty;
+    public static OnSyringeAction OnSyringeUse;
 
     [Header("Syringe Config"),Space]
     public bool canInject = true;
@@ -91,6 +92,11 @@ public class Syringe : ItemCore
         if (OnStackableItemUse != null)
         {
             OnStackableItemUse(amountText);
+        }
+
+        if(OnSyringeUse != null)
+        {
+            OnSyringeUse(ItemType.Syringe);
         }
 
         animator.SetBool("stopMovementAnimation", false);
