@@ -53,13 +53,16 @@ public class EnemyController : MonoBehaviour
     public Rigidbody instantKORB;
     public EnemySight sight;
 
+<<<<<<< HEAD
     [Header("UI"), Space]
     public GameObject stunIcon;
     public Image fillBar;
     private float fillTimer;
+=======
     [Header("Surprise Settings")]
     public bool isSurpriseEnemy;
     public GameObject activator;
+>>>>>>> eda4d87dd670023ec3c9da702615592b45335350
     // Start is called before the first frame update
     void Start()
     {
@@ -104,22 +107,30 @@ public class EnemyController : MonoBehaviour
             case States.Hit:
                 break;
             case States.Stunned:
+<<<<<<< HEAD
+                stunTimer += Time.deltaTime;
+                fillTimer -= Time.deltaTime;
+                if(fillBar)
+                {
+                    fillBar.fillAmount = fillTimer / stunMaxTime;
+                }
+                
+                if (stunTimer>stunMaxTime)
+                {
+                    stunIcon.SetActive(false);
+                    ragdoll.ragdolled = false;
+                    stunTimer = 0;
+                    GetComponent<CapsuleCollider>().enabled = true;
+                    //ChangeState(States.Idle);
+=======
                 if (!isSurpriseEnemy)
                 {
                     stunTimer += Time.deltaTime;
-                    
-                    if (fillBar)
-                    {
-                        fillTimer -= Time.deltaTime;
-                        fillBar.fillAmount = fillTimer / stunMaxTime;
-                    }
-
                     if (stunTimer > stunMaxTime)
                     {
                         ragdoll.ragdolled = false;
                         stunTimer = 0;
                         GetComponent<CapsuleCollider>().enabled = true;
-                        stunIcon.SetActive(false);
                         //ChangeState(States.Idle);
                     }
                 }
@@ -133,6 +144,7 @@ public class EnemyController : MonoBehaviour
                         stunTimer = 0;
                         GetComponent<CapsuleCollider>().enabled = true;
                     }
+>>>>>>> eda4d87dd670023ec3c9da702615592b45335350
                 }
                 break;
             case States.Wander:
@@ -340,13 +352,8 @@ public class EnemyController : MonoBehaviour
         ragdoll.ragdolled = true;
 
         ChangeState(States.Stunned);
-        if(!isSurpriseEnemy)
-        {
-            stunIcon.SetActive(true);
-            fillTimer = stunMaxTime;
-        }
-        
-        
+        stunIcon.SetActive(true);
+        fillTimer = stunMaxTime;
         instantKORB.isKinematic = true;
     }
 
