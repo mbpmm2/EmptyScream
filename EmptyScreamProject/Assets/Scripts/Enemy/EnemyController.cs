@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -51,11 +52,17 @@ public class EnemyController : MonoBehaviour
     public SphereCollider instantKOCol;
     public Rigidbody instantKORB;
     public EnemySight sight;
+
+    [Header("UI"), Space]
+    public GameObject stunIcon;
+    public Image fillBar;
+    private float fillTimer;
     // Start is called before the first frame update
     void Start()
     {
         SetRigidbodyState(true);
         SetColliderState(true);
+        stunIcon.SetActive(false);
         GetComponent<Animator>().enabled = true;
 
         target = GameManager.Get().playerGO.transform;
@@ -90,8 +97,15 @@ public class EnemyController : MonoBehaviour
                 break;
             case States.Stunned:
                 stunTimer += Time.deltaTime;
+                fillTimer -= Time.deltaTime;
+                if(fillBar)
+                {
+                    fillBar.fillAmount = fillTimer / stunMaxTime;
+                }
+                
                 if (stunTimer>stunMaxTime)
                 {
+                    stunIcon.SetActive(false);
                     ragdoll.ragdolled = false;
                     stunTimer = 0;
                     GetComponent<CapsuleCollider>().enabled = true;
@@ -300,6 +314,8 @@ public class EnemyController : MonoBehaviour
         ragdoll.ragdolled = true;
 
         ChangeState(States.Stunned);
+        stunIcon.SetActive(true);
+        fillTimer = stunMaxTime;
         instantKORB.isKinematic = true;
     }
 
