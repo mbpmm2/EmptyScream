@@ -17,12 +17,12 @@ public class Player : MonoBehaviour
     public static OnPlayerStatusAction2 OnPlayerHurt;
     public static OnPlayerStatusAction2 OnPlayerAffectedBySanity;
     public static OnPlayerStatusAction2 OnPlayerChangeHP2;
-    public static OnPlayerStatusAction2 OnImmunityStart;
-    public static OnPlayerStatusAction2 OnImmunityStop;
+    public static OnPlayerStatusAction2 OnDefenseStart;
+    public static OnPlayerStatusAction2 OnDefenseStop;
     public static OnInteractionAction OnInteractAvailable;
     public static OnInteractionAction OnInteractUnavailable;
     public static OnInteractionAction OnInteractNull;
-    public static OnPlayerStatusAction3 OnImmunityTimerON;
+    public static OnPlayerStatusAction3 OnDefenseTimerON;
     public static OnPlayerAction OnPlayerBlockDamage;
     // public static OnPlayerStatusAction OnPlayerChangeSanityStatus;
 
@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
     public float crouchMovSpeed;
     [Range(0,100)]
     public float damageAbsorbPercentage;
+    private float bonusDamageAbsorbPercentage;
     public Vector2[] sanityTierRanges;
     public SanityTierChanges[] sanityTierChanges;
     public int sanityCurrentTier;
@@ -53,7 +54,7 @@ public class Player : MonoBehaviour
     public float sanity;
     public float damageMultiplier;
     public float speedMultiplier;
-    public bool isImmune;
+    public bool isDefenseActive;
     public bool isBlocking;
 
     [Header("Interact Settings")]
@@ -67,8 +68,8 @@ public class Player : MonoBehaviour
     public bool isBeingDamaged;
     public FirstPersonController fpsController;
     private int lastSanityIndex;
-    private float immunityTimer;
-    private float immunityTime;
+    private float defenseTimer;
+    private float defenseTime;
     private bool checkOnce;
     private GameObject lastGO;
 
@@ -99,7 +100,7 @@ public class Player : MonoBehaviour
         lastSanityIndex = -1;
         lastGO = gameObject;
 
-        isImmune = false;
+        isDefenseActive = false;
 
         health = maxHealth;
         sanity = maxSanity;
@@ -135,19 +136,19 @@ public class Player : MonoBehaviour
         }
 
 
-        if (isImmune)
+        if (isDefenseActive)
         {
-            immunityTimer += Time.deltaTime;
+            defenseTimer += Time.deltaTime;
 
-            if(OnImmunityTimerON != null)
+            if(OnDefenseTimerON != null)
             {
-                OnImmunityTimerON(immunityTimer,immunityTime);
+                OnDefenseTimerON(defenseTimer,defenseTime);
             }
 
-            if (immunityTimer >= immunityTime)
+            if (defenseTimer >= defenseTime)
             {
-                StopImmunity();
-                immunityTimer = 0;
+                StopDefense();
+                defenseTimer = 0;
             }
         }
         if (lightsOnPlayer.Count != 0)
@@ -255,7 +256,7 @@ public class Player : MonoBehaviour
     {
         if(isBlocking)
         {
-            health -= amount - ( amount * (damageAbsorbPercentage * 0.01f));
+            health -= amount - ( amount * ((damageAbsorbPercentage + bonusDamageAbsorbPercentage) * 0.01f));
             if(OnPlayerBlockDamage != null)
             {
                 OnPlayerBlockDamage();
@@ -263,7 +264,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            health -= amount;
+            health -= amount - (amount * (bonusDamageAbsorbPercentage * 0.01f));
         }
         
 
@@ -347,33 +348,30 @@ public class Player : MonoBehaviour
 
     public void ChangeSanityValue(float amount)
     {
-        if(!isImmune)
+        sanity += amount;
+
+        for (int i = 0; i < sanityTierRanges.Length; i++)
         {
-            sanity += amount;
-
-            for (int i = 0; i < sanityTierRanges.Length; i++)
+            if (sanity <= sanityTierRanges[i].y && sanity >= sanityTierRanges[i].x)
             {
-                if (sanity <= sanityTierRanges[i].y && sanity >= sanityTierRanges[i].x)
-                {
-                    ApplyNewSanityStatus(i);
-                    i = sanityTierRanges.Length;
-                }
+                ApplyNewSanityStatus(i);
+                i = sanityTierRanges.Length;
             }
+        }
 
-            if (sanity <= 0)
-            {
-                sanity = 0;
-            }
+        if (sanity <= 0)
+        {
+            sanity = 0;
+        }
 
-            if (OnPlayerChangeSanity != null)
-            {
-                OnPlayerChangeSanity(sanity);
-            }
+        if (OnPlayerChangeSanity != null)
+        {
+            OnPlayerChangeSanity(sanity);
+        }
 
-            if (OnPlayerAffectedBySanity != null)
-            {
-                OnPlayerAffectedBySanity();
-            }
+        if (OnPlayerAffectedBySanity != null)
+        {
+            OnPlayerAffectedBySanity();
         }
     }
 
@@ -442,24 +440,26 @@ public class Player : MonoBehaviour
         }*/
     }
 
-    public void SetImmunityTimer(float time)
+    public void SetDefenseTimer(float time, float bonusPercentage)
     {
-        immunityTime = time;
-        isImmune = true;
-        if (OnImmunityStart != null)
+        defenseTime = time;
+        isDefenseActive = true;
+        bonusDamageAbsorbPercentage = bonusPercentage;
+        if (OnDefenseStart != null)
         {
-            OnImmunityStart();
+            OnDefenseStart();
         }
     }
 
-    private void StopImmunity()
+    private void StopDefense()
     {
-        immunityTime = 0;
-        isImmune = false;
+        defenseTime = 0;
+        isDefenseActive = false;
+        bonusDamageAbsorbPercentage = 0;
 
-        if(OnImmunityStop != null)
+        if (OnDefenseStop != null)
         {
-            OnImmunityStop();
+            OnDefenseStop();
         }
     }
 

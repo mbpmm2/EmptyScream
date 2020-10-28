@@ -52,12 +52,12 @@ public class UIPlayerStatus : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player.OnImmunityTimerON += UpdateFillAmount;
+        Player.OnDefenseTimerON += UpdateFillAmount;
         Player.OnPlayerChangeHP += CheckStatus;
         Player.OnPlayerChangeSanity += UpdateSanityText;
         Player.OnPlayerChangeSanityTier += ApplyNewSanityStatus;
-        Player.OnImmunityStart += ActivateImmunityIcon;
-        Player.OnImmunityStop += DeactivateImmunityIcon;
+        Player.OnDefenseStart += ActivateDefenseIcon;
+        Player.OnDefenseStop += DeactivateDefenseIcon;
         lastIndex = -1;
         lastIndexSanity = -1;
         for (int i = 0; i < healthStatusImages.Length; i++)
@@ -68,7 +68,7 @@ public class UIPlayerStatus : MonoBehaviour
         
         ApplyNewStatus(0);
         ApplyNewSanityStatus(0);
-        DeactivateImmunityIcon();
+        DeactivateDefenseIcon();
 
         ColorAdjustments colorAdjust;
         if (postProcess.profile.TryGet<ColorAdjustments>(out colorAdjust))
@@ -170,23 +170,23 @@ public class UIPlayerStatus : MonoBehaviour
         }
     }
 
-    private void ActivateImmunityIcon()
+    private void ActivateDefenseIcon()
     {
         immunityIcon.SetActive(true);
     }
 
-    private void DeactivateImmunityIcon()
+    private void DeactivateDefenseIcon()
     {
         immunityIcon.SetActive(false);
     }
 
     private void OnDestroy()
     {
-        Player.OnImmunityTimerON -= UpdateFillAmount;
+        Player.OnDefenseTimerON -= UpdateFillAmount;
         Player.OnPlayerChangeHP -= CheckStatus;
         Player.OnPlayerChangeSanity -= UpdateSanityText;
         Player.OnPlayerChangeSanityTier -= ApplyNewSanityStatus;
-        Player.OnImmunityStart -= ActivateImmunityIcon;
-        Player.OnImmunityStop -= DeactivateImmunityIcon;
+        Player.OnDefenseStart -= ActivateDefenseIcon;
+        Player.OnDefenseStop -= DeactivateDefenseIcon;
     }
 }

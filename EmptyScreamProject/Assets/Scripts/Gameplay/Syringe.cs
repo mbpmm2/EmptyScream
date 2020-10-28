@@ -10,7 +10,9 @@ public class Syringe : ItemCore
 
     [Header("Syringe Config"),Space]
     public bool canInject = true;
-    public float immunityTime;
+    public float defenseTime;
+    [Range(0, 100)]
+    public float shieldPercentage;
     public Color liquidColor;
     public Color emptyColor;
     
@@ -54,7 +56,7 @@ public class Syringe : ItemCore
 
     private void UseSyringe()
     {
-        if (!player.isImmune)
+        if (!player.isDefenseActive)
         {
             AkSoundEngine.PostEvent("Needle_use", gameObject);
             canInject = false;
@@ -92,7 +94,7 @@ public class Syringe : ItemCore
         }
 
         animator.SetBool("stopMovementAnimation", false);
-        player.SetImmunityTimer(immunityTime);
+        player.SetDefenseTimer(defenseTime, shieldPercentage);
         canInject = true;
         player.isDoingAction = false;
     }
