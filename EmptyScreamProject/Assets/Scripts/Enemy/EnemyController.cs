@@ -153,6 +153,7 @@ public class EnemyController : MonoBehaviour
         {
             if (doOnce)
             {
+                Debug.Log("ahre");
                 doOnce = false;
                 ChangeState(States.Follow);
             }
@@ -301,14 +302,17 @@ public class EnemyController : MonoBehaviour
 
     public void Die()
     {
+        Debug.Log(currentState.ToString());
+
         AkSoundEngine.PostEvent("Death_E", this.gameObject);
-        
+
         SetRigidbodyState(false);
+        stunIcon.SetActive(false);
         SetColliderState(true);
         agent.isStopped = true;
         GetComponent<CapsuleCollider>().enabled = false;
         GetComponent<Animator>().enabled = false;
-        
+
         ChangeState(States.Dead);
 
         Invoke("CreateBlood", 3.0f);
@@ -326,27 +330,32 @@ public class EnemyController : MonoBehaviour
 
     public void Stun()
     {
-        if (!isSurpriseEnemy)
+        if(currentState != States.Stunned && currentState != States.Dead)
         {
-            AkSoundEngine.PostEvent("Hit_E_Wrench", this.gameObject);
-        }
-        
-        SetRigidbodyState(false);
-        SetColliderState(true);
-        agent.isStopped = true;
-        GetComponent<CapsuleCollider>().enabled = false;
-        GetComponent<Animator>().enabled = false;
-        ragdoll.ragdolled = true;
+            Debug.Log(currentState.ToString());
 
-        ChangeState(States.Stunned);
-        if(!isSurpriseEnemy)
-        {
-            stunIcon.SetActive(true);
-            fillTimer = stunMaxTime;
+            if (!isSurpriseEnemy)
+            {
+                AkSoundEngine.PostEvent("Hit_E_Wrench", this.gameObject);
+            }
+
+            SetRigidbodyState(false);
+            SetColliderState(true);
+            agent.isStopped = true;
+            GetComponent<CapsuleCollider>().enabled = false;
+            GetComponent<Animator>().enabled = false;
+            ragdoll.ragdolled = true;
+
+            ChangeState(States.Stunned);
+            if (!isSurpriseEnemy)
+            {
+                stunIcon.SetActive(true);
+                fillTimer = stunMaxTime;
+            }
+
+
+            instantKORB.isKinematic = true;
         }
-        
-        
-        instantKORB.isKinematic = true;
     }
 
     public void WakeUp()

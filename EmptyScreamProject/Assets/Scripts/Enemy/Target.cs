@@ -20,7 +20,7 @@ public class Target : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
-        if (enemyController.currentState!=EnemyController.States.Stunned)
+        if (enemyController.currentState!=EnemyController.States.Stunned && enemyController.currentState != EnemyController.States.Dead)
         {
             enemyController.ChangeState(EnemyController.States.Follow);
         }
@@ -33,7 +33,7 @@ public class Target : MonoBehaviour
     public void TakeMeleeDamage(float damage)
     {
         health -= damage;
-        if (enemyController.currentState != EnemyController.States.Stunned)
+        if (enemyController.currentState != EnemyController.States.Stunned && enemyController.currentState != EnemyController.States.Dead)
         {
             enemyController.ChangeState(EnemyController.States.Follow);
             enemyController.FaceTarget();
@@ -59,7 +59,7 @@ public class Target : MonoBehaviour
 
     public void Stun()
     {
-        if (enemyController.currentState != EnemyController.States.Stunned)
+        if (enemyController.currentState != EnemyController.States.Stunned && enemyController.currentState != EnemyController.States.Dead)
         {
             stuns++;
             if (stuns<maxStuns)
@@ -76,7 +76,7 @@ public class Target : MonoBehaviour
 
     public void InstantStun()
     {
-        if (enemyController.currentState != EnemyController.States.Stunned && !enemyController.sight.playerInSight)
+        if (enemyController.currentState != EnemyController.States.Stunned && enemyController.currentState != EnemyController.States.Dead && !enemyController.sight.playerInSight)
         {
             stuns++;
             if (stuns < maxStuns)
