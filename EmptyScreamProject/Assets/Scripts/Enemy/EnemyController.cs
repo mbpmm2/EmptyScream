@@ -75,7 +75,7 @@ public class EnemyController : MonoBehaviour
 
         if (isSurpriseEnemy)
         {
-            Stun();
+            Invoke("Stun", 1.0f);
         }
     }
 
@@ -236,32 +236,32 @@ public class EnemyController : MonoBehaviour
                 animator.SetBool("Idle", true);
                 animator.SetBool("Follow", false);
                 animator.SetBool("Hit", false);
-                animator.SetBool("Wander", false);
+                //animator.SetBool("Wander", false);
                 break;
             case States.Follow:
                 animator.SetBool("Idle", false);
                 animator.SetBool("Follow", true);
                 animator.SetBool("Hit", false);
-                animator.SetBool("Wander", false);
+                //animator.SetBool("Wander", false);
                 agent.SetDestination(target.position);
                 break;
             case States.Hit:
                 animator.SetBool("Idle", false);
                 animator.SetBool("Follow", false);
                 animator.SetBool("Hit", true);
-                animator.SetBool("Wander", true);
+                //animator.SetBool("Wander", true);
                 break;
             case States.Stunned:
                 animator.SetBool("Idle", false);
                 animator.SetBool("Follow", false);
                 animator.SetBool("Hit", false);
-                animator.SetBool("Wander", false);
+                //animator.SetBool("Wander", false);
                 break;
             case States.Wander:
                 animator.SetBool("Idle", false);
                 animator.SetBool("Follow", false);
                 animator.SetBool("Hit", false);
-                animator.SetBool("Wander", true);
+                //animator.SetBool("Wander", true);
                 break;
             case States.Dead:
                 break;
