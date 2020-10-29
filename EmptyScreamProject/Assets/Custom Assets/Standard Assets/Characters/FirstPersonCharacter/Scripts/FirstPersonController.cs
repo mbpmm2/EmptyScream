@@ -83,6 +83,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
             originalHeight = m_CharacterController.height;
+
+            m_WalkSpeed = 3;
+            m_RunSpeed = 4;
             originalSpeed = m_WalkSpeed;
             originalRunSpeed = m_RunSpeed;
         }
