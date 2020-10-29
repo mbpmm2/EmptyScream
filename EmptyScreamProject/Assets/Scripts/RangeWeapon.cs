@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityStandardAssets.Characters.FirstPerson;
+
 
 public class RangeWeapon : ItemCore
 {
@@ -63,7 +65,11 @@ public class RangeWeapon : ItemCore
         shakeThing = gameObject.GetComponent<TraumaInducer>();
         animator = transform.GetChild(0).GetComponent<Animator>();
         mesh.material.SetColor("_EmissiveColor", normalColor * normalIntensity);
-       // mesh.material.SetColor("_EmissionColor", normalColor * 6.016924f);
+        playerController = GameManager.Get().playerGO.GetComponent<Player>().fpsController;
+        player = GameManager.Get().playerGO.GetComponent<Player>();
+        // mesh.material.SetColor("_EmissionColor", normalColor * 6.016924f);
+        FirstPersonController.OnFPSJumpStart += JumpAnimationStart;
+        FirstPersonController.OnFPSJumpEnd += JumpAnimationEnd;
 
     }
 
@@ -94,7 +100,7 @@ public class RangeWeapon : ItemCore
                 return;
             }
 
-            if (clipBullets <= 0 || (Input.GetKeyDown(KeyCode.R) && clipBullets<clipMaxBullets))
+            if (/*clipBullets <= 0 ||*/ (Input.GetKeyDown(KeyCode.R) && clipBullets<clipMaxBullets))
             {
                 if (amountLeft > 0)
                 {
@@ -104,6 +110,10 @@ public class RangeWeapon : ItemCore
                         doOnce2 = true;
                     }
                     StartCoroutine(Reload());
+                }
+                else
+                {
+                    animator.Play("ShootEmpty", -1, 0f);
                 }
                 
                 return;
@@ -124,6 +134,10 @@ public class RangeWeapon : ItemCore
                     nextFire = Time.time + 1f / fireRate;
                     Shoot();
                 }
+                else if (Input.GetMouseButtonDown(0) && clipBullets <= 0)
+                {
+                    animator.Play("ShootEmpty", -1, 0f);
+                }
             }
             else if (type == WeaponType.SemiAutomatic)
             {
@@ -141,6 +155,11 @@ public class RangeWeapon : ItemCore
                     }
                     Shoot();
                 }
+                else if (Input.GetMouseButtonDown(0) && clipBullets <= 0)
+                {
+                    animator.Play("ShootEmpty", -1, 0f);
+                }
+
             }
         }
     }
@@ -256,5 +275,11 @@ public class RangeWeapon : ItemCore
         }
         
         isReloading = false;
+    }
+
+    private void OnDestroy()
+    {
+        FirstPersonController.OnFPSJumpStart -= JumpAnimationStart;
+        FirstPersonController.OnFPSJumpEnd -= JumpAnimationEnd;
     }
 }
