@@ -152,7 +152,7 @@ public class PlayerInventory : MonoBehaviour
             {
                 if (itemChangeFinished)
                 {
-                    if (items[lastIndex].canUse)
+                    if (items[lastIndex].canUse && !items[lastIndex].isInAnimation)
                     {
 
                         items[lastIndex].canUse = false;
