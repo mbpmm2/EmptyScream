@@ -353,7 +353,6 @@ public class EnemyController : MonoBehaviour
                 fillTimer = stunMaxTime;
             }
 
-
             instantKORB.isKinematic = true;
         }
     }
