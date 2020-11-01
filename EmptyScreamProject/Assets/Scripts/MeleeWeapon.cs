@@ -130,10 +130,11 @@ public class MeleeWeapon : ItemCore
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(cam.transform.position + (cam.transform.forward * 0.2f), cam.transform.forward, out hit, range,mask,QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(cam.transform.position + (cam.transform.forward * 0.2f), cam.transform.forward, out hit, range,mask/*,QueryTriggerInteraction.Ignore*/))
         {
             GameObject impactGO;
             Target target = hit.transform.GetComponentInParent<Target>();
+            EnemyController enemy = hit.transform.GetComponentInParent<EnemyController>();
 
             if (hit.rigidbody != null)
             {
@@ -147,7 +148,7 @@ public class MeleeWeapon : ItemCore
                     AkSoundEngine.PostEvent("Hit_E_Wrench", gameObject);
                 }
 
-                if (hit.transform.tag == "KO")
+                if (hit.transform.tag == "KO" && enemy.currentState != EnemyController.States.Follow && enemy.currentState != EnemyController.States.Hit)
                 {
                     Debug.Log("Le pego en la nuca");
                     target.InstantStun();

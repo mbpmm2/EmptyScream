@@ -118,7 +118,7 @@ public class EnemyController : MonoBehaviour
                     {
                         ragdoll.ragdolled = false;
                         stunTimer = 0;
-                        GetComponent<CapsuleCollider>().enabled = true;
+                        GetComponent<BoxCollider>().enabled = true;
                         stunIcon.SetActive(false);
                         //ChangeState(States.Idle);
                     }
@@ -131,7 +131,7 @@ public class EnemyController : MonoBehaviour
                         isSurpriseEnemy = false;
                         //transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
                         stunTimer = 0;
-                        GetComponent<CapsuleCollider>().enabled = true;
+                        GetComponent<BoxCollider>().enabled = true;
                     }
                 }
                 break;
@@ -310,7 +310,7 @@ public class EnemyController : MonoBehaviour
         stunIcon.SetActive(false);
         SetColliderState(true);
         agent.isStopped = true;
-        GetComponent<CapsuleCollider>().enabled = false;
+        GetComponent<BoxCollider>().enabled = false;
         GetComponent<Animator>().enabled = false;
 
         ChangeState(States.Dead);
@@ -342,7 +342,7 @@ public class EnemyController : MonoBehaviour
             SetRigidbodyState(false);
             SetColliderState(true);
             agent.isStopped = true;
-            GetComponent<CapsuleCollider>().enabled = false;
+            GetComponent<BoxCollider>().enabled = false;
             GetComponent<Animator>().enabled = false;
             ragdoll.ragdolled = true;
 
@@ -362,7 +362,7 @@ public class EnemyController : MonoBehaviour
         stunTimer = 0;
         SetRigidbodyState(true);
         agent.isStopped = false;
-        GetComponent<CapsuleCollider>().enabled = true;
+        GetComponent<BoxCollider>().enabled = true;
 
         ragdoll.ragdolled = false;
 
