@@ -36,7 +36,6 @@ public class Target : MonoBehaviour
         if (enemyController.currentState != EnemyController.States.Stunned && enemyController.currentState != EnemyController.States.Dead)
         {
             enemyController.ChangeState(EnemyController.States.Follow);
-            enemyController.FaceTarget();
         }
         
         if (health <= koHealth && health > 0)

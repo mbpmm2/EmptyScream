@@ -155,6 +155,7 @@ public class EnemyController : MonoBehaviour
             {
                 Debug.Log("ahre");
                 doOnce = false;
+                
                 ChangeState(States.Follow);
             }
         }
@@ -165,8 +166,16 @@ public class EnemyController : MonoBehaviour
         if (doOnce2)
         {
             ChangeState(States.Hit);
+            agent.speed = 0;
+            agent.acceleration = 0;
             doOnce2 = false;
         }
+    }
+
+    public void ResumeNavMeshAgentSpeed()
+    {
+        agent.speed = 5;
+        agent.acceleration = 10;
     }
 
     public void DoDamage()
@@ -217,6 +226,7 @@ public class EnemyController : MonoBehaviour
 
     private void MovementUpdate()
     {
+        FaceTarget();
         agent.SetDestination(target.position);
         targetRig.transform.position = target.transform.position;
     }

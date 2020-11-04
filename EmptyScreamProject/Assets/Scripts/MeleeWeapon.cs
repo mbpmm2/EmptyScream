@@ -132,7 +132,7 @@ public class MeleeWeapon : ItemCore
 
         if (Physics.Raycast(cam.transform.position + (cam.transform.forward * 0.2f), cam.transform.forward, out hit, range,mask/*,QueryTriggerInteraction.Ignore*/))
         {
-            GameObject impactGO;
+            GameObject impactGO = null;
             Target target = hit.transform.GetComponentInParent<Target>();
             EnemyController enemy = hit.transform.GetComponentInParent<EnemyController>();
 
@@ -172,8 +172,11 @@ public class MeleeWeapon : ItemCore
             }
             else
             {
-                AkSoundEngine.PostEvent("Wrench_attack", gameObject);
-                impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
+                if (hit.transform.tag != "KO")
+                {
+                    AkSoundEngine.PostEvent("Wrench_attack", gameObject);
+                    impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
+                }
             }
 
 
